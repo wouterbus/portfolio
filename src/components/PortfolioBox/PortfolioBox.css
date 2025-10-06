@@ -1,0 +1,114 @@
+.portfolio-grid-small {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: var(--spacing);
+  width: 100%;
+  height: 100%;
+}
+
+.portfolio-item-small {
+  border-radius: calc(var(--border-radius) - 5px);
+  overflow: hidden;
+  position: relative;
+}
+
+.portfolio-item-small img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.portfolio-title-small {
+  background-color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bg-primary);
+}
+
+.portfolio-title-small h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.portfolio-item-small {
+  border: 1px solid var(--accent);
+}
+
+/* Portfolio Box */
+.portfolio-box {
+  background-color: var(--bg-secondary) !important;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.portfolio-box .portfolio-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0 !important;
+  transition: opacity 0.3s ease;
+}
+
+.portfolio-info {
+  text-align: center;
+  padding: calc(var(--spacing) * 0.3);
+}
+
+.portfolio-info h3 {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.portfolio-box .portfolio-item-small:hover .portfolio-overlay {
+  opacity: 1 !important;
+}
+
+/* Mobile adjustments for Portfolio */
+@media (max-width: 640px) {
+  .portfolio-grid-small {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .portfolio-info h3 {
+    font-size: 0.6rem;
+  }
+  
+  .portfolio-info {
+    padding: calc(var(--spacing) * 0.2);
+  }
+}
+
+/* Fullscreen scaling for Portfolio */
+.app.fullscreen .portfolio-title-small h3 {
+  font-size: 1.3rem;
+}
+
+.app.fullscreen .portfolio-info h3 {
+  font-size: 0.8rem;
+}
+
+.app.fullscreen .portfolio-info {
+  padding: calc(var(--spacing) * 0.4);
+}
+
+/* Goofy theme specific styles for Portfolio Box */
+[data-theme='goofy'] .portfolio-box {
+  background-color: transparent !important; /* Remove container background */
+}
+
+[data-theme='goofy'] .portfolio-grid-small {
+  background-color: transparent; /* Remove grid background */
+}

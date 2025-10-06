@@ -1,0 +1,146 @@
+/* Header Theme Switcher */
+.header-theme-switcher {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  padding: 8px;
+  border: none;
+  border-radius: 12px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: var(--bg-primary);
+}
+
+.header-theme-switcher:hover {
+  background-color: var(--bg-secondary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.theme-icon-container {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  overflow: hidden;
+}
+
+.theme-icon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  transition: transform 0.05s ease, opacity 0.05s ease;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.theme-icon.transitioning {
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+/* Animation keyframes for the sliding effect */
+@keyframes slideOutDown {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.theme-label {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+}
+
+/* Fullscreen scaling for Header Theme Switcher */
+.app.fullscreen .header-theme-switcher {
+  font-size: 1rem;
+  width: 48px;
+  height: 48px;
+  padding: 10px;
+}
+
+.app.fullscreen .theme-icon-container {
+  width: 30px;
+  height: 30px;
+}
+
+.app.fullscreen .theme-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.app.fullscreen .theme-label {
+  font-size: 0.9rem;
+}
+
+/* Goofy theme styling for header theme switcher */
+[data-theme='goofy'] .header-theme-switcher {
+  background-color: var(--bg-primary);
+  color: var(--accent);
+  border: none;
+  border-radius: 12px;
+  padding: 4px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+[data-theme='goofy'] .header-theme-switcher:hover {
+  background-color: var(--accent);
+  color: var(--bg-primary);
+}
+
+/* Light theme icon styling */
+[data-theme='light'] .theme-icon {
+  filter: brightness(0);
+}
+
+/* Goofy theme icon styling */
+[data-theme='goofy'] .theme-icon {
+  filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+}
+
+/* Mobile adjustments for Header Theme Switcher */
+@media (max-width: 640px) {
+  .header-theme-switcher {
+    font-size: 0.8rem;
+    width: 36px;
+    height: 36px;
+    padding: 6px;
+  }
+
+  .theme-icon-container {
+    width: 26px;
+    height: 26px;
+  }
+
+  .theme-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .theme-label {
+    font-size: 0.75rem;
+  }
+}

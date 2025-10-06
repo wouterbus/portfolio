@@ -1,0 +1,63 @@
+/* Amsterdam Grid Box */
+.amsterdam-grid-box {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.amsterdam-grid-box:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.amsterdam-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: var(--spacing);
+  width: 100%;
+  height: 100%;
+}
+
+.amsterdam-row {
+  display: contents;
+}
+
+.amsterdam-letter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 900;
+  border-radius: var(--border-radius-sm);
+  transition: all 0.3s ease;
+  width: 100%;
+  height: 100%;
+}
+
+.amsterdam-letter.even {
+  background-color: var(--accent);
+  color: var(--bg-primary);
+}
+
+.amsterdam-letter.odd {
+  background-color: var(--bg-primary);
+  color: var(--accent);
+  border: 1px solid var(--border-color);
+}
+
+/* Fullscreen scaling for Amsterdam */
+.app.fullscreen .amsterdam-letter {
+  font-size: 2rem;
+}
+
+/* Mobile adjustments for Amsterdam */
+@media (max-width: 640px) {
+  .amsterdam-letter {
+    font-size: 1.2rem;
+  }
+}

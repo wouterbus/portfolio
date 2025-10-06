@@ -1,0 +1,213 @@
+/* Like Button Box */
+.like-button-box {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.like-button-box:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.like-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+
+.action-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: var(--spacing);
+  height: 100%;
+  width: 100%;
+}
+
+.action-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing) * 0.5);
+  padding: var(--spacing);
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  width: 100%;
+  height: 100%;
+}
+
+.action-button:hover {
+  background-color: var(--bg-tertiary);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.action-button.liked {
+  /* Keep normal background, only change heart color */
+}
+
+.action-button.liked .action-icon {
+  color: #e74c3c;
+  animation: heartPulse 0.6s ease-in-out;
+}
+
+@keyframes heartPulse {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-2px);
+  }
+  50% {
+    transform: translateY(-1px);
+  }
+  75% {
+    transform: translateY(-2px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.action-icon {
+  font-size: 1.5rem;
+  transition: transform 0.2s ease;
+}
+
+.action-button:hover .action-icon {
+  transform: translateY(-1px);
+}
+
+.action-count {
+  font-weight: 700;
+  font-size: 0.8rem;
+  min-width: 20px;
+  text-align: center;
+}
+
+.action-text {
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+/* Specific button styles */
+.share-button:hover {
+  background-color: #e3f2fd;
+  border-color: #2196f3;
+}
+
+.sleep-button:hover {
+  background-color: #e8f5e8;
+  border-color: #4caf50;
+}
+
+.repeat-button:hover {
+  background-color: #f3e5f5;
+  border-color: #9c27b0;
+}
+
+/* Fullscreen scaling for Action Buttons */
+.app.fullscreen .action-button {
+  font-size: 1.1rem;
+  padding: calc(var(--spacing) * 1.2);
+  min-height: 80px;
+}
+
+.app.fullscreen .action-icon {
+  font-size: 2rem;
+}
+
+.app.fullscreen .action-count {
+  font-size: 1rem;
+}
+
+/* Mobile adjustments for Action Buttons */
+/* Goofy theme specific styles for Like Button Box */
+[data-theme='goofy'] .like-button-box {
+  background-color: #000000; /* Black container background */
+  padding: var(--spacing); /* Readd padding */
+}
+
+[data-theme='goofy'] .share-button {
+  background-color: #DB4747; /* Red background */
+  color: #FFFFFF; /* White text */
+  border-color: #DB4747;
+}
+
+[data-theme='goofy'] .share-button:hover {
+  background-color: #c0392b; /* Darker red on hover */
+  border-color: #c0392b;
+}
+
+[data-theme='goofy'] .like-button {
+  background-color: #FF9D2A; /* Orange background */
+  color: #4169E1; /* Blue text */
+  border-color: #FF9D2A;
+}
+
+[data-theme='goofy'] .like-button:hover {
+  background-color: #e67e22; /* Darker orange on hover */
+  border-color: #e67e22;
+}
+
+[data-theme='goofy'] .like-button.liked {
+  background-color: #FF9D2A; /* Keep orange background when liked */
+  color: #4169E1; /* Keep blue text when liked */
+}
+
+[data-theme='goofy'] .like-button.liked .action-icon {
+  color: #e74c3c; /* Red heart when liked */
+}
+
+[data-theme='goofy'] .sleep-button {
+  background-color: #FFFFFF; /* White background */
+  color: #FF9D2A; /* Orange text */
+  border-color: #FFFFFF;
+}
+
+[data-theme='goofy'] .sleep-button:hover {
+  background-color: #f8f9fa; /* Light gray on hover */
+  border-color: #f8f9fa;
+}
+
+[data-theme='goofy'] .repeat-button {
+  background-color: #4169E1; /* Blue background */
+  color: #FF9D2A; /* Orange text */
+  border-color: #4169E1;
+}
+
+[data-theme='goofy'] .repeat-button:hover {
+  background-color: #3498db; /* Lighter blue on hover */
+  border-color: #3498db;
+}
+
+@media (max-width: 640px) {
+  .action-button {
+    font-size: 0.8rem;
+    padding: calc(var(--spacing) * 0.8);
+    min-height: 50px;
+  }
+
+  .action-icon {
+    font-size: 1.2rem;
+  }
+
+  .action-count {
+    font-size: 0.7rem;
+  }
+}

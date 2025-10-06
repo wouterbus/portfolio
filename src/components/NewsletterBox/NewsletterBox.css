@@ -1,0 +1,250 @@
+/* Newsletter Box */
+.newsletter-box {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.newsletter-box:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.newsletter-header {
+  position: relative;
+  height: 50%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.newsletter-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.newsletter-title-section {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.newsletter-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.newsletter-tooltip {
+  position: absolute;
+  bottom: var(--spacing);
+  right: var(--spacing);
+  cursor: help;
+  z-index: 2;
+}
+
+.tooltip-icon {
+  color: white;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.7));
+}
+
+.newsletter-tooltip:hover .tooltip-icon {
+  opacity: 1;
+}
+
+.tooltip-content {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  width: 200px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-5px);
+  transition: all 0.3s ease;
+  z-index: 10;
+  margin-bottom: 8px;
+}
+
+.tooltip-content::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  right: 20px;
+  border: 5px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.9);
+}
+
+.newsletter-tooltip:hover .tooltip-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.newsletter-form {
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  width: 100%;
+  padding: var(--spacing);
+  gap: calc(var(--spacing) * 0.8);
+}
+
+.newsletter-input {
+  flex: 1;
+  width: 100%;
+  padding: calc(var(--spacing) * 0.8);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.newsletter-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.newsletter-input::placeholder {
+  color: var(--text-secondary);
+}
+
+.newsletter-button {
+  flex: 1;
+  width: 100%;
+  padding: calc(var(--spacing) * 0.8);
+  border: 1px solid var(--accent);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--accent);
+  color: var(--bg-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.newsletter-button:hover {
+  background-color: var(--text-primary);
+  border-color: var(--text-primary);
+}
+
+.newsletter-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  gap: calc(var(--spacing) * 0.8);
+}
+
+.success-icon {
+  font-size: 3rem;
+  color: var(--accent);
+  font-weight: 900;
+}
+
+.newsletter-success h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.newsletter-success p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Fullscreen scaling for Newsletter */
+.app.fullscreen .newsletter-title {
+  font-size: 1.8rem;
+}
+
+.app.fullscreen .tooltip-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.app.fullscreen .tooltip-content {
+  width: 250px;
+  font-size: 0.9rem;
+  padding: 16px;
+}
+
+.app.fullscreen .newsletter-input,
+.app.fullscreen .newsletter-button {
+  font-size: 1.1rem;
+  padding: calc(var(--spacing) * 1.1);
+}
+
+.app.fullscreen .success-icon {
+  font-size: 3.5rem;
+}
+
+.app.fullscreen .newsletter-success h3 {
+  font-size: 1.8rem;
+}
+
+.app.fullscreen .newsletter-success p {
+  font-size: 1.1rem;
+}
+
+/* Mobile adjustments for Newsletter */
+@media (max-width: 640px) {
+  .newsletter-title {
+    font-size: 1.2rem;
+  }
+
+  .tooltip-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .tooltip-content {
+    width: 150px;
+    font-size: 0.7rem;
+    padding: 8px;
+  }
+
+  .newsletter-input,
+  .newsletter-button {
+    font-size: 0.8rem;
+    padding: calc(var(--spacing) * 0.6);
+  }
+
+  .success-icon {
+    font-size: 2.5rem;
+  }
+
+  .newsletter-success h3 {
+    font-size: 1.3rem;
+  }
+
+  .newsletter-success p {
+    font-size: 0.9rem;
+  }
+}

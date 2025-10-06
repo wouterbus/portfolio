@@ -1,0 +1,110 @@
+.graphic-design-grid-small {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: var(--spacing);
+  width: 100%;
+  height: 100%;
+}
+
+.graphic-design-item-small {
+  border-radius: calc(var(--border-radius) - 5px);
+  overflow: hidden;
+  position: relative;
+}
+
+.graphic-design-item-small img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.graphic-design-title-small {
+  background-color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bg-primary);
+}
+
+.graphic-design-title-small h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.graphic-design-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0 !important;
+  transition: opacity 0.3s ease;
+}
+
+.graphic-design-info {
+  text-align: center;
+  padding: calc(var(--spacing) * 0.3);
+}
+
+.graphic-design-info h3 {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.graphic-design-box .graphic-design-item-small:hover .graphic-design-overlay {
+  opacity: 1 !important;
+}
+
+/* Graphic Design Box */
+.graphic-design-box {
+  background-color: transparent !important;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+.graphic-design-box .graphic-design-grid-small {
+  background-color: transparent;
+}
+
+/* Mobile adjustments for Graphic Design */
+@media (max-width: 640px) {
+  .graphic-design-grid-small {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .graphic-design-info h3 {
+    font-size: 0.6rem;
+  }
+  
+  .graphic-design-info {
+    padding: calc(var(--spacing) * 0.2);
+  }
+}
+
+/* Fullscreen scaling for Graphic Design */
+.app.fullscreen .graphic-design-title-small h3 {
+  font-size: 1.3rem;
+}
+
+.app.fullscreen .graphic-design-info h3 {
+  font-size: 0.8rem;
+}
+
+.app.fullscreen .graphic-design-info {
+  padding: calc(var(--spacing) * 0.4);
+}
+
+
