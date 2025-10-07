@@ -13,9 +13,12 @@ import ThemeSwitcherBox from '../../components/ThemeSwitcherBox/ThemeSwitcherBox
 import UISliderBox from '../../components/UISliderBox/UISliderBox';
 import GridBox from '../../components/GridBox/GridBox';
 import EmptyBox from '../../components/EmptyBox/EmptyBox';
+import FeaturedBox from '../../components/FeaturedBox/FeaturedBox';
 import UIDesignBox from '../../components/UIDesignBox/UIDesignBox';
 import GraphicDesignBox from '../../components/GraphicDesignBox/GraphicDesignBox';
 import CharacterCard from '../../components/CharacterCard/CharacterCard';
+import CoffeeBox from '../../components/CoffeeBox/CoffeeBox';
+import ShopBox from '../../components/ShopBox/ShopBox';
 
 interface HomeProps {
   likeCount: number;
@@ -144,17 +147,17 @@ export default function Home({ onLikeToggle }: HomeProps) {
         <PortfolioBox 
           item={{ id: 'portfolio', title: 'Web Design' }} 
           onPortfolioClick={() => navigate('/portfolio')}
-          onProjectClick={(projectId) => {
-            navigate(`/project/${projectId}`);
+          onProjectClick={(slug) => {
+            navigate(`/project/${slug}`);
           }}
         />
         <NewsletterBox 
           item={{ id: 'newsletter', title: 'Newsletter' }} 
           onSectionChange={handleSectionChange} 
         />
-        <EmptyBox 
-          item={{ id: 'empty', title: 'Coming Soon' }} 
-          onSectionChange={handleSectionChange} 
+        <FeaturedBox 
+          item={{ id: 'featured-project', title: 'Featured Project' }}
+          onProjectClick={(slug) => navigate(`/project/${slug}`)}
         />
         <CVDownloadBox 
           item={{ id: 'cv', title: 'CV Download' }} 
@@ -168,14 +171,8 @@ export default function Home({ onLikeToggle }: HomeProps) {
         <UIDesignBox 
           item={{ id: 'ui-design', title: 'User Interface Design' }} 
           onUIDesignClick={() => handleSectionChange('UIDesign')}
-          onProjectClick={(projectId) => {
-            handleSectionChange('UIDesign');
-            setTimeout(() => {
-              const projectElement = document.getElementById(`ui-project-${projectId}`);
-              if (projectElement) {
-                projectElement.scrollIntoView({ behavior: 'smooth' });
-              }
-            }, 100);
+          onProjectClick={(slug) => {
+            navigate(`/project/${slug}`);
           }}
         />
         <PortraitsBox 
@@ -205,7 +202,12 @@ export default function Home({ onLikeToggle }: HomeProps) {
         <GraphicDesignBox 
           item={{ id: 'graphic-design', title: 'Graphic Design' }} 
           onGraphicDesignClick={() => handleSectionChange('GraphicDesign')}
+          onProjectClick={(slug) => {
+            navigate(`/project/${slug}`);
+          }}
         />
+        <CoffeeBox />
+        <ShopBox />
       </div>
     </div>
   );

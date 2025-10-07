@@ -11,13 +11,13 @@
 .hall-of-fame-box .box-header {
   display: flex;
   flex-direction: column;
-  gap: 5px;
   flex-shrink: 0;
-  background-color: var(--accent);
+  background-color: var(--purple-accent);
   padding: var(--spacing);
   text-align: center;
   align-items: center;
   width: 100%;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .hall-of-fame-box .box-header .box-number,
@@ -25,9 +25,16 @@
   color: var(--bg-primary);
 }
 
+.hall-of-fame-box .box-header .box-number {
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'Anek Latin', 'Founders Grotesk', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #000000;
+}
+
 .hall-of-fame-box .box-header h3 {
   margin: 0;
-  font-size: 1rem;
+  font-size: 18px;
   font-weight: 500;
   color: var(--bg-primary);
   transition: font-size 0.3s ease;
@@ -64,7 +71,7 @@
 }
 
 .person-item:hover {
-  background-color: var(--bg-tertiary);
+  background-color: var(--hover-bg);
 }
 
 .person-item:hover .person-link-icon {
@@ -89,21 +96,23 @@
 .person-info {
   display: flex;
   flex-direction: column;
-  gap: 3px;
   flex: 1;
 }
 
 .person-name {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 18px;
   font-weight: 600;
+  font-family: 'Anek Latin', 'Founders Grotesk', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color: var(--text-primary);
   transition: font-size 0.3s ease;
 }
 
 .person-role {
-  font-size: 0.7rem;
-  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 400;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text-primary);
   transition: font-size 0.3s ease;
 }
 
@@ -124,21 +133,21 @@
   }
 
   .person-name {
-    font-size: 0.8rem;
+    font-size: 16px;
   }
 
   .person-role {
-    font-size: 0.65rem;
+    font-size: 12px;
   }
 }
 
 /* Fullscreen scaling for Hall of Fame */
 .app.fullscreen .person-name {
-  font-size: 1.1rem;
+  font-size: 20px;
 }
 
 .app.fullscreen .person-role {
-  font-size: 0.85rem;
+  font-size: 16px;
 }
 
 .app.fullscreen .person-image {

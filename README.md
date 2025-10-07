@@ -40,8 +40,8 @@ src/
 │   └── PortfolioGrid.tsx      # Project grid with filters
 ├── contexts/
 │   └── ThemeContext.tsx # Theme management
-├── data/
-│   └── mockData.ts      # Mock data (to be replaced with Sanity)
+├── lib/
+│   └── sanity.ts        # Sanity client configuration
 └── App.tsx              # Main app component
 ```
 
@@ -104,4 +104,4 @@ export interface Project {
 }
 ```
 
-Current mock data in `mockData.ts` can be directly replaced with Sanity queries.
+All data is now dynamically fetched from Sanity CMS.

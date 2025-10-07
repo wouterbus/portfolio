@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { mockProjects } from '../../data/mockData';
 import './PortfolioDetail.css';
 
 interface PortfolioDetailProps {

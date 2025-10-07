@@ -10,7 +10,6 @@ export default function HeaderThemeSwitcher() {
   const themes = [
     { value: 'light', label: 'Light', icon: '/light.svg' },
     { value: 'dark', label: 'Dark', icon: '/dark.svg' },
-    { value: 'goofy', label: 'Goofy', icon: '/star.svg' },
   ] as const;
 
   const handleThemeChange = () => {

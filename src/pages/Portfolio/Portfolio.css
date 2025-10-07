@@ -2,7 +2,6 @@
   grid-column: 1 / -1;
   background-color: var(--bg-primary);
   overflow-y: auto;
-  padding: var(--spacing);
   width: 100%;
   margin-top: var(--header-height, 80px);
 }
@@ -136,6 +135,7 @@
   gap: calc(var(--spacing) * 0.3);
 }
 
+
 .portfolio-info .external-link {
   display: inline-flex;
   align-items: center;
@@ -164,8 +164,6 @@
 }
 
 .tool-tag {
-  background-color: var(--accent);
-  color: var(--bg-primary);
   padding: calc(var(--spacing) * 0.2) calc(var(--spacing) * 0.4);
   border-radius: calc(var(--border-radius-sm) * 0.5);
   font-size: 0.6rem;
@@ -173,7 +171,45 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  color: white;
 }
+
+/* Colorful tool tags - Light theme */
+.tool-tag:nth-child(1) { background-color: #3b82f6; }
+.tool-tag:nth-child(2) { background-color: #10b981; }
+.tool-tag:nth-child(3) { background-color: #f59e0b; }
+.tool-tag:nth-child(4) { background-color: #ef4444; }
+.tool-tag:nth-child(5) { background-color: #8b5cf6; }
+.tool-tag:nth-child(6) { background-color: #06b6d4; }
+.tool-tag:nth-child(7) { background-color: #f97316; }
+.tool-tag:nth-child(8) { background-color: #84cc16; }
+.tool-tag:nth-child(9) { background-color: #ec4899; }
+.tool-tag:nth-child(10) { background-color: #6366f1; }
+.tool-tag:nth-child(11) { background-color: #14b8a6; }
+.tool-tag:nth-child(12) { background-color: #f43f5e; }
+.tool-tag:nth-child(13) { background-color: #8b5a2b; }
+.tool-tag:nth-child(14) { background-color: #1e40af; }
+.tool-tag:nth-child(15) { background-color: #059669; }
+
+/* Dark theme adjustments - darker shades */
+[data-theme='dark'] .tool-tag:nth-child(1) { background-color: #1d4ed8; }
+[data-theme='dark'] .tool-tag:nth-child(2) { background-color: #047857; }
+[data-theme='dark'] .tool-tag:nth-child(3) { background-color: #d97706; }
+[data-theme='dark'] .tool-tag:nth-child(4) { background-color: #dc2626; }
+[data-theme='dark'] .tool-tag:nth-child(5) { background-color: #7c3aed; }
+[data-theme='dark'] .tool-tag:nth-child(6) { background-color: #0891b2; }
+[data-theme='dark'] .tool-tag:nth-child(7) { background-color: #ea580c; }
+[data-theme='dark'] .tool-tag:nth-child(8) { background-color: #65a30d; }
+[data-theme='dark'] .tool-tag:nth-child(9) { background-color: #db2777; }
+[data-theme='dark'] .tool-tag:nth-child(10) { background-color: #4f46e5; }
+[data-theme='dark'] .tool-tag:nth-child(11) { background-color: #0f766e; }
+[data-theme='dark'] .tool-tag:nth-child(12) { background-color: #e11d48; }
+[data-theme='dark'] .tool-tag:nth-child(13) { background-color: #92400e; }
+[data-theme='dark'] .tool-tag:nth-child(14) { background-color: #1e3a8a; }
+[data-theme='dark'] .tool-tag:nth-child(15) { background-color: #065f46; }
 
 /* Mobile adjustments */
 @media (max-width: 768px) {
@@ -187,6 +223,32 @@
   }
 }
 
+/* Loading and Empty States */
+.portfolio-loading,
+.portfolio-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--spacing) * 4);
+  text-align: center;
+}
+
+.portfolio-loading h2,
+.portfolio-empty h2 {
+  margin: 0 0 calc(var(--spacing) * 0.5) 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.portfolio-empty p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  opacity: 0.8;
+}
+
 @media (max-width: 640px) {
   .portfolio-page {
     padding: calc(var(--spacing) * 0.5);
@@ -197,3 +259,24 @@
     padding: calc(var(--spacing) * 0.3) calc(var(--spacing) * 0.6);
   }
 }
+
+/* Goofy theme - Alternating red and blue with white text */
+[data-theme='goofy'] .tool-tag:nth-child(odd) { 
+  background-color: #dc2626; 
+  color: white; 
+}
+[data-theme='goofy'] .tool-tag:nth-child(even) { 
+  background-color: #2563eb; 
+  color: white; 
+}
+
+/* Random tool tags - override nth-child styles */
+.tool-tag-random {
+  color: white !important;
+}
+
+/* Dark theme support for random tool tags */
+[data-theme='dark'] .tool-tag-random {
+  /* Colors will be set via inline styles in the component */
+}
+

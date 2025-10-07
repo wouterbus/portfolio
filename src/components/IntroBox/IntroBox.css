@@ -1,7 +1,8 @@
 /* Intro Box */
 .intro-box {
-  background-color: var(--accent);
-  color: var(--bg-primary);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,14 +26,15 @@
 }
 
 .intro-box .box-number {
-  color: var(--bg-secondary);
+  color: var(--text-secondary);
 }
 
 .intro-title {
   margin: 0;
-  font-size: 2rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.1;
+  color: var(--text-primary);
 }
 
 .intro-text {
@@ -41,12 +43,12 @@
   font-size: 1rem;
   line-height: 1.5;
   opacity: 0.9;
+  color: var(--text-primary);
 }
 
 .language-switcher {
   display: flex;
   gap: var(--spacing);
-  padding: var(--spacing);
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: var(--border-radius-sm);
 }
@@ -54,30 +56,34 @@
 .lang-btn {
   flex: 1;
   padding: var(--spacing);
-  border: 1px solid transparent;
+  border: 1px solid var(--border-color);
   border-radius: var(--border-radius-sm);
   background-color: transparent;
-  color: var(--bg-primary);
+  color: var(--text-primary);
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 0.8rem;
   font-weight: 600;
   text-align: center;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .lang-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--hover-bg);
 }
 
 .lang-btn.active {
-  background-color: var(--bg-primary);
-  color: var(--accent);
+  background-color: var(--purple-accent);
+  color: var(--bg-primary);
 }
 
 /* Mobile adjustments for Intro */
 @media (max-width: 640px) {
   .intro-title {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
   
   .intro-text {
@@ -96,39 +102,10 @@
   }
 }
 
-/* Goofy theme specific styles for Intro Box */
-[data-theme='goofy'] .intro-box {
-  background-color: #FF9D2A; /* Orange background */
-}
-
-[data-theme='goofy'] .intro-title {
-  color: #FFFFFF; /* White title */
-}
-
-[data-theme='goofy'] .intro-text {
-  color: #4169E1; /* Blue paragraph */
-}
-
-[data-theme='goofy'] .language-switcher {
-  background-color: #DB4747; /* Red wrapper background */
-}
-
-[data-theme='goofy'] .lang-btn {
-  color: #FFFFFF; /* White text for language buttons */
-}
-
-[data-theme='goofy'] .lang-btn.active {
-  background-color: #4169E1; /* Blue background for active language */
-  color: #FFFFFF; /* White text for active language */
-}
-
-[data-theme='goofy'] .lang-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
 
 /* Fullscreen scaling for Intro */
 .app.fullscreen .intro-title {
-  font-size: 2.2rem;
+  font-size: 1.4rem;
 }
 
 .app.fullscreen .intro-text {

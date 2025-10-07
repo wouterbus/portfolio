@@ -9,6 +9,7 @@ import HeaderThemeSwitcher from './components/HeaderThemeSwitcher/HeaderThemeSwi
 import Home from './pages/Home/Home';
 import Portfolio from './pages/Portfolio/Portfolio';
 import ProjectDetail from './pages/ProjectDetail/ProjectDetail';
+import Dribbbles from './pages/Dribbbles/Dribbbles';
 
 // Header component
 function Header({ 
@@ -41,7 +42,7 @@ function Header({
       <div className="header-left">
         <div className="studio-tag">
           <img 
-            src="/logo:fav.svg" 
+            src="/logo_fav.svg" 
             alt="Studio W Logo"
             className="studio-logo"
           />
@@ -60,6 +61,12 @@ function Header({
             onClick={() => navigate('/portfolio')}
           >
             Portfolio
+          </button>
+          <button 
+            className={`header-tab ${location.pathname === '/dribbbles' ? 'active' : ''}`}
+            onClick={() => navigate('/dribbbles')}
+          >
+            Dribbbles
           </button>
           <button 
             className={`header-tab ${location.pathname === '/ideas' ? 'active' : ''}`}
@@ -106,6 +113,7 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<Home likeCount={likeCount} onLikeToggle={handleLikeToggle} />} />
         <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/dribbbles" element={<Dribbbles />} />
         <Route path="/project/:projectId" element={<ProjectDetail />} />
         <Route path="/ideas" element={
           <div className="main-grid">

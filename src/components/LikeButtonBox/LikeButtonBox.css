@@ -9,10 +9,6 @@
   transition: all 0.3s ease;
 }
 
-.like-button-box:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
 .like-container {
   display: flex;
   flex-direction: column;
@@ -49,16 +45,6 @@
   height: 100%;
 }
 
-.action-button:hover {
-  background-color: var(--bg-tertiary);
-  border-color: var(--accent);
-  transform: translateY(-2px);
-}
-
-.action-button.liked {
-  /* Keep normal background, only change heart color */
-}
-
 .action-button.liked .action-icon {
   color: #e74c3c;
   animation: heartPulse 0.6s ease-in-out;
@@ -87,6 +73,10 @@
   transition: transform 0.2s ease;
 }
 
+.like-button .action-icon {
+  stroke-width: 2.5;
+}
+
 .action-button:hover .action-icon {
   transform: translateY(-1px);
 }
@@ -105,22 +95,6 @@
   transition: all 0.3s ease;
 }
 
-/* Specific button styles */
-.share-button:hover {
-  background-color: #e3f2fd;
-  border-color: #2196f3;
-}
-
-.sleep-button:hover {
-  background-color: #e8f5e8;
-  border-color: #4caf50;
-}
-
-.repeat-button:hover {
-  background-color: #f3e5f5;
-  border-color: #9c27b0;
-}
-
 /* Fullscreen scaling for Action Buttons */
 .app.fullscreen .action-button {
   font-size: 1.1rem;
@@ -137,64 +111,6 @@
 }
 
 /* Mobile adjustments for Action Buttons */
-/* Goofy theme specific styles for Like Button Box */
-[data-theme='goofy'] .like-button-box {
-  background-color: #000000; /* Black container background */
-  padding: var(--spacing); /* Readd padding */
-}
-
-[data-theme='goofy'] .share-button {
-  background-color: #DB4747; /* Red background */
-  color: #FFFFFF; /* White text */
-  border-color: #DB4747;
-}
-
-[data-theme='goofy'] .share-button:hover {
-  background-color: #c0392b; /* Darker red on hover */
-  border-color: #c0392b;
-}
-
-[data-theme='goofy'] .like-button {
-  background-color: #FF9D2A; /* Orange background */
-  color: #4169E1; /* Blue text */
-  border-color: #FF9D2A;
-}
-
-[data-theme='goofy'] .like-button:hover {
-  background-color: #e67e22; /* Darker orange on hover */
-  border-color: #e67e22;
-}
-
-[data-theme='goofy'] .like-button.liked {
-  background-color: #FF9D2A; /* Keep orange background when liked */
-  color: #4169E1; /* Keep blue text when liked */
-}
-
-[data-theme='goofy'] .like-button.liked .action-icon {
-  color: #e74c3c; /* Red heart when liked */
-}
-
-[data-theme='goofy'] .sleep-button {
-  background-color: #FFFFFF; /* White background */
-  color: #FF9D2A; /* Orange text */
-  border-color: #FFFFFF;
-}
-
-[data-theme='goofy'] .sleep-button:hover {
-  background-color: #f8f9fa; /* Light gray on hover */
-  border-color: #f8f9fa;
-}
-
-[data-theme='goofy'] .repeat-button {
-  background-color: #4169E1; /* Blue background */
-  color: #FF9D2A; /* Orange text */
-  border-color: #4169E1;
-}
-
-[data-theme='goofy'] .repeat-button:hover {
-  background-color: #3498db; /* Lighter blue on hover */
-  border-color: #3498db;
-}
 
 @media (max-width: 640px) {
   .action-button {

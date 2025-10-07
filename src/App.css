@@ -3,8 +3,6 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: var(--spacing);
-  overflow: hidden;
   max-width: 1280px;
   margin: 0 auto;
   width: 100%;
@@ -31,88 +29,7 @@
   max-width: 1280px;
 }
 
-/* Goofy theme header styling */
-[data-theme='goofy'] .header-container {
-  background-color: var(--bg-secondary);
-  border-color: var(--border-color);
-  box-shadow: 0 4px 12px rgba(255, 157, 42, 0.3);
-}
 
-/* Goofy theme header elements - variety of color combos */
-[data-theme='goofy'] .studio-tag {
-  background-color: transparent;
-  border: none;
-  padding: 0;
-}
-
-[data-theme='goofy'] .location {
-  background-color: var(--bg-tertiary);
-  color: var(--bg-primary);
-  border: 2px solid var(--bg-tertiary);
-  border-radius: 12px;
-  padding: 6px 12px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-}
-
-[data-theme='goofy'] .likes-counter {
-  background-color: var(--bg-primary);
-  color: var(--text-secondary);
-  border: 2px solid var(--text-secondary);
-  border-radius: 12px;
-  padding: 6px 12px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-[data-theme='goofy'] .local-time {
-  background-color: var(--bg-quaternary);
-  color: var(--bg-primary);
-  border: 2px solid var(--bg-quaternary);
-  border-radius: 12px;
-  padding: 6px 12px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-}
-/* Goofy theme header tabs - consistent color */
-[data-theme='goofy'] .header-tab {
-  background-color: transparent;
-  color: var(--text-primary);
-  border: none;
-  border-radius: 12px;
-  padding: 8px 16px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-}
-
-[data-theme='goofy'] .header-tab:hover {
-  background-color: transparent;
-  color: var(--accent);
-  border: none;
-}
-
-/* Goofy theme header tabs - consistent color */
-[data-theme='goofy'] .header-tab {
-  background-color: transparent;
-  color: var(--text-primary);
-  border: none;
-  border-radius: 12px;
-  padding: 8px 16px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-}
-
-.header-tab.active::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 6px;
-  height: 6px;
-  background-color: var(--accent);
-  border-radius: 50%;
-}
 
 /* Studio logo styling */
 .studio-logo {
@@ -122,8 +39,7 @@
 }
 
 /* Theme-specific logo colors */
-[data-theme='light'] .studio-logo,
-[data-theme='goofy'] .studio-logo {
+[data-theme='light'] .studio-logo {
   filter: brightness(0);
 }
 
@@ -225,7 +141,7 @@
   padding: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  margin-top: calc(var(--header-height, 80px) + var(--spacing) * 2);
+  margin-top: 82px
 }
 
 .main-grid-content {
@@ -366,15 +282,15 @@
 }
 
 .intro-box .box-number {
-  color: var(--bg-secondary);
+  color: var(--text-secondary);
 }
 
 .intro-title {
   margin: 0;
-  font-size: 2rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  color: var(--bg-primary);
-  line-height: 1.2;
+  color: var(--text-primary);
+  line-height: 1.1;
   transition: font-size 0.3s ease;
 }
 
@@ -383,7 +299,7 @@
   margin: 0;
   font-size: 1rem;
   line-height: 1.6;
-  color: var(--bg-primary);
+  color: var(--text-primary);
   transition: font-size 0.3s ease;
   opacity: 0.95;
   min-height: 90px;
@@ -496,7 +412,6 @@
 .person-info {
   display: flex;
   flex-direction: column;
-  gap: 3px;
   flex: 1;
 }
 
@@ -1054,7 +969,7 @@
   
   
   .intro-title {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
   
   .intro-text {
@@ -1379,7 +1294,7 @@
 }
 
 .app.fullscreen .intro-title {
-  font-size: 2.2rem;
+  font-size: 1.4rem;
 }
 
 .app.fullscreen .intro-text {
@@ -1993,9 +1908,10 @@
   border: none;
   border-radius: var(--border-radius-sm);
   background-color: transparent;
-  color: var(--text-secondary);
-  font-size: 0.8rem;
-  font-weight: 500;
+  color: #000000;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'Anek Latin', 'Founders Grotesk', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -2007,9 +1923,10 @@
 
 .header-tab.active {
   background-color: transparent;
-  color: var(--accent);
+  color: #000000;
   border: none;
-  position: relative;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 /* Portfolio Section Content */

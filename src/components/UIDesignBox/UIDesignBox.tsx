@@ -1,5 +1,19 @@
+import { useEffect, useState } from 'react';
+import { client, urlFor } from '../../lib/sanity';
 import './UIDesignBox.css';
-import { mockProjects } from '../../data/mockData';
+
+interface SanityProject {
+  _id: string;
+  title: string;
+  heroBanner: {
+    asset: {
+      _ref: string;
+    };
+  };
+  slug: {
+    current: string;
+  };
+}
 
 interface UIDesignBoxProps {
   item: {
@@ -8,10 +22,35 @@ interface UIDesignBoxProps {
     style?: string;
   };
   onUIDesignClick: () => void;
-  onProjectClick?: (projectId: string) => void;
+  onProjectClick?: (slug: string) => void;
 }
 
 export default function UIDesignBox({ item, onUIDesignClick, onProjectClick }: UIDesignBoxProps) {
+  const [projects, setProjects] = useState<SanityProject[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const query = `*[_type == "project" && category == "ui-ux-design"] | order(order asc, _createdAt desc) [0..2] {
+          _id,
+          title,
+          heroBanner,
+          slug
+        }`;
+        const data = await client.fetch(query);
+        setProjects(data || []);
+      } catch (error) {
+        console.error('Error fetching UI/UX design projects:', error);
+        setProjects([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
   return (
     <div
       key={item.id}
@@ -24,48 +63,40 @@ export default function UIDesignBox({ item, onUIDesignClick, onProjectClick }: U
         >
           <h3>UI Design</h3>
         </div>
-        <div 
-          className="ui-design-item-small"
-          onClick={(e) => {
-            e.stopPropagation();
-            onProjectClick?.('1');
-          }}
-        >
-          <img src={mockProjects[0].image} alt={mockProjects[0].title} />
-          <div className="ui-design-overlay">
-            <div className="ui-design-info">
-              <h3>{mockProjects[0].title}</h3>
+        {loading ? (
+          <>
+            <div className="ui-design-item-small ui-design-loading">
+              <div>Loading...</div>
             </div>
-          </div>
-        </div>
-        <div 
-          className="ui-design-item-small"
-          onClick={(e) => {
-            e.stopPropagation();
-            onProjectClick?.('2');
-          }}
-        >
-          <img src={mockProjects[1].image} alt={mockProjects[1].title} />
-          <div className="ui-design-overlay">
-            <div className="ui-design-info">
-              <h3>{mockProjects[1].title}</h3>
+            <div className="ui-design-item-small ui-design-loading">
+              <div>Loading...</div>
             </div>
-          </div>
-        </div>
-        <div 
-          className="ui-design-item-small"
-          onClick={(e) => {
-            e.stopPropagation();
-            onProjectClick?.('3');
-          }}
-        >
-          <img src={mockProjects[2].image} alt={mockProjects[2].title} />
-          <div className="ui-design-overlay">
-            <div className="ui-design-info">
-              <h3>{mockProjects[2].title}</h3>
+            <div className="ui-design-item-small ui-design-loading">
+              <div>Loading...</div>
             </div>
-          </div>
-        </div>
+          </>
+        ) : (
+          projects.map((project, index) => (
+            <div 
+              key={project._id}
+              className="ui-design-item-small"
+              onClick={(e) => {
+                e.stopPropagation();
+                onProjectClick?.(project.slug.current);
+              }}
+            >
+              <img 
+                src={urlFor(project.heroBanner).width(200).height(150).fit('crop').url()} 
+                alt={project.title} 
+              />
+              <div className="ui-design-overlay">
+                <div className="ui-design-info">
+                  <h3>{project.title}</h3>
+                </div>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
