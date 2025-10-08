@@ -90,7 +90,7 @@ export default function PortfolioBox({ item, onPortfolioClick, onProjectClick }:
                 alt={project.title} 
               />
               <div className="portfolio-overlay">
-                <div className="portfolio-info">
+                <div className="portfolio-content">
                   <h3>{project.title}</h3>
                 </div>
               </div>

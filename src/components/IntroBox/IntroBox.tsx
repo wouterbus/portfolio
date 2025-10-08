@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './IntroBox.css';
 
 type Language = 'en' | 'pt' | 'nl';
+type Section = 'About' | 'Profile' | 'Skills';
 
 interface IntroTexts {
   en: string;
@@ -20,11 +21,20 @@ interface IntroBoxProps {
 
 export default function IntroBox({ item, onSectionChange }: IntroBoxProps) {
   const [language, setLanguage] = useState<Language>('en');
+  const [currentSection, setCurrentSection] = useState<Section>('About');
 
   const introTexts: IntroTexts = {
     en: "I'm Wouter, a Creative Developer from Holland. I love bringing ideas to life with unique yet functional interfaces.",
     pt: "Sou Wouter, Creative Developer da Holanda. Adoro criar interfaces que tornam ideias em experiências únicas e funcionais.",
-    nl: "Ik ben Wouter, een Creative Developer. Ik breng ideeën tot leven met unieke, boeiende en functionele digitale ervaringen."
+    nl: "Ik ben Wouter, een Creative Developer. Ik breng ideeën tot leven met unieke, boeiende e functionele digitale ervaringen."
+  };
+
+  const handleArrowClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const sections: Section[] = ['About', 'Profile', 'Skills'];
+    const currentIndex = sections.indexOf(currentSection);
+    const nextIndex = (currentIndex + 1) % sections.length;
+    setCurrentSection(sections[nextIndex]);
   };
 
   return (
@@ -34,12 +44,90 @@ export default function IntroBox({ item, onSectionChange }: IntroBoxProps) {
       onClick={() => onSectionChange('Wouter Bus')}
     >
       <div className="intro-content">
-        <div className="intro-header">
+        <div className="header start">
           <span className="box-number">{item.number}</span>
-          <h2 className="intro-title">{item.title}</h2>
+          <h2 className="intro-title">{currentSection}</h2>
+          <div className="person-link-icon" onClick={handleArrowClick}><span>→</span></div>
         </div>
         
-        <p className="intro-text">{introTexts[language]}</p>
+        <div className="intro-text">
+          {currentSection === 'About' && (
+            <p>{introTexts[language]}</p>
+          )}
+
+          {currentSection === 'Profile' && (
+            <div className="character-content">
+              {/* Level Badge */}
+              <div className="level-badge">LVL 27</div>
+              
+              {/* Top Half - Pixel Avatar */}
+              <div className="character-avatar">
+                <svg 
+                  className="pixel-avatar" 
+                  width="80" 
+                  height="80" 
+                  viewBox="0 0 80 80"
+                >
+                  {/* Head */}
+                  <rect x="20" y="10" width="40" height="40" fill="var(--accent)" />
+                  {/* Eyes */}
+                  <rect x="28" y="22" width="6" height="6" fill="var(--bg-primary)" />
+                  <rect x="46" y="22" width="6" height="6" fill="var(--bg-primary)" />
+                  {/* Mouth */}
+                  <rect x="32" y="36" width="16" height="4" fill="var(--bg-primary)" />
+                  {/* Body */}
+                  <rect x="25" y="50" width="30" height="25" fill="var(--accent)" />
+                  {/* Arms */}
+                  <rect x="10" y="55" width="15" height="8" fill="var(--accent)" />
+                  <rect x="55" y="55" width="15" height="8" fill="var(--accent)" />
+                  {/* Legs */}
+                  <rect x="30" y="75" width="8" height="10" fill="var(--accent)" />
+                  <rect x="42" y="75" width="8" height="10" fill="var(--accent)" />
+                </svg>
+              </div>
+              
+              {/* Bottom Half - Stats */}
+              <div className="character-stats">
+                <div className="stat-item">
+                  <div className="stat-label">Creativity</div>
+                  <div className="stat-bar">
+                    <div className="stat-fill" style={{ width: '85%' }}></div>
+                  </div>
+                  <div className="stat-value">85%</div>
+                </div>
+                
+                <div className="stat-item">
+                  <div className="stat-label">Code</div>
+                  <div className="stat-bar">
+                    <div className="stat-fill" style={{ width: '92%' }}></div>
+                  </div>
+                  <div className="stat-value">92%</div>
+                </div>
+                
+                <div className="stat-item">
+                  <div className="stat-label">Coffee</div>
+                  <div className="stat-bar">
+                    <div className="stat-fill" style={{ width: '78%' }}></div>
+                  </div>
+                  <div className="stat-value">78%</div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {currentSection === 'Skills' && (
+            <div className="skills-content">
+              <div className="skills-list">
+                <div className="skill-item">React</div>
+                <div className="skill-item">TypeScript</div>
+                <div className="skill-item">CSS/SCSS</div>
+                <div className="skill-item">Node.js</div>
+                <div className="skill-item">UI/UX Design</div>
+                <div className="skill-item">Creative Development</div>
+              </div>
+            </div>
+          )}
+        </div>
         
         <div className="language-switcher">
           <button

@@ -76,7 +76,7 @@ export default function HallOfFame({ item, onSectionChange }: HallOfFameProps) {
       className="grid-box hall-of-fame-box"
       onClick={() => onSectionChange('Hall of Fame')}
     >
-      <div className="box-header">
+      <div className="header center">
         <h3 className="box-number">{item.number}</h3>
         <h3>My Personal Hall of Fame</h3>
       </div>

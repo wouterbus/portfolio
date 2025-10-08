@@ -20,7 +20,8 @@
 }
 
 .portfolio-title-small {
-  background-color: var(--accent);
+  background-color: var(--purple-accent);
+  border: 2px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,12 +30,17 @@
 
 .portfolio-title-small h3 {
   margin: 0;
-  font-size: 1rem;
+  font-size: 18px;
   font-weight: 700;
 }
 
+.portfolio-title-small:hover h3 {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 .portfolio-item-small {
-  border: 1px solid var(--accent);
+  border: 2px solid var(--accent);
 }
 
 /* Portfolio Box */
@@ -46,28 +52,27 @@
 }
 
 .portfolio-box .portfolio-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background: var(--white) !important;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   opacity: 0 !important;
+  width: 100%;
   transition: opacity 0.3s ease;
 }
 
-.portfolio-info {
+.portfolio-content {
   text-align: center;
   padding: calc(var(--spacing) * 0.3);
 }
 
-.portfolio-info h3 {
-  font-size: 0.7rem;
+.portfolio-content h3 {
+  font-size: 18px;
   font-weight: 600;
-  color: white;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  color: var(--text-primary);
   margin: 0;
   line-height: 1.2;
 }
@@ -81,34 +86,5 @@
   .portfolio-grid-small {
     grid-template-columns: repeat(2, 1fr);
   }
-  
-  .portfolio-info h3 {
-    font-size: 0.6rem;
-  }
-  
-  .portfolio-info {
-    padding: calc(var(--spacing) * 0.2);
-  }
-}
 
-/* Fullscreen scaling for Portfolio */
-.app.fullscreen .portfolio-title-small h3 {
-  font-size: 1.3rem;
-}
-
-.app.fullscreen .portfolio-info h3 {
-  font-size: 0.8rem;
-}
-
-.app.fullscreen .portfolio-info {
-  padding: calc(var(--spacing) * 0.4);
-}
-
-/* Goofy theme specific styles for Portfolio Box */
-[data-theme='goofy'] .portfolio-box {
-  background-color: transparent !important; /* Remove container background */
-}
-
-[data-theme='goofy'] .portfolio-grid-small {
-  background-color: transparent; /* Remove grid background */
 }

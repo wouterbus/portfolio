@@ -67,6 +67,7 @@
   --accent: #292524;
   --hover-bg: #e7e5e4;
   --purple-accent: #6e00ff;
+  --white: #ffffff;
 }
 
 [data-theme='dark'] {
@@ -79,6 +80,7 @@
   --accent: #e7e5e4;
   --hover-bg: #292524;
   --purple-accent: #6e00ff;
+  --white: #ffffff;
 }
 
 
@@ -168,4 +170,30 @@ a, .link {
 /* Keep smaller text with body font */
 p, span, div, input, textarea, select, label {
   font-family: var(--font-body);
+}
+
+.header {
+  padding: var(--spacing);
+  border-bottom: 2px solid var(--border-color);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  height: 50px;
+  min-height: 50px;
+  max-height: 50px;
+  width: 100%;
+  background-color: var(--purple-accent);
+  flex-shrink: 0;
+}
+
+.start {
+  justify-content: flex-start;
+}
+
+.center {
+  justify-content: center;
+}
+
+.end {
+  justify-content: flex-end;
 }

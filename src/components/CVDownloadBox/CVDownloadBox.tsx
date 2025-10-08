@@ -84,6 +84,9 @@ export default function CVDownloadBox({ item, onSectionChange }: CVDownloadBoxPr
                     className="cv-download-btn"
                     onClick={() => handleDownload('Portuguese')}
                   >
+                    <span className="cv-flag">
+                      <img src="/portuguese.svg" alt="Portuguese flag" />
+                    </span>
                     <span className="cv-lang">Portuguese</span>
                     <span className="cv-format">PDF</span>
                   </button>
@@ -91,6 +94,9 @@ export default function CVDownloadBox({ item, onSectionChange }: CVDownloadBoxPr
                     className="cv-download-btn"
                     onClick={() => handleDownload('Dutch')}
                   >
+                    <span className="cv-flag">
+                      <img src="/dutch.svg" alt="Dutch flag" />
+                    </span>
                     <span className="cv-lang">Dutch</span>
                     <span className="cv-format">PDF</span>
                   </button>
@@ -98,6 +104,9 @@ export default function CVDownloadBox({ item, onSectionChange }: CVDownloadBoxPr
                     className="cv-download-btn"
                     onClick={() => handleDownload('English')}
                   >
+                    <span className="cv-flag">
+                      <img src="/english.svg" alt="English flag" />
+                    </span>
                     <span className="cv-lang">English</span>
                     <span className="cv-format">PDF</span>
                   </button>

@@ -9,8 +9,6 @@ import PortfolioBox from '../../components/PortfolioBox/PortfolioBox';
 import HallOfFame from '../../components/HallOfFame/HallOfFame';
 import LikeButtonBox from '../../components/LikeButtonBox/LikeButtonBox';
 import NewsletterBox from '../../components/NewsletterBox/NewsletterBox';
-import ThemeSwitcherBox from '../../components/ThemeSwitcherBox/ThemeSwitcherBox';
-import UISliderBox from '../../components/UISliderBox/UISliderBox';
 import GridBox from '../../components/GridBox/GridBox';
 import EmptyBox from '../../components/EmptyBox/EmptyBox';
 import FeaturedBox from '../../components/FeaturedBox/FeaturedBox';
@@ -19,6 +17,8 @@ import GraphicDesignBox from '../../components/GraphicDesignBox/GraphicDesignBox
 import CharacterCard from '../../components/CharacterCard/CharacterCard';
 import CoffeeBox from '../../components/CoffeeBox/CoffeeBox';
 import ShopBox from '../../components/ShopBox/ShopBox';
+import CalendarBox from '../../components/CalendarBox/CalendarBox';
+import ColorBox from '../../components/ColorBox/ColorBox';
 
 interface HomeProps {
   likeCount: number;
@@ -151,10 +151,6 @@ export default function Home({ onLikeToggle }: HomeProps) {
             navigate(`/project/${slug}`);
           }}
         />
-        <NewsletterBox 
-          item={{ id: 'newsletter', title: 'Newsletter' }} 
-          onSectionChange={handleSectionChange} 
-        />
         <FeaturedBox 
           item={{ id: 'featured-project', title: 'Featured Project' }}
           onProjectClick={(slug) => navigate(`/project/${slug}`)}
@@ -167,6 +163,14 @@ export default function Home({ onLikeToggle }: HomeProps) {
           item={{ id: 'like', title: 'Like Button' }} 
           onSectionChange={handleSectionChange}
           onLikeToggle={onLikeToggle}
+        />
+        <CalendarBox 
+          item={{ id: 'calendar', title: 'Calendar' }} 
+          onSectionChange={handleSectionChange} 
+        />
+        <ColorBox 
+          item={{ id: 'color', title: 'Color Box' }} 
+          onSectionChange={handleSectionChange} 
         />
         <UIDesignBox 
           item={{ id: 'ui-design', title: 'User Interface Design' }} 
@@ -183,12 +187,8 @@ export default function Home({ onLikeToggle }: HomeProps) {
           item={{ id: 'hall-of-fame', title: 'My Personal Hall of Fame' }} 
           onSectionChange={handleSectionChange} 
         />
-        <ThemeSwitcherBox 
-          item={{ id: 'theme', title: 'Theme Switcher' }} 
-          onSectionChange={handleSectionChange} 
-        />
-        <UISliderBox 
-          item={{ id: 'slider', title: 'UI Slider' }} 
+        <NewsletterBox 
+          item={{ id: 'newsletter', title: 'Newsletter' }} 
           onSectionChange={handleSectionChange} 
         />
         <GridBox 
