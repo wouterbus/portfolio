@@ -1,7 +1,7 @@
 /* Hall of Fame Box */
 .hall-of-fame-box {
   background-color: var(--bg-secondary);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -17,19 +17,11 @@
   text-align: center;
   align-items: center;
   width: 100%;
-  border-bottom: 2px solid var(--border-color);
+  border-bottom: var(--border-width) solid var(--border-color);
 }
 
-.hall-of-fame-box .box-header .box-number,
 .hall-of-fame-box .box-header h3 {
   color: var(--bg-primary);
-}
-
-.hall-of-fame-box .box-header .box-number {
-  font-size: 18px;
-  font-weight: 600;
-  font-family: 'Anek Latin', 'Founders Grotesk', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  color: #000000;
 }
 
 .hall-of-fame-box .box-header h3 {
@@ -63,7 +55,7 @@
   text-decoration: none;
   padding: var(--spacing);
   width: 100%;
-  border-bottom: 2px solid var(--border-color);
+  border-bottom: var(--border-width) solid var(--border-color);
 }
 
 .person-item:last-child {

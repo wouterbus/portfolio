@@ -56,6 +56,7 @@
   --border-radius: 20px;
   --border-radius-md: 15px;
   --border-radius-sm: 10px;
+  --border-width: 2px;
 
   /* Light theme - minimal black and white */
   --bg-primary: #fafaf9;
@@ -174,7 +175,7 @@ p, span, div, input, textarea, select, label {
 
 .header {
   padding: var(--spacing);
-  border-bottom: 2px solid var(--border-color);
+  border-bottom: var(--border-width) solid var(--border-color);
   color: var(--white);
   display: flex;
   align-items: center;

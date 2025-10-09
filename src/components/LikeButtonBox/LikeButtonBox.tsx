@@ -4,7 +4,6 @@ import './LikeButtonBox.css';
 interface LikeButtonBoxProps {
   item: {
     id: string;
-    number?: string;
     title: string;
   };
   onSectionChange: (section: string) => void;

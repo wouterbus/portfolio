@@ -19,7 +19,7 @@
 
 .back-button {
   background: none;
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   color: var(--text-primary);
   padding: calc(var(--spacing) * 0.5) var(--spacing);
   border-radius: var(--border-radius-sm);
@@ -50,7 +50,7 @@
 
 .category-filter {
   background: none;
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   color: var(--text-secondary);
   padding: calc(var(--spacing) * 0.4) calc(var(--spacing) * 0.8);
   border-radius: var(--border-radius-sm);

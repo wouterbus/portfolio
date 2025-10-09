@@ -1,7 +1,7 @@
 /* Character Card */
 .character-card {
   background-color: var(--bg-secondary);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   display: flex;
   flex-direction: column;
   padding: var(--spacing);

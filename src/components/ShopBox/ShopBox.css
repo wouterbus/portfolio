@@ -1,6 +1,6 @@
 .shop-box {
   background: var(--box-bg);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   border-radius: 20px;
   display: flex;
   align-items: center;

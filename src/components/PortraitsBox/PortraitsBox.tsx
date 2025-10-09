@@ -4,7 +4,6 @@ import './PortraitsBox.css';
 interface PortraitsBoxProps {
   item: {
     id: string;
-    number?: string;
     title: string;
   };
   onSectionChange: (section: string) => void;

@@ -1,7 +1,7 @@
 /* Portraits Box */
 .portraits-box {
   background-color: var(--bg-secondary);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   border-radius: var(--border-radius);
   display: flex;
   flex-direction: column;

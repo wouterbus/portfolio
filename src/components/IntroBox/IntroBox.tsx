@@ -13,7 +13,6 @@ interface IntroTexts {
 interface IntroBoxProps {
   item: {
     id: string;
-    number?: string;
     title: string;
   };
   onSectionChange: (section: string) => void;
@@ -45,7 +44,6 @@ export default function IntroBox({ item, onSectionChange }: IntroBoxProps) {
     >
       <div className="intro-content">
         <div className="header start">
-          <span className="box-number">{item.number}</span>
           <h2 className="intro-title">{currentSection}</h2>
           <div className="person-link-icon" onClick={handleArrowClick}><span>→</span></div>
         </div>

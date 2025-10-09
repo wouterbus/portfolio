@@ -4,7 +4,6 @@ import './DeveloperBox.css';
 interface DeveloperBoxProps {
   item: {
     id: string;
-    number?: string;
     title: string;
   };
   onSectionChange: (section: string) => void;

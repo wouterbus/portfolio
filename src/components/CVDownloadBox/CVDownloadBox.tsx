@@ -4,7 +4,6 @@ import './CVDownloadBox.css';
 interface CVDownloadBoxProps {
   item: {
     id: string;
-    number?: string;
     title: string;
   };
   onSectionChange: (section: string) => void;

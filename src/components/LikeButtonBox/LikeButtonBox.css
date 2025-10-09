@@ -1,7 +1,7 @@
 /* Like Button Box */
 .like-button-box {
   background-color: var(--bg-secondary);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   display: flex;
   flex-direction: column;
   cursor: pointer;
@@ -37,7 +37,7 @@
   gap: calc(var(--spacing) * 0.5);
   padding: var(--spacing);
   background-color: var(--bg-primary);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   border-radius: var(--border-radius-sm);
   cursor: pointer;
   transition: all 0.3s ease;

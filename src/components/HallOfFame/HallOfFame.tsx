@@ -11,7 +11,6 @@ interface Person {
 interface HallOfFameProps {
   item: {
     id: string;
-    number?: string;
     title: string;
   };
   onSectionChange: (section: string) => void;
@@ -77,7 +76,6 @@ export default function HallOfFame({ item, onSectionChange }: HallOfFameProps) {
       onClick={() => onSectionChange('Hall of Fame')}
     >
       <div className="header center">
-        <h3 className="box-number">{item.number}</h3>
         <h3>My Personal Hall of Fame</h3>
       </div>
       <div className="folks-list">

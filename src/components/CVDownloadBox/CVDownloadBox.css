@@ -10,7 +10,7 @@
   overflow: hidden;
   padding: 0;
   border-radius: var(--border-radius);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   pointer-events: auto;
 }
 
@@ -54,7 +54,7 @@
   transition: opacity 0.3s ease;
   overflow: hidden;
   margin: var(--spacing);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   border-radius: var(--border-radius-md);
 }
 
@@ -103,7 +103,7 @@
 
 .cv-modal {
   background-color: var(--bg-primary);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   border-radius: var(--border-radius-md);
   width: calc(100% - 10px);
   height: calc(100% - 10px);
@@ -126,7 +126,7 @@
   align-items: center;
   padding: var(--spacing);
   height: 50px;
-  border-bottom: 2px solid var(--border-color);
+  border-bottom: var(--border-width) solid var(--border-color);
   background-color: var(--bg-secondary);
   margin-bottom: 10px;
 }
@@ -177,7 +177,7 @@
   gap: var(--spacing);
   padding: var(--spacing);
   background-color: var(--bg-secondary);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   border-radius: calc(var(--border-radius) - 10px);
   cursor: pointer;
   transition: all 0.3s ease;
@@ -199,7 +199,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   border-radius: var(--border-radius);
 }
 
@@ -226,7 +226,7 @@
   padding: 4px 8px;
   border-radius: 4px;
   font-family: var(--font-heading);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
 }
 
 .cv-format:hover {

@@ -87,7 +87,7 @@
 /* Individual Dribbble Shot */
 .dribbble-shot {
   background: var(--card-background);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   border-radius: var(--border-radius);
   overflow: hidden;
   transition: all 0.3s ease;
@@ -144,7 +144,7 @@
   align-items: center;
   gap: calc(var(--spacing) * 0.3);
   background: var(--card-background);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   border-radius: calc(var(--border-radius) * 0.5);
   padding: calc(var(--spacing) * 0.3) calc(var(--spacing) * 0.6);
   cursor: pointer;
@@ -192,7 +192,7 @@
   align-items: center;
   justify-content: center;
   background: var(--card-background);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   border-radius: calc(var(--border-radius) * 0.5);
   padding: calc(var(--spacing) * 0.3);
   cursor: pointer;
@@ -212,7 +212,7 @@
   align-items: center;
   justify-content: center;
   background: var(--card-background);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   border-radius: calc(var(--border-radius) * 0.5);
   padding: calc(var(--spacing) * 0.3);
   cursor: pointer;
@@ -255,7 +255,7 @@
   top: -50px;
   right: 0;
   background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: var(--border-width) solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -278,7 +278,7 @@
   top: 50%;
   transform: translateY(-50%);
   background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: var(--border-width) solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -462,7 +462,7 @@
 }
 
 [data-theme='goofy'] .dribbble-shot {
-  border: 2px solid var(--accent-color);
+  border: var(--border-width) solid var(--accent-color);
 }
 
 [data-theme='goofy'] .dribbble-shot:hover {

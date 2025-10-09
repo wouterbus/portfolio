@@ -1,6 +1,6 @@
 .coffee-box {
   background: var(--box-bg);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   border-radius: 12px;
   padding: 24px;
   transition: all 0.3s ease;

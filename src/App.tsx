@@ -12,9 +12,9 @@ import ProjectDetail from './pages/ProjectDetail/ProjectDetail';
 import Dribbbles from './pages/Dribbbles/Dribbbles';
 
 // Header component
-function Header({ 
+function Header({
   likeCount
-}: { 
+}: {
   likeCount: number;
 }) {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -41,8 +41,8 @@ function Header({
     <div className="header-container">
       <div className="header-left">
         <div className="studio-tag">
-          <img 
-            src="/logo_fav.svg" 
+          <img
+            src="/logo_fav.svg"
             alt="Studio W Logo"
             className="studio-logo"
           />
@@ -107,7 +107,7 @@ function AppContent() {
 
   return (
     <div className="app">
-      <Header 
+      <Header
         likeCount={likeCount}
       />
       <Routes>

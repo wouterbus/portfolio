@@ -10,7 +10,6 @@ import HallOfFame from '../../components/HallOfFame/HallOfFame';
 import LikeButtonBox from '../../components/LikeButtonBox/LikeButtonBox';
 import NewsletterBox from '../../components/NewsletterBox/NewsletterBox';
 import GridBox from '../../components/GridBox/GridBox';
-import EmptyBox from '../../components/EmptyBox/EmptyBox';
 import FeaturedBox from '../../components/FeaturedBox/FeaturedBox';
 import UIDesignBox from '../../components/UIDesignBox/UIDesignBox';
 import GraphicDesignBox from '../../components/GraphicDesignBox/GraphicDesignBox';
@@ -18,7 +17,6 @@ import CharacterCard from '../../components/CharacterCard/CharacterCard';
 import CoffeeBox from '../../components/CoffeeBox/CoffeeBox';
 import ShopBox from '../../components/ShopBox/ShopBox';
 import CalendarBox from '../../components/CalendarBox/CalendarBox';
-import ColorBox from '../../components/ColorBox/ColorBox';
 
 interface HomeProps {
   likeCount: number;
@@ -166,10 +164,6 @@ export default function Home({ onLikeToggle }: HomeProps) {
         />
         <CalendarBox 
           item={{ id: 'calendar', title: 'Calendar' }} 
-          onSectionChange={handleSectionChange} 
-        />
-        <ColorBox 
-          item={{ id: 'color', title: 'Color Box' }} 
           onSectionChange={handleSectionChange} 
         />
         <UIDesignBox 

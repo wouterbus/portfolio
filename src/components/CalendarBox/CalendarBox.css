@@ -1,7 +1,7 @@
 /* Calendar Box */
 .calendar-box {
   background-color: var(--bg-secondary);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -21,19 +21,11 @@
   justify-content: center;
   width: 100%;
   height: 50px;
-  border-bottom: 2px solid var(--border-color);
+  border-bottom: var(--border-width) solid var(--border-color);
 }
 
-.calendar-box .box-header .box-number,
 .calendar-box .box-header h3 {
   color: var(--bg-primary);
-}
-
-.calendar-box .box-header .box-number {
-  font-size: 18px;
-  font-weight: 600;
-  font-family: 'Anek Latin', 'Founders Grotesk', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  color: #000000;
 }
 
 .calendar-box .box-header h3 {
@@ -116,8 +108,8 @@
   font-size: 0.65rem;
   font-weight: 700;
   color: var(--text-secondary);
-  border-right: 2px solid var(--border-color);
-  border-bottom: 2px solid var(--border-color);
+  border-right: var(--border-width) solid var(--border-color);
+  border-bottom: var(--border-width) solid var(--border-color);
   background-color: var(--bg-tertiary);
   text-transform: uppercase;
 }
@@ -127,15 +119,15 @@
 }
 
 .calendar-day-header:last-child {
-  border-bottom: 2px solid var(--border-color);
+  border-bottom: var(--border-width) solid var(--border-color);
 }
 
 .calendar-day {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-right: 2px solid var(--border-color);
-  border-bottom: 2px solid var(--border-color);
+  border-right: var(--border-width) solid var(--border-color);
+  border-bottom: var(--border-width) solid var(--border-color);
   padding: calc(var(--spacing) * 0.3);
   text-align: center;
   transition: all 0.2s ease;
@@ -153,8 +145,8 @@
 
 /* Ensure all calendar days have consistent borders */
 .calendar-day {
-  border-right: 2px solid var(--border-color);
-  border-bottom: 2px solid var(--border-color);
+  border-right: var(--border-width) solid var(--border-color);
+  border-bottom: var(--border-width) solid var(--border-color);
 }
 
 .calendar-day:nth-child(7n) {
@@ -162,11 +154,11 @@
 }
 
 .calendar-day:nth-child(n+36):nth-child(-n+42) {
-  border-bottom: 2px solid var(--border-color);
+  border-bottom: var(--border-width) solid var(--border-color);
 }
 
 .calendar-day:nth-child(n+43):nth-child(-n+49) {
-  border-bottom: 2px solid var(--border-color);
+  border-bottom: var(--border-width) solid var(--border-color);
 }
 
 /* Remove bottom borders from last 7 calendar day cells */

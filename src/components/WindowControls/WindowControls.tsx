@@ -2,22 +2,20 @@ import './WindowControls.css';
 
 interface WindowControlsProps {
   onExpand?: () => void;
-  isFullscreen?: boolean;
 }
 
-export default function WindowControls({ 
-  onExpand, 
-  isFullscreen = false 
+export default function WindowControls({
+  onExpand
 }: WindowControlsProps) {
   return (
     <div className="window-controls">
-      <button 
-        className={`window-control expand ${isFullscreen ? 'fullscreen' : ''}`} 
+      <button
+        className="window-control expand"
         onClick={onExpand}
-        title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
+        title="Expand"
       >
         <span className="control-icon expand-icon">
-          {isFullscreen ? '⧉' : '⧈'}
+          ⧈
         </span>
       </button>
     </div>

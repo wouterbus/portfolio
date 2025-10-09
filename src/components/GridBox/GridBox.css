@@ -1,7 +1,7 @@
 /* Pixel Grid Box */
 .pixel-grid-box {
   background-color: var(--bg-secondary);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   display: flex;
   flex-direction: column;
   padding: var(--spacing);
@@ -35,7 +35,7 @@
 
 .grid-square {
   background-color: var(--bg-primary);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;

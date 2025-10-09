@@ -21,7 +21,7 @@
 
 .portfolio-title-small {
   background-color: var(--purple-accent);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,7 +40,7 @@
 }
 
 .portfolio-item-small {
-  border: 2px solid var(--accent);
+  border: var(--border-width) solid var(--accent);
 }
 
 /* Portfolio Box */

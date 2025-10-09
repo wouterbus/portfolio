@@ -2,7 +2,7 @@
 .intro-box {
   background-color: var(--bg-secondary);
   color: var(--text-primary);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,29 +20,35 @@
   background-color: var(--hover-bg);
 }
 
+/* Header in IntroBox - override global header styles */
+.intro-box .header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--spacing);
+  padding: var(--spacing);
+  background-color: var(--purple-accent);
+  border-bottom: var(--border-width) solid var(--border-color);
+  flex-shrink: 0;
+}
+
 .intro-title {
   margin: 0;
   font-size: 1.2rem;
   font-weight: 600;
   line-height: 1.1;
   color: var(--white);
-  text-align: center;
+  text-align: left;
+  flex: 1;
 }
 
-.person-link-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: auto;
+.intro-box .person-link-icon:hover {
+  transform: translateX(-1px);
   cursor: pointer;
-  transition: transform 0.2s ease;
 }
 
-.person-link-icon:hover {
-  transform: translateX(3px);
-}
-
-.person-link-icon span {
+.header .person-link-icon span {
   color: var(--white);
   font-size: 1.2rem;
   font-weight: 600;
@@ -52,7 +58,7 @@
 .intro-text {
   flex: 1;
   margin: var(--spacing) var(--spacing) 0 var(--spacing);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   border-radius: var(--border-radius-sm);
   background-color: var(--white);
   padding: 0;
@@ -81,7 +87,7 @@
 .lang-btn {
   flex: 1;
   padding: var(--spacing);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   border-radius: var(--border-radius-sm);
   background-color: var(--white);
   color: var(--text-primary);
@@ -205,7 +211,7 @@
 .skill-item {
   padding: calc(var(--spacing) * 0.6);
   background-color: var(--white);
-  border: 2px solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
   border-radius: var(--border-radius-sm);
   font-size: 0.75rem;
   font-weight: 600;

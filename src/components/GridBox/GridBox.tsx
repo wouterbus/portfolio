@@ -4,7 +4,6 @@ import './GridBox.css';
 interface GridBoxProps {
   item: {
     id: string;
-    number?: string;
     title: string;
   };
   onSectionChange: (section: string) => void;

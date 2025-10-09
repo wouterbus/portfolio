@@ -18,6 +18,10 @@ export default function CalendarBox({ item, onSectionChange }: CalendarBoxProps)
   ];
   
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState<number | null>(null);
+  const [showForm, setShowForm] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
   
   const currentMonth = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
@@ -36,14 +40,56 @@ export default function CalendarBox({ item, onSectionChange }: CalendarBoxProps)
            currentYear === today.getFullYear();
   };
 
+  const isSelected = (day: number) => {
+    return selectedDate === day;
+  };
+
   const handlePreviousMonth = (e: React.MouseEvent) => {
     e.stopPropagation();
     setCurrentDate(new Date(currentYear, currentMonth - 1, 1));
+    setSelectedDate(null);
+    setShowForm(false);
   };
 
   const handleNextMonth = (e: React.MouseEvent) => {
     e.stopPropagation();
     setCurrentDate(new Date(currentYear, currentMonth + 1, 1));
+    setSelectedDate(null);
+    setShowForm(false);
+  };
+
+  const handleDateClick = (day: number, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setSelectedDate(selectedDate === day ? null : day);
+    setShowForm(false);
+  };
+
+  const handleArrowClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setShowForm(!showForm);
+  };
+
+  const handleOptionSelect = (option: string) => {
+    setSelectedOption(option);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (selectedOption && email) {
+      // Reset form
+      setSelectedDate(null);
+      setSelectedOption('');
+      setEmail('');
+      setShowForm(false);
+    }
+  };
+
+  const handleBackToCalendar = () => {
+    setShowForm(false);
+    setSelectedOption('');
+    setEmail('');
   };
 
   return (
@@ -52,7 +98,7 @@ export default function CalendarBox({ item, onSectionChange }: CalendarBoxProps)
       className="grid-box calendar-box"
       onClick={() => onSectionChange('Calendar')}
     >
-      <div className="box-header header">
+      <div className="box-header">
         <h3 className="box-number">{item.number}</h3>
         <h3 
           className="calendar-title"
@@ -86,7 +132,8 @@ export default function CalendarBox({ item, onSectionChange }: CalendarBoxProps)
           return (
             <div 
               key={i} 
-              className={`calendar-day ${isToday(dayNumber) ? 'today' : ''}`}
+              className={`calendar-day ${isToday(dayNumber) ? 'today' : ''} ${isSelected(dayNumber) ? 'selected' : ''}`}
+              onClick={(e) => handleDateClick(dayNumber, e)}
             >
               <span>{dayNumber}</span>
             </div>
@@ -94,10 +141,79 @@ export default function CalendarBox({ item, onSectionChange }: CalendarBoxProps)
         })}
         
         {/* Fill remaining cells to complete 7 rows */}
-        {Array.from({ length: 42 - daysInMonth - (startDay - 1) }, (_, i) => (
-          <div key={`fill-${i}`} className="calendar-day empty"></div>
-        ))}
+        {Array.from({ length: 42 - daysInMonth - (startDay - 1) }, (_, i) => {
+          const isLastCell = i === (42 - daysInMonth - (startDay - 1) - 1);
+
+          return (
+            <div
+              key={`fill-${i}`}
+              className={`calendar-day empty ${isLastCell ? 'arrow-cell' : ''}`}
+              onClick={selectedDate && isLastCell ? handleArrowClick : undefined}
+            >
+              {isLastCell && <span>→</span>}
+            </div>
+          );
+        })}
       </div>
+
+      {/* Modal overlay */}
+      {showForm && selectedDate && (
+        <div className="calendar-modal-overlay">
+          <div className="calendar-modal">
+            <div className="modal-header">
+              <h4>Book a meeting for {months[currentMonth]} {selectedDate}</h4>
+              <button className="modal-close" onClick={handleBackToCalendar}>
+                ×
+              </button>
+            </div>
+            <form onSubmit={handleSubmit}>
+              <div className="form-options">
+                <label className="form-option">
+                  <input 
+                    type="radio" 
+                    name="meeting-type" 
+                    value="coffee"
+                    checked={selectedOption === 'coffee'}
+                    onChange={() => handleOptionSelect('coffee')}
+                  />
+                  <span>Let's get a coffee</span>
+                </label>
+                <label className="form-option">
+                  <input 
+                    type="radio" 
+                    name="meeting-type" 
+                    value="strategize"
+                    checked={selectedOption === 'strategize'}
+                    onChange={() => handleOptionSelect('strategize')}
+                  />
+                  <span>Let's strategize</span>
+                </label>
+              </div>
+              
+              <div className="email-input">
+                <label htmlFor="email">Email address:</label>
+                <input 
+                  type="email" 
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="your@email.com"
+                  required
+                />
+              </div>
+              
+              <div className="form-buttons">
+                <button type="button" onClick={handleBackToCalendar} className="back-button">
+                  Back
+                </button>
+                <button type="submit" className="submit-button" disabled={!selectedOption || !email}>
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

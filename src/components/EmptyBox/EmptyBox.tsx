@@ -3,7 +3,6 @@ import './EmptyBox.css';
 interface EmptyBoxProps {
   item: {
     id: string;
-    number?: string;
     title: string;
     description?: string;
   };
