@@ -66,6 +66,9 @@
   flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
+  max-height: calc(100% - 80px);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) transparent;
 }
 
 .intro-text p {
@@ -74,6 +77,25 @@
   font-size: 14px;
   color: var(--text-primary);
   font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+/* Custom scrollbar for webkit browsers */
+.intro-text::-webkit-scrollbar {
+  width: 6px;
+}
+
+.intro-text::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.intro-text::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 3px;
+}
+
+.intro-text::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text-secondary);
 }
 
 .language-switcher {
@@ -231,11 +253,16 @@
   .intro-title {
     font-size: 1.4rem;
   }
-  
+
+  .intro-text {
+    max-height: calc(100% - 70px);
+  }
+
   .intro-text p {
     font-size: 0.8rem;
     min-height: 50px;
     line-height: 1.4;
+    padding: calc(var(--spacing) * 0.75);
   }
   
   .language-switcher {

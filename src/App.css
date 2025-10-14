@@ -29,15 +29,6 @@
   max-width: 1280px;
 }
 
-
-
-/* Studio logo styling */
-.studio-logo {
-  width: 45px;
-  height: 33px;
-  object-fit: contain;
-}
-
 /* Theme-specific logo colors */
 [data-theme='light'] .studio-logo {
   filter: brightness(0);
