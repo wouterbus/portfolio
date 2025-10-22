@@ -73,7 +73,7 @@ export default function CVDownloadBox({ item, onSectionChange }: CVDownloadBoxPr
             className="cv-thumbnail"
           />
           <div className="cv-overlay">
-            <span className="cv-overlay-text">Resumé</span>
+            <h2>Resumé</h2>
           </div>
         </div>
         
