@@ -8,7 +8,7 @@ interface PartnershipProps {
   onSectionChange: (section: string) => void;
 }
 
-export default function Partnership({ item, onSectionChange }: PartnershipProps) {
+export default function Partnership({ onSectionChange }: PartnershipProps) {
   const handleVisitSite = () => {
     window.open('https://seriguela.com', '_blank');
   };

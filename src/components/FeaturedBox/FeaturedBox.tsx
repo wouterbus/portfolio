@@ -30,7 +30,7 @@ interface FeaturedBoxProps {
   onProjectClick: (slug: string) => void;
 }
 
-export default function FeaturedBox({ item, onProjectClick }: FeaturedBoxProps) {
+export default function FeaturedBox({ onProjectClick }: FeaturedBoxProps) {
   const [projects, setProjects] = useState<SanityProject[]>([]);
   const [loading, setLoading] = useState(true);
 

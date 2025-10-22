@@ -37,7 +37,7 @@ interface FormData {
 
 export default function IntroBox({ item, onSectionChange }: IntroBoxProps) {
   const [language, setLanguage] = useState<Language>('en');
-  const [currentSection, setCurrentSection] = useState<Section>('About');
+  const [currentSection] = useState<Section>('About');
   
   // Form states
   const [formStep, setFormStep] = useState<FormStep>('greeting');
@@ -119,26 +119,7 @@ const COPY: Record<Language, Copy> = {
     setTimeout(() => setFormStep('phone'), 300);
   };
 
-  const sendEmail = async () => {
-    const templateParams = {
-      name: formData.name,
-      purpose: formData.purpose,
-      phone: formData.phone,
-      language,
-    };
-
-    try {
-      await emailjs.send(
-        'service_8w50gtj',
-        'template_4252o3a',
-        templateParams,
-        '8ChJlG0bjS_kw_6VZ'
-      );
-      console.log('Email successfully sent!');
-    } catch (error) {
-      console.error('Email send error:', error);
-    }
-  };
+  // (removed unused helper)
 
   const handlePhoneSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -163,11 +144,7 @@ const COPY: Record<Language, Copy> = {
     }
   };
 
-  const handleFinalSubmit = () => {
-    console.log('Form submitted:', formData);
-    sendEmail();
-    setFormStep('thankyou');
-  };
+  // final submit handled in phone step - remove unused
 
   const renderFormContent = () => {
     switch (formStep) {

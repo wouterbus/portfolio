@@ -76,7 +76,7 @@ export default function UIDesignBox({ item, onUIDesignClick, onProjectClick }: U
             </div>
           </>
         ) : (
-          projects.map((project, index) => (
+          projects.map((project) => (
             <div 
               key={project._id}
               className="ui-design-item-small"

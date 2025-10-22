@@ -9,10 +9,8 @@ export default function PortfolioDetail({ onBack }: PortfolioDetailProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [isSlidingOut, setIsSlidingOut] = useState(false);
 
-  const categories = ['All', 'Web Development', 'UI/UX Design', 'Graphic Design'];
-  const filteredProjects = selectedCategory === 'All' 
-    ? mockProjects 
-    : mockProjects.filter(project => project.category === selectedCategory);
+  const categories = ['All'];
+  const filteredProjects: any[] = [];
 
   const handleBackClick = () => {
     setIsSlidingOut(true);
@@ -50,7 +48,7 @@ export default function PortfolioDetail({ onBack }: PortfolioDetailProps) {
                 <div className="portfolio-info">
                   <h3>{project.title}</h3>
                   <div className="portfolio-tools">
-                    {project.tools.map((tool, index) => (
+                    {(project.tools as string[]).map((tool: string, index: number) => (
                       <span key={index} className="tool-tag">{tool}</span>
                     ))}
                   </div>

@@ -76,7 +76,7 @@ export default function GraphicDesignBox({ item, onGraphicDesignClick, onProject
             </div>
           </>
         ) : (
-          projects.map((project, index) => (
+          projects.map((project) => (
             <div 
               key={project._id}
               className="graphic-design-item-small"

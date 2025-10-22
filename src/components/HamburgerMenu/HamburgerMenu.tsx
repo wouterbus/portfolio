@@ -6,7 +6,7 @@ interface HamburgerMenuProps {
   className?: string;
 }
 
-export default function HamburgerMenu({ className }: HamburgerMenuProps) {
+export default function HamburgerMenu({}: HamburgerMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();

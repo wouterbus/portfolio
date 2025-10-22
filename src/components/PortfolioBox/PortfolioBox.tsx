@@ -76,7 +76,7 @@ export default function PortfolioBox({ item, onPortfolioClick, onProjectClick }:
             </div>
           </>
         ) : (
-          projects.map((project, index) => (
+          projects.map((project) => (
             <div 
               key={project._id}
               className="portfolio-item-small"
