@@ -29,8 +29,8 @@ const getStableToolColors = (tools: string[]) => {
   };
 
   // Create color assignments ensuring no adjacent duplicates within this project
-  const assignedColors = [];
-  const assignedDarkColors = [];
+  const assignedColors: string[] = [];
+  const assignedDarkColors: string[] = [];
   
   for (let i = 0; i < tools.length; i++) {
     // Use only tool name for consistent color assignment across all projects
@@ -88,7 +88,7 @@ interface SanityProject {
     current: string;
   };
   category: string;
-  about: string;
+  shortDescription: string;
   body: any[];
   tools: string[];
   desktopImages?: Array<{
@@ -108,6 +108,7 @@ interface SanityProject {
     linkType: string;
     openInNewTab: boolean;
   };
+  downloadables?: Array<{ _key: string; asset?: { _ref: string }; label?: string; url?: string }>;
 }
 
 export default function ProjectDetail() {
@@ -128,12 +129,13 @@ export default function ProjectDetail() {
           mobileHeroBanner,
           slug,
           category,
-          about,
+          shortDescription,
           body,
           tools,
           desktopImages,
           mobileImages,
-          link
+          link,
+          downloadables[]{ _key, asset, label, "url": asset->url }
         }`;
         const data = await client.fetch(query, { slug: projectId });
         console.log('Fetched project data:', data);
@@ -158,6 +160,46 @@ export default function ProjectDetail() {
   }, [projectId]);
 
   const project = sanityProject;
+
+  const renderPortableBody = (body: any[] | undefined) => {
+    if (!Array.isArray(body)) return null;
+    const stripHtml = (text: string) => text.replace(/<[^>]*>/g, '');
+    return body.map((block, index) => {
+      if (block?._type === 'block' && Array.isArray(block.children)) {
+        const raw = block.children.map((child: any) => child?.text || '').join('');
+        const text = stripHtml(raw);
+        const style = block.style || 'normal';
+        if (style === 'h1') return <h1 key={index}>{text}</h1>;
+        if (style === 'h2') return <h2 key={index}>{text}</h2>;
+        if (style === 'h3') return <h3 key={index}>{text}</h3>;
+        if (style === 'blockquote') return <blockquote key={index}>{text}</blockquote>;
+        return <p key={index}>{text}</p>;
+      }
+      if (block?._type === 'code' && typeof block.code === 'string') {
+        const lang = block.language || 'plaintext';
+        return (
+          <pre key={index} className={`code-block lang-${lang}`}>
+            <code>
+              {block.code}
+            </code>
+          </pre>
+        );
+      }
+      if (block?._type === 'image' && block.asset?._ref) {
+        try {
+          const src = urlFor(block).width(1200).fit('max').url();
+          return (
+            <div key={index} className="project-body-image">
+              <img src={src} alt={project?.title || 'Project image'} style={{ width: '100%', height: 'auto' }} />
+            </div>
+          );
+        } catch {
+          return null;
+        }
+      }
+      return null;
+    });
+  };
 
   if (loading) {
     return (
@@ -196,14 +238,13 @@ export default function ProjectDetail() {
           className="back-button" 
           onClick={() => navigate('/portfolio')}
         >
-          ← Back to Portfolio
+          ← {project!.title}
         </button>
-        <h1>
-          {project.title}
-          {project.link?.url && (
+        <h2>
+          {project!.link?.url && (
             <a 
-              href={project.link.url} 
-              target={project.link.openInNewTab ? '_blank' : '_self'} 
+              href={project!.link.url}
+              target={project!.link.openInNewTab ? '_blank' : '_self'} 
               rel="noopener noreferrer"
               className="external-link"
               title="Visit website"
@@ -215,14 +256,48 @@ export default function ProjectDetail() {
               </svg>
             </a>
           )}
-        </h1>
+        </h2>
       </div>
       
       <div className="project-content">
+                {/* Short description and tools (same visuals/classes as meta/tools) */}
+                {project!.shortDescription && (
+          <div className="project-description">
+            <h1>{project!.shortDescription}</h1>
+          </div>
+        )}
+                {project!.tools && project!.tools.length > 0 && (
+          <div className="project-meta">
+            <div className="project-tools">
+              <div className="tools-list">
+                {project!.tools.map((tool, index) => {
+                  const colors = toolColors[index];
+                  const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
+                  const isGoofyTheme = document.documentElement.getAttribute('data-theme') === 'goofy';
+                  let backgroundColor = colors?.light || '#3b82f6';
+                  if (isDarkTheme && colors) {
+                    backgroundColor = colors.dark;
+                  } else if (isGoofyTheme) {
+                    backgroundColor = index % 2 === 0 ? '#dc2626' : '#2563eb';
+                  }
+                  return (
+                    <span
+                      key={index}
+                      className="tool-tag tool-tag-random"
+                      style={{ backgroundColor }}
+                    >
+                      {tool}
+                    </span>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
         <div className="project-image">
-          <img 
-            src={urlFor(project.heroBanner).url()}
-            alt={project.title} 
+          <img
+            src={urlFor(project!.heroBanner).url()}
+            alt={project!.title} 
             style={{
               width: '100%',
               height: 'auto',
@@ -233,11 +308,11 @@ export default function ProjectDetail() {
         </div>
         
         {/* Mobile Hero Banner */}
-        {project.mobileHeroBanner && (
+        {project!.mobileHeroBanner && (
           <div className="project-mobile-image">
-            <img 
-              src={urlFor(project.mobileHeroBanner).url()}
-              alt={`${project.title} - Mobile View`} 
+            <img
+              src={urlFor(project!.mobileHeroBanner).url()}
+              alt={`${project!.title} - Mobile View`} 
               style={{
                 width: '100%',
                 height: 'auto',
@@ -248,65 +323,24 @@ export default function ProjectDetail() {
           </div>
         )}
         
-        <div className="project-info">
-          <div className="project-meta">
-            <div className="project-category">
-              <span className="label">Category:</span>
-              <span className="value">{project.category}</span>
-            </div>
-            <div className="project-tools">
-              <span className="label">Tools:</span>
-              <div className="tools-list">
-                {project.tools.map((tool, index) => {
-                  const colors = toolColors[index];
-                  // Detect current theme
-                  const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
-                  const isGoofyTheme = document.documentElement.getAttribute('data-theme') === 'goofy';
-                  
-                  // Use different colors based on theme
-                  let backgroundColor = colors?.light || '#3b82f6';
-                  if (isDarkTheme && colors) {
-                    backgroundColor = colors.dark;
-                  } else if (isGoofyTheme) {
-                    // Goofy theme uses alternating red/blue
-                    backgroundColor = index % 2 === 0 ? '#dc2626' : '#2563eb';
-                  }
-                  
-                  return (
-                    <span 
-                      key={index} 
-                      className="tool-tag tool-tag-random"
-                      style={{
-                        backgroundColor: backgroundColor
-                      }}
-                    >
-                      {tool}
-                    </span>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
+        <div className="">
           
           <div className="project-description">
-            <h3>About this project</h3>
+            <h1>About this project</h1>
             <div className="project-body-content">
-              <p>{project.about}</p>
-              {project.body && (
-                <div 
-                  className="project-body-rich"
-                  dangerouslySetInnerHTML={{ __html: project.body }}
-                />
+              {project!.body && (
+                <div className="project-body-rich">
+                  {renderPortableBody(project!.body)}
+                </div>
               )}
             </div>
           </div>
           
           {/* Desktop Project Images - Hidden on Mobile */}
-          {project.desktopImages && project.desktopImages.length > 0 && (
+          {project!.desktopImages && project!.desktopImages.length > 0 && (
             <div className="project-showcase desktop-showcase">
-              <h3>Desktop View</h3>
               <div className="showcase-images">
-                {project.desktopImages.map((image, index) => (
+                {project!.desktopImages.map((image, index) => (
                   <div key={image._key} className="showcase-image">
                     <img 
                       src={urlFor(image).width(1200).fit('max').url()}
@@ -325,11 +359,10 @@ export default function ProjectDetail() {
           )}
           
           {/* Mobile Project Images - Hidden on Desktop */}
-          {project.mobileImages && project.mobileImages.length > 0 && (
+          {project!.mobileImages && project!.mobileImages.length > 0 && (
             <div className="project-showcase mobile-showcase-only">
-              <h3>Mobile View</h3>
               <div className="showcase-images mobile-showcase">
-                {project.mobileImages.map((image, index) => (
+                {project!.mobileImages.map((image, index) => (
                   <div key={image._key} className="showcase-image">
                     <img 
                       src={urlFor(image).width(600).fit('max').url()}
@@ -348,17 +381,29 @@ export default function ProjectDetail() {
           )}
           
           <div className="project-links">
-            {project.link?.url && (
+            {project!.link?.url && (
               <a 
-                href={project.link.url} 
-                target={project.link.openInNewTab ? '_blank' : '_self'} 
+                href={project!.link.url} 
+                target={project!.link.openInNewTab ? '_blank' : '_self'} 
                 rel="noopener noreferrer" 
                 className="project-link"
               >
-                {project.link.linkType === 'github' ? 'View Code' : 
-                 project.link.linkType === 'pdf' ? 'View PDF' : 
+                {project!.link.linkType === 'github' ? 'View Code' : 
+                 project!.link.linkType === 'pdf' ? 'View PDF' : 
                  'View Live Site'}
               </a>
+            )}
+
+            {project!.downloadables && project!.downloadables.length > 0 && (
+              <div className="project-downloads">
+                {project!.downloadables.map((file) => (
+                  file.url ? (
+                    <a key={file._key} href={file.url} className="project-link" target="_blank" rel="noopener noreferrer">
+                      {file.label || 'Download'}
+                    </a>
+                  ) : null
+                ))}
+              </div>
             )}
           </div>
         </div>

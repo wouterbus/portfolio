@@ -97,6 +97,11 @@ body {
   color: var(--text-primary);
   min-height: 100vh;
   transition: background-color 0.3s, color 0.3s;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-synthesis-weight: none;
+  font-synthesis-style: none;
 }
 
 #root {
@@ -151,7 +156,7 @@ h1 {
 }
 
 h2, h3, h4 {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 h5 {
@@ -171,6 +176,10 @@ a, .link {
 /* Keep smaller text with body font */
 p, span, div, input, textarea, select, label {
   font-family: var(--font-body);
+}
+
+p {
+  font-size: 14px;
 }
 
 .header {
@@ -197,4 +206,9 @@ p, span, div, input, textarea, select, label {
 
 .end {
   justify-content: flex-end;
+}
+
+::placeholder {
+  color: var(--text-secondary);
+  font-size: 14px;
 }

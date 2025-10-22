@@ -10,10 +10,7 @@
 
 /* Header */
 .header-container {
-  position: fixed;
   top: var(--spacing);
-  left: 50%;
-  transform: translateX(-50%);
   z-index: 1000;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -25,7 +22,7 @@
   flex-shrink: 0;
   background-color: var(--bg-primary);
   backdrop-filter: blur(10px);
-  width: calc(100% - var(--spacing) * 2);
+  width: 100%;
   max-width: 1280px;
 }
 
@@ -80,6 +77,7 @@
   border: var(--border-width) solid var(--border-color);
   border-radius: 10px;
   transition: font-size 0.3s ease;
+  width: max-content;
 }
 
 .likes-counter {
@@ -132,7 +130,7 @@
   padding: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  margin-top: 82px
+  margin-top: var(--spacing);
 }
 
 .main-grid-content {
@@ -439,21 +437,14 @@
     max-width: 100%;
   }
   
-  .header-container {
-    max-width: 100%;
-    width: calc(100% - var(--spacing) * 2);
-  }
-  
   .main-grid {
     grid-template-columns: 1fr;
     justify-items: center;
   }
   
   .grid-box {
-    aspect-ratio: 1 / 1;
-    max-width: 305px;
     width: 100%;
-    min-height: 305px;
+    height: max-content;
   }
   
   .app {
@@ -461,8 +452,6 @@
   }
   
   .header-container {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
     gap: 5px;
     padding: 5px;
   }
@@ -484,11 +473,6 @@
 
   .header-title {
     font-size: 0.7rem;
-  }
-  
-  
-  .intro-title {
-    font-size: 1rem;
   }
   
   .intro-text {
@@ -534,11 +518,6 @@
   
   .studio-tag {
     font-size: 0.75rem;
-  }
-  
-  .location {
-    font-size: 0.65rem;
-    padding: 3px 6px;
   }
   
   .local-time {
@@ -592,23 +571,6 @@
   background-color: var(--text-primary);
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-}
-
-.portfolio-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--spacing);
-  border-bottom: 1px solid var(--border-color);
-  flex-shrink: 0;
-}
-
-.portfolio-header h2 {
-  margin: 0;
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  transition: font-size 0.3s ease;
 }
 
 .close-portfolio-btn {
@@ -1003,6 +965,8 @@
 .header-tab:hover {
   background-color: transparent;
   border: none;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .header-tab.active {

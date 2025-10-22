@@ -29,8 +29,8 @@ const getStableToolColors = (tools: string[]) => {
   };
 
   // Create color assignments ensuring no adjacent duplicates within this project
-  const assignedColors = [];
-  const assignedDarkColors = [];
+  const assignedColors: string[] = [];
+  const assignedDarkColors: string[] = [];
   
   for (let i = 0; i < tools.length; i++) {
     // Use only tool name for consistent color assignment across all projects
@@ -84,6 +84,7 @@ interface SanityProject {
   };
   category: string;
   tools: string[];
+  shortDescription?: string;
   link?: {
     url: string;
     linkType: string;
@@ -109,6 +110,7 @@ export default function Portfolio() {
                 slug,
                 category,
                 tools,
+                shortDescription,
                 link
               }`;
         const data = await client.fetch(query);
@@ -139,9 +141,8 @@ export default function Portfolio() {
           className="back-button" 
           onClick={() => navigate('/')}
         >
-          ← Back
+          ←
         </button>
-        <h1>Portfolio</h1>
         <div className="category-filters">
           {categories.map(category => (
             <button
@@ -167,45 +168,52 @@ export default function Portfolio() {
         <div className="portfolio-grid">
           {filteredProjects.length > 0 ? (
             filteredProjects.map((project) => (
-              <div 
+              <div
                 key={project._id}
                 className="portfolio-item"
                 onClick={() => handleProjectClick(project.slug.current)}
               >
+                <div className="portfolio-piece-header">
+                  <div className="portfolio-title-section">
+                    <h3 className="portfolio-title">
+                      {project.title}
+                    </h3>
+                  </div>
+                  {project.link && (
+                    <div className="portfolio-link-section">
+                      <a
+                        href={project.link.url}
+                        target={project.link.openInNewTab ? '_blank' : '_self'}
+                        rel="noopener noreferrer"
+                        className="external-link"
+                        title="Visit website"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                          <polyline points="15,3 21,3 21,9"></polyline>
+                          <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                      </a>
+                    </div>
+                  )}
+                </div>
                 <div className="portfolio-image">
-                  <img 
-                    src={urlFor(project.heroBanner).width(400).height(200).fit('crop').url()} 
-                    alt={project.title} 
+                  <img
+                    src={urlFor(project.heroBanner).url()}
+                    alt={project.title}
                   />
-                  <div className="portfolio-overlay">
-                    <div className="portfolio-info">
-                            <h3>
-                              {project.title}
-                              {project.link && (
-                                <a
-                                  href={project.link.url}
-                                  target={project.link.openInNewTab ? '_blank' : '_self'}
-                                  rel="noopener noreferrer"
-                                  className="external-link"
-                                  title="Visit website"
-                                  onClick={(e) => e.stopPropagation()}
-                                >
-                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                    <polyline points="15,3 21,3 21,9"></polyline>
-                                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                                  </svg>
-                                </a>
-                              )}
-                            </h3>
-                      <div className="portfolio-tools">
+                <div className="portfolio-overlay">
+                    <div className="portfolio-about">
+                      <p>{project.shortDescription || 'Discover more about this project by exploring the details below.'}</p>
+                      <div className="portfolio-tools-overlay">
                         {project.tools.map((tool, index) => {
                           const projectToolColors = getStableToolColors(project.tools);
                           const colors = projectToolColors[index];
                           // Detect current theme
                           const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
                           const isGoofyTheme = document.documentElement.getAttribute('data-theme') === 'goofy';
-                          
+
                           // Use different colors based on theme
                           let backgroundColor = colors?.light || '#3b82f6';
                           if (isDarkTheme && colors) {
@@ -214,10 +222,10 @@ export default function Portfolio() {
                             // Goofy theme uses alternating red/blue
                             backgroundColor = index % 2 === 0 ? '#dc2626' : '#2563eb';
                           }
-                          
+
                           return (
-                            <span 
-                              key={index} 
+                            <span
+                              key={index}
                               className="tool-tag tool-tag-random"
                               style={{
                                 backgroundColor: backgroundColor
@@ -228,6 +236,11 @@ export default function Portfolio() {
                           );
                         })}
                       </div>
+                    </div>
+                    <div className="see-more-container">
+                      <button className="see-more-button">
+                        see more
+                      </button>
                     </div>
                   </div>
                 </div>

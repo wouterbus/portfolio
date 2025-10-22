@@ -3,6 +3,7 @@ import './IntroBox.css';
 
 type Language = 'en' | 'pt' | 'nl';
 type Section = 'About' | 'Profile' | 'Skills';
+type FormStep = 'greeting' | 'intro' | 'purpose' | 'phone' | 'thankyou';
 
 interface IntroTexts {
   en: string;
@@ -18,45 +19,36 @@ interface IntroBoxProps {
   onSectionChange: (section: string) => void;
 }
 
+interface FormData {
+  name: string;
+  purpose: string;
+  phone: string;
+}
+
 export default function IntroBox({ item, onSectionChange }: IntroBoxProps) {
   const [language, setLanguage] = useState<Language>('en');
   const [currentSection, setCurrentSection] = useState<Section>('About');
+  
+  // Form states
+  const [formStep, setFormStep] = useState<FormStep>('greeting');
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    purpose: '',
+    phone: ''
+  });
+  const [tempInput, setTempInput] = useState('');
 
   const introTexts: IntroTexts = {
-    en: `I'm Wouter, a Creative Developer from Holland. I love bringing ideas to life with unique yet functional interfaces.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
-My Skills & Expertise:
-• Frontend Development: React, TypeScript, Next.js, Vue.js
-• UI/UX Design: Figma, Adobe XD, Sketch, InVision
-• Backend Technologies: Node.js, Express, MongoDB, PostgreSQL
-• Design Tools: Photoshop, Illustrator, After Effects, Premiere Pro
-• Version Control: Git, GitHub, GitLab, Bitbucket
-• Project Management: Jira, Trello, Asana, Notion
-
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-
-Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-
-Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
-
-Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
-
-Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.
-
-At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
-
-Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
-
-Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.
-
-Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.`,
-    pt: "Sou Wouter, Creative Developer da Holanda. Adoro criar interfaces que tornam ideias em experiências únicas e funcionais.",
-    nl: "Ik ben Wouter, een Creative Developer. Ik breng ideeën tot leven met unieke, boeiende e functionele digitale ervaringen."
+    en: `I'm a creative developer from Holland with a passion for bringing ideas to life through unique and functional interfaces.`,
+    pt: "Sou um desenvolvedor criativo da Holanda com paixão por dar vida a ideias através de interfaces únicas e funcionais.",
+    nl: "Ik ben een creatieve ontwikkelaar uit Nederland met een passie voor het tot leven brengen van ideeën door unieke en functionele interfaces."
   };
+
+  const purposeOptions = [
+    "→ I'm looking for a website or design project",
+    "→ I'm interested in a collaboration or partnership",
+    "→ I just wanted to say hi"
+  ];
 
   const handleArrowClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -64,6 +56,131 @@ Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatib
     const currentIndex = sections.indexOf(currentSection);
     const nextIndex = (currentIndex + 1) % sections.length;
     setCurrentSection(sections[nextIndex]);
+  };
+
+  const handleNameSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (tempInput.trim()) {
+      setFormData({ ...formData, name: tempInput });
+      setTempInput('');
+      setTimeout(() => setFormStep('intro'), 300);
+    }
+  };
+
+  const handlePurposeSelect = (purpose: string) => {
+    setFormData({ ...formData, purpose });
+    setTimeout(() => setFormStep('phone'), 300);
+  };
+
+  const handlePhoneSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (tempInput.trim()) {
+      setFormData({ ...formData, phone: tempInput });
+      setTempInput('');
+      setTimeout(() => setFormStep('thankyou'), 300);
+    }
+  };
+
+  const handleFinalSubmit = () => {
+    console.log('Form submitted:', formData);
+    setFormStep('thankyou');
+  };
+
+  const renderFormContent = () => {
+    switch (formStep) {
+      case 'greeting':
+        return (
+          <div className="form-step fade-in">
+            <h3 className="form-question">Hey there! First of all — my name is Wouter. What is yours?</h3>
+            <form onSubmit={handleNameSubmit}>
+              <input
+                type="text"
+                value={tempInput}
+                onChange={(e) => setTempInput(e.target.value)}
+                placeholder="Type your name..."
+                className="form-input"
+                autoFocus
+              />
+              <button type="submit" className="form-btn">Continue →</button>
+            </form>
+          </div>
+        );
+
+      case 'intro':
+        return (
+          <div className="form-step fade-in">
+            <h3 className="form-greeting">Nice to meet you, {formData.name.split(' ')[0]}!</h3>
+            <p className="form-text">
+              I'm a Creative Developer from Holland with a passion for bringing ideas to life through unique and functional interfaces.
+            </p>
+            <button
+              onClick={() => setFormStep('purpose')}
+              className="form-btn"
+            >
+              Next →
+            </button>
+          </div>
+        );
+
+      case 'purpose':
+        return (
+          <div className="form-step fade-in">
+            <h3 className="form-question">What brings you here today?</h3>
+            <div className="purpose-options">
+              {purposeOptions.map((option, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handlePurposeSelect(option)}
+                  className="purpose-btn"
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+          </div>
+        );
+
+      case 'phone':
+        return (
+          <div className="form-step fade-in">
+            <h3 className="form-question">
+              Okay, this might sound a little forward... but—uhm... can I get your number?
+            </h3>
+            <form onSubmit={handlePhoneSubmit}>
+              <input
+                type="tel"
+                value={tempInput}
+                onChange={(e) => setTempInput(e.target.value)}
+                placeholder="+55 11 99999-9999"
+                className="form-input"
+                autoFocus
+              />
+              <button type="submit" className="form-btn">Continue →</button>
+            </form>
+          </div>
+        );
+
+
+      case 'thankyou':
+        return (
+          <div className="form-step fade-in">
+            <h3 className="form-greeting">Thanks, {formData.name}!</h3>
+            <p className="form-text">I'll be in touch soon!</p>
+            <button
+              onClick={() => {
+                setFormStep('greeting');
+                setFormData({ name: '', purpose: '', phone: '' });
+              }}
+              className="form-btn-secondary"
+            >
+              Start Over
+            </button>
+          </div>
+        );
+
+      default:
+        return null;
+    }
   };
 
   return (
@@ -80,15 +197,15 @@ Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatib
         
         <div className="intro-text">
           {currentSection === 'About' && (
-            <p>{introTexts[language]}</p>
+              <div className="form-container">
+                {renderFormContent()}
+              </div>
           )}
 
           {currentSection === 'Profile' && (
             <div className="character-content">
-              {/* Level Badge */}
               <div className="level-badge">LVL 27</div>
               
-              {/* Top Half - Pixel Avatar */}
               <div className="character-avatar">
                 <svg 
                   className="pixel-avatar" 
@@ -96,25 +213,18 @@ Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatib
                   height="80" 
                   viewBox="0 0 80 80"
                 >
-                  {/* Head */}
                   <rect x="20" y="10" width="40" height="40" fill="var(--accent)" />
-                  {/* Eyes */}
                   <rect x="28" y="22" width="6" height="6" fill="var(--bg-primary)" />
                   <rect x="46" y="22" width="6" height="6" fill="var(--bg-primary)" />
-                  {/* Mouth */}
                   <rect x="32" y="36" width="16" height="4" fill="var(--bg-primary)" />
-                  {/* Body */}
                   <rect x="25" y="50" width="30" height="25" fill="var(--accent)" />
-                  {/* Arms */}
                   <rect x="10" y="55" width="15" height="8" fill="var(--accent)" />
                   <rect x="55" y="55" width="15" height="8" fill="var(--accent)" />
-                  {/* Legs */}
                   <rect x="30" y="75" width="8" height="10" fill="var(--accent)" />
                   <rect x="42" y="75" width="8" height="10" fill="var(--accent)" />
                 </svg>
               </div>
               
-              {/* Bottom Half - Stats */}
               <div className="character-stats">
                 <div className="stat-item">
                   <div className="stat-label">Creativity</div>

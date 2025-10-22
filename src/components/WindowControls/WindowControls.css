@@ -18,13 +18,6 @@
   position: relative;
 }
 
-.window-control:hover {
-  transform: scale(1.1);
-}
-
-.window-control:active {
-  transform: scale(0.95);
-}
 
 .window-control.expand {
   background-color: #28ca42;

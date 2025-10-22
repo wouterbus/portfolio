@@ -2,9 +2,44 @@ import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'project',
-  title: 'Websites',
+  title: 'Projects',
   type: 'document',
   fields: [
+    // Meta
+    defineField({
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'title',
+        maxLength: 96,
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'desktopImages',
+      title: 'Desktop Project Images',
+      type: 'array',
+      of: [
+        {
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+        }
+      ],
+      description: 'Bulk loader for desktop project showcase images',
+      options: {
+        layout: 'grid',
+      },
+    }),
+    defineField({
+      name: 'order',
+      title: 'Display Order',
+      type: 'number',
+      description: 'Lower numbers appear first (e.g., 1, 2, 3...)',
+      initialValue: 0,
+    }),
     defineField({
       name: 'title',
       title: 'Title',
@@ -20,14 +55,13 @@ export default defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
+    // Home
     defineField({
       name: 'thumbnail',
-      title: 'Thumbnail Image',
+      title: 'Small/Featured Box Thumbnail (900x900px)',
       type: 'image',
-      options: {
-        hotspot: true,
-      },
-      description: 'Small image for portfolio grid/home page display',
+      options: { hotspot: true },
+      description: 'Square image for home/featured boxes (900x900px)',
     }),
     defineField({
       name: 'mobileHeroBanner',
@@ -38,50 +72,14 @@ export default defineType({
       },
       description: 'Mobile-optimized hero banner image',
     }),
-    defineField({
-      name: 'link',
-      title: 'Link to Site or PDF',
-      type: 'object',
-      fields: [
-        {
-          name: 'url',
-          title: 'URL',
-          type: 'url',
-          validation: (Rule) => Rule.uri({
-            scheme: ['http', 'https', 'mailto', 'tel']
-          }),
-        },
-        {
-          name: 'linkType',
-          title: 'Link Type',
-          type: 'string',
-          options: {
-            list: [
-              {title: 'Website', value: 'website'},
-              {title: 'PDF Document', value: 'pdf'},
-              {title: 'GitHub Repository', value: 'github'},
-              {title: 'Demo/Preview', value: 'demo'},
-            ],
-            layout: 'radio',
-          },
-          validation: (Rule) => Rule.required(),
-        },
-        {
-          name: 'openInNewTab',
-          title: 'Open in New Tab',
-          type: 'boolean',
-          initialValue: true,
-        },
-      ],
-      validation: (Rule) => Rule.required(),
-    }),
+    // Catalog
     defineField({
       name: 'category',
       title: 'Category',
       type: 'string',
       options: {
         list: [
-          {title: 'Web Development', value: 'web-development'},
+          {title: 'Web Design', value: 'web-design'},
           {title: 'UI/UX Design', value: 'ui-ux-design'},
           {title: 'Graphic Design', value: 'graphic-design'},
         ],
@@ -90,11 +88,38 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'about',
-      title: 'About / Intro Section',
+      name: 'link',
+      title: 'Link To',
+      type: 'object',
+      fields: [
+        { name: 'url', title: 'URL', type: 'url', validation: (Rule) => Rule.uri({ scheme: ['http','https'] }) },
+        { name: 'linkType', title: 'Type', type: 'string', options: { list: [
+          {title: 'Website', value: 'website'},
+          {title: 'PDF', value: 'pdf'},
+          {title: 'GitHub Repo', value: 'github'},
+          {title: 'Demo/Preview', value: 'demo'},
+        ], layout: 'radio' } },
+        { name: 'openInNewTab', title: 'Open in New Tab', type: 'boolean', initialValue: true },
+      ],
+    }),
+    defineField({
+      name: 'catalogBanner',
+      title: 'Portfolio Page Banner (3x1)',
+      type: 'image',
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: 'shortDescription',
+      title: 'Short Description (Eye-catcher)',
       type: 'text',
-      rows: 4,
-      validation: (Rule) => Rule.required().max(500),
+      rows: 3,
+    }),
+    // Product
+    defineField({
+      name: 'productBanner',
+      title: 'Portfolio Piece Banner (3x2)',
+      type: 'image',
+      options: { hotspot: true },
     }),
     defineField({
       name: 'body',
@@ -183,21 +208,18 @@ export default defineType({
       validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
-      name: 'desktopImages',
-      title: 'Desktop Project Images',
+      name: 'downloadables',
+      title: 'Downloadable Files',
       type: 'array',
       of: [
         {
-          type: 'image',
-          options: {
-            hotspot: true,
-          },
+          type: 'file',
+          fields: [
+            { name: 'label', title: 'Label', type: 'string' },
+          ]
         }
       ],
-      description: 'Bulk loader for desktop project showcase images',
-      options: {
-        layout: 'grid',
-      },
+      description: 'PDF, TTF, OTF, ZIP etc.'
     }),
     defineField({
       name: 'mobileImages',
@@ -222,23 +244,6 @@ export default defineType({
       type: 'boolean',
       description: 'Mark this project as featured to highlight it on your portfolio',
       initialValue: false,
-    }),
-    defineField({
-      name: 'order',
-      title: 'Display Order',
-      type: 'number',
-      description: 'Lower numbers appear first (e.g., 1, 2, 3...)',
-      initialValue: 0,
-    }),
-    defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: {
-        source: 'title',
-        maxLength: 96,
-      },
-      validation: (Rule) => Rule.required(),
     }),
   ],
   preview: {

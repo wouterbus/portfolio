@@ -1,0 +1,19 @@
+.tools-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing) * 0.3);
+  justify-content: flex-start;
+}
+
+.tool-tag {
+  padding: calc(var(--spacing) * 0.2) calc(var(--spacing) * 0.4);
+  border-radius: calc(var(--border-radius-sm) * 0.5);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  color: white;
+}
+
+

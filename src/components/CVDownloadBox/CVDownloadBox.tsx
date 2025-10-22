@@ -21,9 +21,25 @@ export default function CVDownloadBox({ item, onSectionChange }: CVDownloadBoxPr
   }, [isModalOpen]);
 
   const handleDownload = (language: string) => {
-    // In a real app, this would trigger actual file downloads
-    console.log(`Downloading CV in ${language}`);
-    // For demo purposes, we'll just close the modal
+    // Download CV based on language
+    const cvFiles = {
+      'Portuguese': '/downloables/resumes/Currículo Wouter.pdf',
+      'Dutch': '/downloables/resumes/CV Wouter.pdf',
+      'English': '/downloables/resumes/Resumé English.pdf'
+    };
+
+    const filePath = cvFiles[language as keyof typeof cvFiles];
+    if (filePath) {
+      // Create a temporary link element to trigger download
+      const link = document.createElement('a');
+      link.href = filePath;
+      link.download = `CV-${language}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Close modal after download initiates
     handleCloseModal();
   };
 

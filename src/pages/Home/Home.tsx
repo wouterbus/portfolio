@@ -9,9 +9,9 @@ import PortfolioBox from '../../components/PortfolioBox/PortfolioBox';
 import HallOfFame from '../../components/HallOfFame/HallOfFame';
 import LikeButtonBox from '../../components/LikeButtonBox/LikeButtonBox';
 import NewsletterBox from '../../components/NewsletterBox/NewsletterBox';
-import GridBox from '../../components/GridBox/GridBox';
+import Partnership from '../../components/Partnership/Partnership';
 import FeaturedBox from '../../components/FeaturedBox/FeaturedBox';
-import UIDesignBox from '../../components/UIDesignBox/UIDesignBox';
+import PortfolioGrid2 from '../../components/PortfolioGrid2/PortfolioGrid2';
 import GraphicDesignBox from '../../components/GraphicDesignBox/GraphicDesignBox';
 import CharacterCard from '../../components/CharacterCard/CharacterCard';
 import CoffeeBox from '../../components/CoffeeBox/CoffeeBox';
@@ -166,9 +166,9 @@ export default function Home({ onLikeToggle }: HomeProps) {
           item={{ id: 'calendar', title: 'Calendar' }} 
           onSectionChange={handleSectionChange} 
         />
-        <UIDesignBox 
-          item={{ id: 'ui-design', title: 'User Interface Design' }} 
-          onUIDesignClick={() => handleSectionChange('UIDesign')}
+        <PortfolioGrid2
+          item={{ id: 'portfolio-grid-2', title: 'Portfolio Grid 2' }}
+          onPortfolioGrid2Click={() => navigate('/portfolio')}
           onProjectClick={(slug) => {
             navigate(`/project/${slug}`);
           }}
@@ -185,9 +185,9 @@ export default function Home({ onLikeToggle }: HomeProps) {
           item={{ id: 'newsletter', title: 'Newsletter' }} 
           onSectionChange={handleSectionChange} 
         />
-        <GridBox 
-          item={{ id: 'grid', title: 'Pixel Grid' }} 
-          onSectionChange={handleSectionChange} 
+        <Partnership
+          item={{ id: 'partnership', title: 'Partnership' }}
+          onSectionChange={handleSectionChange}
         />
         <CharacterCard 
           item={{ id: 'character', title: 'Character Card' }} 

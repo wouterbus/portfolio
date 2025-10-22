@@ -177,9 +177,6 @@
   transition: transform 0.2s ease;
 }
 
-.like-button:hover svg {
-  transform: scale(1.1);
-}
 
 .like-count {
   font-size: 0.8rem;
@@ -480,7 +477,6 @@
 [data-theme='goofy'] .like-button:hover {
   background: var(--text-color);
   border-color: var(--text-color);
-  transform: scale(1.05) rotate(-1deg);
 }
 
 [data-theme='goofy'] .like-button.liked {
@@ -491,5 +487,4 @@
 [data-theme='goofy'] .like-button.liked:hover {
   background: #be185d;
   border-color: #be185d;
-  transform: scale(1.05) rotate(1deg);
 }
