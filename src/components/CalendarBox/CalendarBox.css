@@ -31,9 +31,6 @@
 .calendar-box .box-header h3 {
   margin: 0;
   font-size: 18px;
-  font-weight: 600;
-  color: var(--bg-primary);
-  transition: font-size 0.3s ease;
 }
 
 .calendar-title {
@@ -87,7 +84,6 @@
   transform: translate(-50%, -50%);
   color: var(--bg-primary);
   font-size: 18px;
-  font-weight: 600;
 }
 
 .calendar-grid {

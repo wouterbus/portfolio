@@ -23,15 +23,6 @@
   height: 40px;
 }
 
-.project-detail-page h1 {
-  margin: 0;
-  font-weight: 700;
-  color: var(--text-primary);
-  display: flex;
-  align-items: center;
-  gap: calc(var(--spacing) * 0.5);
-}
-
 .external-link {
   display: inline-flex;
   align-items: center;
