@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { client, urlFor } from '../../lib/sanity';
 import './Portfolio.css';
 
@@ -82,7 +82,8 @@ interface SanityProject {
   slug: {
     current: string;
   };
-  category: string;
+  category?: string; // deprecated single category
+  categories?: string[]; // new multi categories
   tools: string[];
   shortDescription?: string;
   link?: {
@@ -94,11 +95,12 @@ interface SanityProject {
 
 export default function Portfolio() {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [projects, setProjects] = useState<SanityProject[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const categories = ['all', 'web-development', 'ui-ux-design', 'graphic-design'];
+  const categories = ['all', 'web-design', 'ui-ux-design', 'graphic-design'];
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -109,6 +111,7 @@ export default function Portfolio() {
                 heroBanner,
                 slug,
                 category,
+                categories,
                 tools,
                 shortDescription,
                 link
@@ -126,9 +129,22 @@ export default function Portfolio() {
     fetchProjects();
   }, []);
 
+  // Sync selected category with URL query parameter
+  useEffect(() => {
+    const categoryParam = searchParams.get('category');
+    if (categoryParam && categories.includes(categoryParam)) {
+      setSelectedCategory(categoryParam);
+    } else {
+      setSelectedCategory('all');
+    }
+  }, [searchParams]);
+
   const filteredProjects = selectedCategory === 'all' 
     ? projects 
-    : projects.filter(project => project.category === selectedCategory);
+    : projects.filter(project => {
+        const multi = Array.isArray(project.categories) ? project.categories : []
+        return multi.includes(selectedCategory) || project.category === selectedCategory
+      });
 
   const handleProjectClick = (slug: string) => {
     navigate(`/project/${slug}`);
@@ -148,10 +164,17 @@ export default function Portfolio() {
             <button
               key={category}
               className={`category-filter ${selectedCategory === category ? 'active' : ''}`}
-              onClick={() => setSelectedCategory(category)}
+              onClick={() => {
+                setSelectedCategory(category);
+                if (category === 'all') {
+                  setSearchParams({});
+                } else {
+                  setSearchParams({ category });
+                }
+              }}
             >
               {category === 'all' ? 'All' : 
-               category === 'web-development' ? 'Web Development' :
+               category === 'web-design' ? 'Web Design' :
                category === 'ui-ux-design' ? 'UI/UX Design' :
                category === 'graphic-design' ? 'Graphic Design' :
                category.charAt(0).toUpperCase() + category.slice(1)}

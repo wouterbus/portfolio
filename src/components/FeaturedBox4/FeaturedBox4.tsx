@@ -19,7 +19,8 @@ interface SanityProject {
   slug: {
     current: string;
   };
-  category: string;
+  category?: string;
+  categories?: string[];
   featured?: boolean;
 }
 
@@ -38,7 +39,7 @@ export default function FeaturedBox4({ onProjectClick }: FeaturedBox4Props) {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const query = `*[_type == "project"] | order(order asc, _createdAt desc) [3] {
+        const query = `*[_type == "project" && featured == true] | order(order asc, _createdAt desc) [3] {
           _id,
           title,
           heroBanner,
@@ -46,6 +47,7 @@ export default function FeaturedBox4({ onProjectClick }: FeaturedBox4Props) {
           "thumbnailVideoUrl": thumbnailVideo.asset->url,
           slug,
           category,
+          categories,
           featured,
           order
         }`;
@@ -123,7 +125,7 @@ export default function FeaturedBox4({ onProjectClick }: FeaturedBox4Props) {
           <div className="project-overlay">
             <div className="project-info">
               <h3 className="project-title">{mainProject.title}</h3>
-              <span className="project-category">{mainProject.category}</span>
+              <span className="project-category">{(mainProject.categories && mainProject.categories.join(', ')) || mainProject.category}</span>
             </div>
           </div>
         </div>

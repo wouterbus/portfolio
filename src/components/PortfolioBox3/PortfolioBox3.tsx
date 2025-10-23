@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { client, urlFor } from '../../lib/sanity';
-import './PortfolioBox.css';
+import './PortfolioBox3.css';
 
 interface SanityProject {
   _id: string;
@@ -21,24 +21,29 @@ interface SanityProject {
   };
 }
 
-interface PortfolioBoxProps {
+interface PortfolioBox3Props {
   item: {
     id: string;
     title: string;
     style?: string;
   };
-  onPortfolioClick: () => void;
+  onPortfolioBox3Click: () => void;
   onProjectClick?: (slug: string) => void;
 }
 
-export default function PortfolioBox({ item, onPortfolioClick, onProjectClick }: PortfolioBoxProps) {
+export default function PortfolioBox3({ item, onPortfolioBox3Click, onProjectClick }: PortfolioBox3Props) {
   const [projects, setProjects] = useState<SanityProject[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const query = `*[_type == "project" && (category == "web-design" || "web-design" in coalesce(categories, [])) && featured != true] | order(order asc, _createdAt desc) [0..2] {
+        const query = `*[_type == "project"
+          && (category == "graphic-design" || "graphic-design" in coalesce(categories, []))
+          && !(category == "web-design" || "web-design" in coalesce(categories, []))
+          && !(category == "ui-ux-design" || "ui-ux-design" in coalesce(categories, []))
+          && featured != true
+        ] | order(order asc, _createdAt desc) [0..2] {
           _id,
           title,
           heroBanner,
@@ -49,7 +54,7 @@ export default function PortfolioBox({ item, onPortfolioClick, onProjectClick }:
         const data = await client.fetch(query);
         setProjects(data || []);
       } catch (error) {
-        console.error('Error fetching Web Design projects for portfolio box:', error);
+        console.error('Error fetching Graphic Design projects for portfolio box 3:', error);
         setProjects([]);
       } finally {
         setLoading(false);
@@ -65,12 +70,6 @@ export default function PortfolioBox({ item, onPortfolioClick, onProjectClick }:
       className={`grid-box portfolio-box ${item.style ? `style-${item.style}` : ''}`}
     >
       <div className="portfolio-grid-small">
-        <div 
-          className="portfolio-item-small portfolio-title-small"
-          onClick={onPortfolioClick}
-        >
-          <h3>Web Design</h3>
-        </div>
         {loading ? (
           <>
             <div className="portfolio-item-small portfolio-loading">
@@ -99,9 +98,9 @@ export default function PortfolioBox({ item, onPortfolioClick, onProjectClick }:
                 {displayVideoUrl ? (
                   <video src={displayVideoUrl} muted loop autoPlay playsInline />
                 ) : (
-                  <img 
-                    src={urlFor(displayImage).width(200).height(150).fit('crop').url()} 
-                    alt={project.title} 
+                  <img
+                    src={urlFor(displayImage).width(200).height(150).fit('crop').url()}
+                    alt={project.title}
                   />
                 )}
                 <div className="portfolio-overlay">
@@ -113,7 +112,17 @@ export default function PortfolioBox({ item, onPortfolioClick, onProjectClick }:
             );
           })
         )}
+
+        <div 
+          className="portfolio-item-small portfolio-title-small"
+          onClick={onPortfolioBox3Click}
+        >
+          <h3>Graphic Design</h3>
+        </div>
       </div>
+
     </div>
   );
 }
+
+

@@ -80,9 +80,10 @@ export default defineType({
       description: 'Mobile-optimized hero banner image',
     }),
     // Catalog
+    // Deprecated single-select category (kept for backward compatibility)
     defineField({
       name: 'category',
-      title: 'Category',
+      title: 'Category (Deprecated)',
       type: 'string',
       options: {
         list: [
@@ -92,7 +93,23 @@ export default defineType({
         ],
         layout: 'radio',
       },
-      validation: (Rule) => Rule.required(),
+      description: 'Use the new Categories field below. This remains for older entries.',
+    }),
+    // New multi-select categories field
+    defineField({
+      name: 'categories',
+      title: 'Categories',
+      type: 'array',
+      of: [{ type: 'string' }],
+      options: {
+        list: [
+          {title: 'Web Design', value: 'web-design'},
+          {title: 'UI/UX Design', value: 'ui-ux-design'},
+          {title: 'Graphic Design', value: 'graphic-design'},
+        ],
+        // No layout specified to render as checkboxes in Studio
+      },
+      validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
       name: 'link',
@@ -257,13 +274,16 @@ export default defineType({
     select: {
       title: 'title',
       category: 'category',
+      categories: 'categories',
       media: 'thumbnail',
     },
     prepare(selection) {
-      const {title, category, media} = selection
+      const {title, category, categories, media} = selection
+      const cats = Array.isArray(categories) && categories.length > 0 ? categories : (category ? [category] : [])
+      const subtitle = cats.length ? `Categories: ${cats.join(', ')}` : 'No categories'
       return {
         title: title,
-        subtitle: category ? `Category: ${category.replace('-', ' ').toUpperCase()}` : 'No category',
+        subtitle,
         media: media,
       }
     },

@@ -15,8 +15,8 @@ import FeaturedBox2 from '../../components/FeaturedBox2/FeaturedBox2';
 import FeaturedBox3 from '../../components/FeaturedBox3/FeaturedBox3';
 import FeaturedBox4 from '../../components/FeaturedBox4/FeaturedBox4';
 import FeaturedBox5 from '../../components/FeaturedBox5/FeaturedBox5';
-import PortfolioGrid2 from '../../components/PortfolioGrid2/PortfolioGrid2';
-import GraphicDesignBox from '../../components/GraphicDesignBox/GraphicDesignBox';
+import PortfolioBox2 from '../../components/PortfolioBox2/PortfolioBox2';
+import PortfolioBox3 from '../../components/PortfolioBox3/PortfolioBox3';
 import CharacterCard from '../../components/CharacterCard/CharacterCard';
 import CoffeeBox from '../../components/CoffeeBox/CoffeeBox';
 import ShopBox from '../../components/ShopBox/ShopBox';
@@ -144,8 +144,8 @@ export default function Home({ onLikeToggle }: HomeProps) {
       <div className="main-grid-content">
         <div className="box-wrapper">
         <PortfolioBox 
-          item={{ id: 'portfolio', title: 'Web Design' }} 
-          onPortfolioClick={() => navigate('/portfolio')}
+          item={{ id: 'portfolio', title: 'Web Design / Web Development' }} 
+          onPortfolioClick={() => navigate('/portfolio?category=web-design')}
           onProjectClick={(slug) => {
             navigate(`/project/${slug}`);
           }}
@@ -189,9 +189,18 @@ export default function Home({ onLikeToggle }: HomeProps) {
         />
         </div>
         <div className="box-wrapper">
-        <PortfolioGrid2
-          item={{ id: 'portfolio-grid-2', title: 'Portfolio Grid 2' }}
-          onPortfolioGrid2Click={() => navigate('/portfolio')}
+        <PortfolioBox2
+          item={{ id: 'portfolio-box-2', title: 'UI/UX Design' }}
+          onPortfolioBox2Click={() => navigate('/portfolio?category=ui-ux-design')}
+          onProjectClick={(slug) => {
+            navigate(`/project/${slug}`);
+          }}
+        />
+        </div>
+        <div className="box-wrapper">
+        <PortfolioBox3
+          item={{ id: 'portfolio-box-3', title: 'Graphic Design' }}
+          onPortfolioBox3Click={() => navigate('/portfolio?category=graphic-design')}
           onProjectClick={(slug) => {
             navigate(`/project/${slug}`);
           }}
@@ -244,15 +253,6 @@ export default function Home({ onLikeToggle }: HomeProps) {
         <CharacterCard 
           item={{ id: 'character', title: 'Character Card' }} 
           onSectionChange={handleSectionChange} 
-        />
-        </div>
-        <div className="box-wrapper">
-        <GraphicDesignBox 
-          item={{ id: 'graphic-design', title: 'Graphic Design' }} 
-          onGraphicDesignClick={() => handleSectionChange('GraphicDesign')}
-          onProjectClick={(slug) => {
-            navigate(`/project/${slug}`);
-          }}
         />
         </div>
         <div className="box-wrapper"><CoffeeBox /></div>
