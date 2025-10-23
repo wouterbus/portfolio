@@ -64,6 +64,13 @@ export default defineType({
       description: 'Square image for home/featured boxes (900x900px)',
     }),
     defineField({
+      name: 'thumbnailVideo',
+      title: 'Small/Featured Box Thumbnail (MP4 900x900px)',
+      type: 'file',
+      options: { accept: 'video/mp4' },
+      description: 'Square MP4 for home/featured boxes (900x900px)',
+    }),
+    defineField({
       name: 'mobileHeroBanner',
       title: 'Mobile Hero Banner',
       type: 'image',

@@ -11,6 +11,10 @@ import LikeButtonBox from '../../components/LikeButtonBox/LikeButtonBox';
 import NewsletterBox from '../../components/NewsletterBox/NewsletterBox';
 import Partnership from '../../components/Partnership/Partnership';
 import FeaturedBox from '../../components/FeaturedBox/FeaturedBox';
+import FeaturedBox2 from '../../components/FeaturedBox2/FeaturedBox2';
+import FeaturedBox3 from '../../components/FeaturedBox3/FeaturedBox3';
+import FeaturedBox4 from '../../components/FeaturedBox4/FeaturedBox4';
+import FeaturedBox5 from '../../components/FeaturedBox5/FeaturedBox5';
 import PortfolioGrid2 from '../../components/PortfolioGrid2/PortfolioGrid2';
 import GraphicDesignBox from '../../components/GraphicDesignBox/GraphicDesignBox';
 import CharacterCard from '../../components/CharacterCard/CharacterCard';
@@ -138,10 +142,7 @@ export default function Home({ onLikeToggle }: HomeProps) {
   return (
     <div className="main-grid">
       <div className="main-grid-content">
-        <IntroBox 
-          item={{ id: 'intro', title: 'Introduction' }} 
-          onSectionChange={handleSectionChange} 
-        />
+        <div className="box-wrapper">
         <PortfolioBox 
           item={{ id: 'portfolio', title: 'Web Design' }} 
           onPortfolioClick={() => navigate('/portfolio')}
@@ -149,23 +150,45 @@ export default function Home({ onLikeToggle }: HomeProps) {
             navigate(`/project/${slug}`);
           }}
         />
+        </div>
+        <div className="box-wrapper">
         <FeaturedBox 
           item={{ id: 'featured-project', title: 'Featured Project' }}
           onProjectClick={(slug) => navigate(`/project/${slug}`)}
         />
+        </div>
+        <div className="box-wrapper">
+        <FeaturedBox2 
+          item={{ id: 'featured-project-2', title: 'Featured Project 2' }}
+          onProjectClick={(slug) => navigate(`/project/${slug}`)}
+        />
+        </div>
+        <div className="box-wrapper">
         <CVDownloadBox 
           item={{ id: 'cv', title: 'CV Download' }} 
           onSectionChange={handleSectionChange} 
         />
-        <LikeButtonBox 
-          item={{ id: 'like', title: 'Like Button' }} 
-          onSectionChange={handleSectionChange}
-          onLikeToggle={onLikeToggle}
+        </div>
+
+        <div className="box-wrapper">
+        <FeaturedBox3 
+          item={{ id: 'featured-project-3', title: 'Featured Project 3' }}
+          onProjectClick={(slug) => navigate(`/project/${slug}`)}
         />
-        <CalendarBox 
-          item={{ id: 'calendar', title: 'Calendar' }} 
+        </div>
+        <div className="box-wrapper">
+        <IntroBox 
+          item={{ id: 'intro', title: 'Introduction' }} 
           onSectionChange={handleSectionChange} 
         />
+        </div>
+        <div className="box-wrapper">
+        <FeaturedBox4 
+          item={{ id: 'featured-project-4', title: 'Featured Project 4' }}
+          onProjectClick={(slug) => navigate(`/project/${slug}`)}
+        />
+        </div>
+        <div className="box-wrapper">
         <PortfolioGrid2
           item={{ id: 'portfolio-grid-2', title: 'Portfolio Grid 2' }}
           onPortfolioGrid2Click={() => navigate('/portfolio')}
@@ -173,26 +196,57 @@ export default function Home({ onLikeToggle }: HomeProps) {
             navigate(`/project/${slug}`);
           }}
         />
-        <PortraitsBox 
-          item={{ id: 'portraits', title: 'Portraits' }} 
+        </div>
+        <div className="box-wrapper">
+        <CalendarBox 
+          item={{ id: 'calendar', title: 'Calendar' }} 
           onSectionChange={handleSectionChange} 
         />
-        <HallOfFame 
-          item={{ id: 'hall-of-fame', title: 'My Personal Hall of Fame' }} 
-          onSectionChange={handleSectionChange} 
+        </div>
+        <div className="box-wrapper">
+        <FeaturedBox5 
+          item={{ id: 'featured-project-5', title: 'Featured Project 5' }}
+          onProjectClick={(slug) => navigate(`/project/${slug}`)}
         />
-        <NewsletterBox 
-          item={{ id: 'newsletter', title: 'Newsletter' }} 
-          onSectionChange={handleSectionChange} 
-        />
+        </div>
+        <div className="box-wrapper">
         <Partnership
           item={{ id: 'partnership', title: 'Partnership' }}
           onSectionChange={handleSectionChange}
         />
+        </div>
+        <div className="box-wrapper">
+        <HallOfFame 
+          item={{ id: 'hall-of-fame', title: 'My Personal Hall of Fame' }} 
+          onSectionChange={handleSectionChange} 
+        />
+        </div>
+        <div className="box-wrapper">
+        <LikeButtonBox 
+          item={{ id: 'like', title: 'Like Button' }} 
+          onSectionChange={handleSectionChange}
+          onLikeToggle={onLikeToggle}
+        />
+        </div>
+        <div className="box-wrapper">
+        <PortraitsBox 
+          item={{ id: 'portraits', title: 'Portraits' }} 
+          onSectionChange={handleSectionChange} 
+        />
+        </div>
+        <div className="box-wrapper">
+        <NewsletterBox 
+          item={{ id: 'newsletter', title: 'Newsletter' }} 
+          onSectionChange={handleSectionChange} 
+        />
+        </div>
+        <div className="box-wrapper">
         <CharacterCard 
           item={{ id: 'character', title: 'Character Card' }} 
           onSectionChange={handleSectionChange} 
         />
+        </div>
+        <div className="box-wrapper">
         <GraphicDesignBox 
           item={{ id: 'graphic-design', title: 'Graphic Design' }} 
           onGraphicDesignClick={() => handleSectionChange('GraphicDesign')}
@@ -200,8 +254,9 @@ export default function Home({ onLikeToggle }: HomeProps) {
             navigate(`/project/${slug}`);
           }}
         />
-        <CoffeeBox />
-        <ShopBox />
+        </div>
+        <div className="box-wrapper"><CoffeeBox /></div>
+        <div className="box-wrapper"><ShopBox /></div>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { client, urlFor } from '../../lib/sanity';
-import './FeaturedBox.css';
+import './FeaturedBox4.css';
 
 interface SanityProject {
   _id: string;
@@ -23,7 +23,7 @@ interface SanityProject {
   featured?: boolean;
 }
 
-interface FeaturedBoxProps {
+interface FeaturedBox4Props {
   item: {
     id: string;
     title: string;
@@ -31,14 +31,14 @@ interface FeaturedBoxProps {
   onProjectClick: (slug: string) => void;
 }
 
-export default function FeaturedBox({ onProjectClick }: FeaturedBoxProps) {
+export default function FeaturedBox4({ onProjectClick }: FeaturedBox4Props) {
   const [projects, setProjects] = useState<SanityProject[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const query = `*[_type == "project"] | order(order asc, _createdAt desc) [0] {
+        const query = `*[_type == "project"] | order(order asc, _createdAt desc) [3] {
           _id,
           title,
           heroBanner,
@@ -85,7 +85,7 @@ export default function FeaturedBox({ onProjectClick }: FeaturedBoxProps) {
   // Get the first project for the main display
   const mainProject = projects[0];
 
-  // Determine media to display: prefer video thumbnail, then image thumbnail, then heroBanner
+  // Determine media to display
   const displayVideoUrl = mainProject.thumbnailVideoUrl;
   const displayImage = mainProject.thumbnail || mainProject.heroBanner;
   
@@ -109,13 +109,7 @@ export default function FeaturedBox({ onProjectClick }: FeaturedBoxProps) {
       >
         <div className="hero-banner">
           {displayVideoUrl ? (
-            <video
-              src={displayVideoUrl}
-              muted
-              loop
-              autoPlay
-              playsInline
-            />
+            <video src={displayVideoUrl} muted loop autoPlay playsInline />
           ) : (
             <img 
               src={urlFor(displayImage).width(800).height(600).fit('crop').url()} 

@@ -61,7 +61,7 @@ export default function PortfolioGrid2({ item, onPortfolioGrid2Click, onProjectC
           className="portfolio-item-small portfolio-title-small"
           onClick={onPortfolioGrid2Click}
         >
-          <h3>Portfolio</h3>
+          <h3>All</h3>
         </div>
         {loading ? (
           <>
