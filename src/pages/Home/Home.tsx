@@ -17,8 +17,6 @@ import FeaturedBox4 from '../../components/FeaturedBox4/FeaturedBox4';
 import FeaturedBox5 from '../../components/FeaturedBox5/FeaturedBox5';
 import PortfolioBox2 from '../../components/PortfolioBox2/PortfolioBox2';
 import PortfolioBox3 from '../../components/PortfolioBox3/PortfolioBox3';
-import CharacterCard from '../../components/CharacterCard/CharacterCard';
-import CoffeeBox from '../../components/CoffeeBox/CoffeeBox';
 import ShopBox from '../../components/ShopBox/ShopBox';
 import CalendarBox from '../../components/CalendarBox/CalendarBox';
 
@@ -213,18 +211,6 @@ export default function Home({ onLikeToggle }: HomeProps) {
         />
         </div>
         <div className="box-wrapper">
-        <FeaturedBox5 
-          item={{ id: 'featured-project-5', title: 'Featured Project 5' }}
-          onProjectClick={(slug) => navigate(`/project/${slug}`)}
-        />
-        </div>
-        <div className="box-wrapper">
-        <Partnership
-          item={{ id: 'partnership', title: 'Partnership' }}
-          onSectionChange={handleSectionChange}
-        />
-        </div>
-        <div className="box-wrapper">
         <HallOfFame 
           item={{ id: 'hall-of-fame', title: 'My Personal Hall of Fame' }} 
           onSectionChange={handleSectionChange} 
@@ -243,19 +229,6 @@ export default function Home({ onLikeToggle }: HomeProps) {
           onSectionChange={handleSectionChange} 
         />
         </div>
-        <div className="box-wrapper">
-        <NewsletterBox 
-          item={{ id: 'newsletter', title: 'Newsletter' }} 
-          onSectionChange={handleSectionChange} 
-        />
-        </div>
-        <div className="box-wrapper">
-        <CharacterCard 
-          item={{ id: 'character', title: 'Character Card' }} 
-          onSectionChange={handleSectionChange} 
-        />
-        </div>
-        <div className="box-wrapper"><CoffeeBox /></div>
         <div className="box-wrapper"><ShopBox /></div>
       </div>
     </div>
