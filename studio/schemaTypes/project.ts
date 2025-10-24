@@ -5,7 +5,7 @@ export default defineType({
   title: 'Projects',
   type: 'document',
   fields: [
-    // Meta
+    // Meta (first part order)
     defineField({
       name: 'slug',
       title: 'Slug',
@@ -15,23 +15,6 @@ export default defineType({
         maxLength: 96,
       },
       validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'desktopImages',
-      title: 'Desktop Project Images',
-      type: 'array',
-      of: [
-        {
-          type: 'image',
-          options: {
-            hotspot: true,
-          },
-        }
-      ],
-      description: 'Bulk loader for desktop project showcase images',
-      options: {
-        layout: 'grid',
-      },
     }),
     defineField({
       name: 'order',
@@ -47,15 +30,11 @@ export default defineType({
       validation: (Rule) => Rule.required().max(100),
     }),
     defineField({
-      name: 'heroBanner',
-      title: 'Hero Banner',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
-      validation: (Rule) => Rule.required(),
+      name: 'shortDescription',
+      title: 'Short Description (Eye-catcher)',
+      type: 'text',
+      rows: 3,
     }),
-    // Home
     defineField({
       name: 'thumbnail',
       title: 'Small/Featured Box Thumbnail (900x900px)',
@@ -64,36 +43,47 @@ export default defineType({
       description: 'Square image for home/featured boxes (900x900px)',
     }),
     defineField({
+      name: 'link',
+      title: 'Link To',
+      type: 'object',
+      fields: [
+        { name: 'url', title: 'URL', type: 'url', validation: (Rule) => Rule.uri({ scheme: ['http','https'] }) },
+        { name: 'linkType', title: 'Type', type: 'string', options: { list: [
+          {title: 'Website', value: 'website'},
+          {title: 'PDF', value: 'pdf'},
+          {title: 'GitHub Repo', value: 'github'},
+          {title: 'Demo/Preview', value: 'demo'},
+        ], layout: 'radio' } },
+        { name: 'openInNewTab', title: 'Open in New Tab', type: 'boolean', initialValue: true },
+      ],
+    }),
+
+    // Home
+    defineField({
       name: 'thumbnailVideo',
       title: 'Small/Featured Box Thumbnail (MP4 900x900px)',
       type: 'file',
       options: { accept: 'video/mp4' },
       description: 'Square MP4 for home/featured boxes (900x900px)',
     }),
+
+    // Hero
     defineField({
-      name: 'mobileHeroBanner',
-      title: 'Mobile Hero Banner',
+      name: 'heroBanner',
+      title: 'Hero Banner',
       type: 'image',
       options: {
         hotspot: true,
       },
-      description: 'Mobile-optimized hero banner image',
+      validation: (Rule) => Rule.required(),
     }),
+
     // Catalog
-    // Deprecated single-select category (kept for backward compatibility)
     defineField({
-      name: 'category',
-      title: 'Category (Deprecated)',
-      type: 'string',
-      options: {
-        list: [
-          {title: 'Web Design', value: 'web-design'},
-          {title: 'UI/UX Design', value: 'ui-ux-design'},
-          {title: 'Graphic Design', value: 'graphic-design'},
-        ],
-        layout: 'radio',
-      },
-      description: 'Use the new Categories field below. This remains for older entries.',
+      name: 'catalogBanner',
+      title: 'Portfolio Page Banner (3x1)',
+      type: 'image',
+      options: { hotspot: true },
     }),
     // New multi-select categories field
     defineField({
@@ -111,34 +101,8 @@ export default defineType({
       },
       validation: (Rule) => Rule.required().min(1),
     }),
-    defineField({
-      name: 'link',
-      title: 'Link To',
-      type: 'object',
-      fields: [
-        { name: 'url', title: 'URL', type: 'url', validation: (Rule) => Rule.uri({ scheme: ['http','https'] }) },
-        { name: 'linkType', title: 'Type', type: 'string', options: { list: [
-          {title: 'Website', value: 'website'},
-          {title: 'PDF', value: 'pdf'},
-          {title: 'GitHub Repo', value: 'github'},
-          {title: 'Demo/Preview', value: 'demo'},
-        ], layout: 'radio' } },
-        { name: 'openInNewTab', title: 'Open in New Tab', type: 'boolean', initialValue: true },
-      ],
-    }),
-    defineField({
-      name: 'catalogBanner',
-      title: 'Portfolio Page Banner (3x1)',
-      type: 'image',
-      options: { hotspot: true },
-    }),
-    defineField({
-      name: 'shortDescription',
-      title: 'Short Description (Eye-catcher)',
-      type: 'text',
-      rows: 3,
-    }),
-    // Product
+
+    // Content
     defineField({
       name: 'productBanner',
       title: 'Portfolio Piece Banner (3x2)',
@@ -245,6 +209,25 @@ export default defineType({
       ],
       description: 'PDF, TTF, OTF, ZIP etc.'
     }),
+
+    // Galleries (keep adjacent)
+    defineField({
+      name: 'desktopImages',
+      title: 'Desktop Project Images',
+      type: 'array',
+      of: [
+        {
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+        }
+      ],
+      description: 'Bulk loader for desktop project showcase images',
+      options: {
+        layout: 'grid',
+      },
+    }),
     defineField({
       name: 'mobileImages',
       title: 'Mobile Project Images',
@@ -262,6 +245,8 @@ export default defineType({
         layout: 'grid',
       },
     }),
+
+    // Flags
     defineField({
       name: 'featured',
       title: 'Featured Project',
@@ -273,13 +258,12 @@ export default defineType({
   preview: {
     select: {
       title: 'title',
-      category: 'category',
       categories: 'categories',
       media: 'thumbnail',
     },
     prepare(selection) {
-      const {title, category, categories, media} = selection
-      const cats = Array.isArray(categories) && categories.length > 0 ? categories : (category ? [category] : [])
+      const {title, categories, media} = selection
+      const cats = Array.isArray(categories) && categories.length > 0 ? categories : []
       const subtitle = cats.length ? `Categories: ${cats.join(', ')}` : 'No categories'
       return {
         title: title,
@@ -298,11 +282,6 @@ export default defineType({
       title: 'Title A-Z',
       name: 'titleAsc',
       by: [{field: 'title', direction: 'asc'}],
-    },
-    {
-      title: 'Category',
-      name: 'categoryAsc',
-      by: [{field: 'category', direction: 'asc'}],
     },
   ],
 })

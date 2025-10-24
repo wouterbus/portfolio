@@ -171,6 +171,7 @@ p, span, input, textarea, select, label {
 
 p {
   font-size: 14px;
+  color: var(--text-secondary);
 }
 
 .header {

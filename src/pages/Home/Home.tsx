@@ -140,6 +140,18 @@ export default function Home({ onLikeToggle }: HomeProps) {
   return (
     <div className="main-grid">
       <div className="main-grid-content">
+      <div className="box-wrapper">
+        <IntroBox 
+          item={{ id: 'intro', title: 'Introduction' }} 
+          onSectionChange={handleSectionChange} 
+        />
+        </div>
+        <div className="box-wrapper">
+        <FeaturedBox 
+          item={{ id: 'featured-project', title: 'Featured Project' }}
+          onProjectClick={(slug) => navigate(`/project/${slug}`)}
+        />
+        </div>
         <div className="box-wrapper">
         <PortfolioBox 
           item={{ id: 'portfolio', title: 'Web Design / Web Development' }} 
@@ -147,12 +159,6 @@ export default function Home({ onLikeToggle }: HomeProps) {
           onProjectClick={(slug) => {
             navigate(`/project/${slug}`);
           }}
-        />
-        </div>
-        <div className="box-wrapper">
-        <FeaturedBox 
-          item={{ id: 'featured-project', title: 'Featured Project' }}
-          onProjectClick={(slug) => navigate(`/project/${slug}`)}
         />
         </div>
         <div className="box-wrapper">
@@ -175,12 +181,6 @@ export default function Home({ onLikeToggle }: HomeProps) {
         />
         </div>
         <div className="box-wrapper">
-        <IntroBox 
-          item={{ id: 'intro', title: 'Introduction' }} 
-          onSectionChange={handleSectionChange} 
-        />
-        </div>
-        <div className="box-wrapper">
         <FeaturedBox4 
           item={{ id: 'featured-project-4', title: 'Featured Project 4' }}
           onProjectClick={(slug) => navigate(`/project/${slug}`)}
@@ -196,6 +196,12 @@ export default function Home({ onLikeToggle }: HomeProps) {
         />
         </div>
         <div className="box-wrapper">
+        <HallOfFame 
+          item={{ id: 'hall-of-fame', title: 'My Personal Hall of Fame' }} 
+          onSectionChange={handleSectionChange} 
+        />
+        </div>
+        <div className="box-wrapper">
         <PortfolioBox3
           item={{ id: 'portfolio-box-3', title: 'Graphic Design' }}
           onPortfolioBox3Click={() => navigate('/portfolio?category=graphic-design')}
@@ -207,12 +213,6 @@ export default function Home({ onLikeToggle }: HomeProps) {
         <div className="box-wrapper">
         <CalendarBox 
           item={{ id: 'calendar', title: 'Calendar' }} 
-          onSectionChange={handleSectionChange} 
-        />
-        </div>
-        <div className="box-wrapper">
-        <HallOfFame 
-          item={{ id: 'hall-of-fame', title: 'My Personal Hall of Fame' }} 
           onSectionChange={handleSectionChange} 
         />
         </div>

@@ -108,7 +108,7 @@ interface SanityProject {
     linkType: string;
     openInNewTab: boolean;
   };
-  downloadables?: Array<{ _key: string; asset?: { _ref: string }; label?: string; url?: string }>;
+  downloadables?: Array<{ _key: string; asset?: { _ref: string }; label?: string; url?: string; mimeType?: string; extension?: string }>;
 }
 
 export default function ProjectDetail() {
@@ -135,7 +135,7 @@ export default function ProjectDetail() {
           desktopImages,
           mobileImages,
           link,
-          downloadables[]{ _key, asset, label, "url": asset->url }
+          downloadables[]{ _key, asset, label, "url": asset->url, "mimeType": asset->mimeType, "extension": asset->extension }
         }`;
         const data = await client.fetch(query, { slug: projectId });
         console.log('Fetched project data:', data);
@@ -381,28 +381,25 @@ export default function ProjectDetail() {
           )}
           
           <div className="project-links">
-            {project!.link?.url && (
-              <a 
-                href={project!.link.url} 
-                target={project!.link.openInNewTab ? '_blank' : '_self'} 
-                rel="noopener noreferrer" 
-                className="project-link"
-              >
-                {project!.link.linkType === 'github' ? 'View Code' : 
-                 project!.link.linkType === 'pdf' ? 'View PDF' : 
-                 'View Live Site'}
-              </a>
-            )}
-
             {project!.downloadables && project!.downloadables.length > 0 && (
               <div className="project-downloads">
-                {project!.downloadables.map((file) => (
-                  file.url ? (
-                    <a key={file._key} href={file.url} className="project-link" target="_blank" rel="noopener noreferrer">
-                      {file.label || 'Download'}
+                <h1>Downloadables</h1>
+                {project!.downloadables.map((file) => {
+                  if (!file.url) return null;
+                  const isPdf = (file.mimeType?.toLowerCase() === 'application/pdf') || (file.extension?.toLowerCase() === 'pdf') || /\.pdf(\?|$)/i.test(file.url);
+                  return (
+                    <a
+                      key={file._key}
+                      href={file.url}
+                      className="project-link"
+                      target={isPdf ? '_blank' : undefined}
+                      rel={isPdf ? 'noopener noreferrer' : undefined}
+                      download={isPdf ? undefined : ''}
+                    >
+                      {file.label || (isPdf ? 'Open PDF' : 'Download')}
                     </a>
-                  ) : null
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>
