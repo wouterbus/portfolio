@@ -3,71 +3,45 @@ import { useEffect, useState } from 'react';
 import { client, urlFor } from '../../lib/sanity';
 import './ProjectDetail.css';
 
-// Utility function to generate stable colors for tool tags based on tool name only
-const getStableToolColors = (tools: string[]) => {
-  const colors = [
-    '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6',
-    '#06b6d4', '#f97316', '#84cc16', '#ec4899', '#6366f1',
-    '#14b8a6', '#f43f5e', '#8b5a2b', '#1e40af', '#059669'
-  ];
-  
-  const darkColors = [
-    '#1d4ed8', '#047857', '#d97706', '#dc2626', '#7c3aed',
-    '#0891b2', '#ea580c', '#65a30d', '#db2777', '#4f46e5',
-    '#0f766e', '#e11d48', '#92400e', '#1e3a8a', '#065f46'
-  ];
+// Utility: cycle distinct, non-purple colors; shuffle order per project via seed
+const getStableToolColors = (tools: string[], seedStr?: string) => {
+  // Keep the hex codes we've been using, limited to clear, distinct hues
+  const colors = ['#3b82f6', '#22c55e', '#f97316', '#ef4444', '#06b6d4', '#f59e0b'];
+  const darkColors = ['#1d4ed8', '#16a34a', '#ea580c', '#dc2626', '#0891b2', '#d97706'];
 
-  // Create a simple hash function for consistent color assignment
+  // Seeded randomness to make order unique per project but stable across renders
   const hashString = (str: string) => {
-    let hash = 0;
+    let h = 2166136261;
     for (let i = 0; i < str.length; i++) {
-      const char = str.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
-      hash = hash & hash; // Convert to 32-bit integer
+      h ^= str.charCodeAt(i);
+      h += (h << 1) + (h << 4) + (h << 7) + (h << 8) + (h << 24);
     }
-    return Math.abs(hash);
+    return h >>> 0;
+  };
+  const seed = seedStr ? hashString(seedStr) : Math.floor(Math.random() * 2 ** 32);
+  let s = seed;
+  const rand = () => {
+    // Mulberry32 PRNG
+    s |= 0; s = (s + 0x6D2B79F5) | 0;
+    let t = Math.imul(s ^ (s >>> 15), 1 | s);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  const shuffle = <T,>(arr: T[]): T[] => {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(rand() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
   };
 
-  // Create color assignments ensuring no adjacent duplicates within this project
-  const assignedColors: string[] = [];
-  const assignedDarkColors: string[] = [];
-  
-  for (let i = 0; i < tools.length; i++) {
-    // Use only tool name for consistent color assignment across all projects
-    const colorSeed = hashString(tools[i].toLowerCase());
-    let colorIndex = colorSeed % colors.length;
-    let darkColorIndex = colorSeed % darkColors.length;
-    
-    // If this is not the first item and the color would be the same as previous
-    if (i > 0 && colors[colorIndex] === assignedColors[i - 1]) {
-      // Find next available color
-      for (let j = 0; j < colors.length; j++) {
-        const testIndex = (colorSeed + j) % colors.length;
-        if (colors[testIndex] !== assignedColors[i - 1]) {
-          colorIndex = testIndex;
-          break;
-        }
-      }
-    }
-    
-    // Same logic for dark colors
-    if (i > 0 && darkColors[darkColorIndex] === assignedDarkColors[i - 1]) {
-      for (let j = 0; j < darkColors.length; j++) {
-        const testIndex = (colorSeed + j) % darkColors.length;
-        if (darkColors[testIndex] !== assignedDarkColors[i - 1]) {
-          darkColorIndex = testIndex;
-          break;
-        }
-      }
-    }
-    
-    assignedColors.push(colors[colorIndex]);
-    assignedDarkColors.push(darkColors[darkColorIndex]);
-  }
-  
+  const shuffledLight = shuffle(colors);
+  const shuffledDark = shuffle(darkColors);
+
   return tools.map((_, index) => ({
-    light: assignedColors[index],
-    dark: assignedDarkColors[index]
+    light: shuffledLight[index % shuffledLight.length],
+    dark: shuffledDark[index % shuffledDark.length],
   }));
 };
 
@@ -143,7 +117,8 @@ export default function ProjectDetail() {
         
         // Generate stable colors for tools
         if (data && data.tools) {
-          setToolColors(getStableToolColors(data.tools));
+          const seed = data?.slug?.current || data?._id || '';
+          setToolColors(getStableToolColors(data.tools, seed));
         }
       } catch (error) {
         console.error('Error fetching project:', error);

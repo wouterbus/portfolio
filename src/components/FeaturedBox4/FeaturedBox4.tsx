@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { client, urlFor } from '../../lib/sanity';
-import './FeaturedBox4.css';
+import '../FeaturedBox/FeaturedBox.css';
 
 interface SanityProject {
   _id: string;

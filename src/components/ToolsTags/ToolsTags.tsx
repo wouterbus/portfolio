@@ -7,64 +7,50 @@ interface ToolsTagsProps {
   className?: string;
   theme?: ThemeMode;
   max?: number;
+  seed?: string; // optional seed to vary order per context
 }
 
-// Stable color generator based on tool name (copied from page usage)
-const getStableToolColors = (tools: string[]) => {
-  const colors = [
-    '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6',
-    '#06b6d4', '#f97316', '#84cc16', '#ec4899', '#6366f1',
-    '#14b8a6', '#f43f5e', '#8b5a2b', '#1e40af', '#059669'
-  ];
-
-  const darkColors = [
-    '#1d4ed8', '#047857', '#d97706', '#dc2626', '#7c3aed',
-    '#0891b2', '#ea580c', '#65a30d', '#db2777', '#4f46e5',
-    '#0F766E', '#e11d48', '#92400e', '#1e3a8a', '#065f46'
-  ];
+// Cycle distinct, non-purple colors per array; same tool can differ across projects
+const getStableToolColors = (tools: string[], seedStr = '') => {
+  const colors = ['#3b82f6', '#22c55e', '#f97316', '#ef4444', '#06b6d4', '#f59e0b'];
+  const darkColors = ['#1d4ed8', '#16a34a', '#ea580c', '#dc2626', '#0891b2', '#d97706'];
 
   const hashString = (str: string) => {
-    let hash = 0;
+    let h = 2166136261;
     for (let i = 0; i < str.length; i++) {
-      const char = str.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
-      hash = hash & hash; // 32-bit int
+      h ^= str.charCodeAt(i);
+      h += (h << 1) + (h << 4) + (h << 7) + (h << 8) + (h << 24);
     }
-    return Math.abs(hash);
+    return h >>> 0;
+  };
+  let s = hashString(seedStr);
+  const rand = () => {
+    s |= 0; s = (s + 0x6D2B79F5) | 0;
+    let t = Math.imul(s ^ (s >>> 15), 1 | s);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  const shuffle = <T,>(arr: T[]): T[] => {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(rand() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
   };
 
-  const assignedLight: string[] = [];
-  const assignedDark: string[] = [];
+  const shuffledLight = shuffle(colors);
+  const shuffledDark = shuffle(darkColors);
 
-  for (let i = 0; i < tools.length; i++) {
-    const seed = hashString(tools[i].toLowerCase());
-    let li = seed % colors.length;
-    let di = seed % darkColors.length;
-
-    if (i > 0 && colors[li] === assignedLight[i - 1]) {
-      for (let j = 0; j < colors.length; j++) {
-        const t = (seed + j) % colors.length;
-        if (colors[t] !== assignedLight[i - 1]) { li = t; break; }
-      }
-    }
-
-    if (i > 0 && darkColors[di] === assignedDark[i - 1]) {
-      for (let j = 0; j < darkColors.length; j++) {
-        const t = (seed + j) % darkColors.length;
-        if (darkColors[t] !== assignedDark[i - 1]) { di = t; break; }
-      }
-    }
-
-    assignedLight.push(colors[li]);
-    assignedDark.push(darkColors[di]);
-  }
-
-  return tools.map((_, idx) => ({ light: assignedLight[idx], dark: assignedDark[idx] }));
+  return tools.map((_, idx) => ({
+    light: shuffledLight[idx % shuffledLight.length],
+    dark: shuffledDark[idx % shuffledDark.length],
+  }));
 };
 
-export default function ToolsTags({ tools, className, theme = 'auto', max }: ToolsTagsProps) {
+export default function ToolsTags({ tools, className, theme = 'auto', max, seed = '' }: ToolsTagsProps) {
   const list = max ? tools.slice(0, max) : tools;
-  const colors = getStableToolColors(list);
+  const colors = getStableToolColors(list, seed);
 
   const currentTheme: ThemeMode = theme === 'auto'
     ? ((document.documentElement.getAttribute('data-theme') as ThemeMode) || 'light')

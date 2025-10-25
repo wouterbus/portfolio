@@ -7,25 +7,15 @@ import CVDownloadBox from '../../components/CVDownloadBox/CVDownloadBox';
 import PortraitsBox from '../../components/PortraitsBox/PortraitsBox';
 import PortfolioBox from '../../components/PortfolioBox/PortfolioBox';
 import HallOfFame from '../../components/HallOfFame/HallOfFame';
-import LikeButtonBox from '../../components/LikeButtonBox/LikeButtonBox';
-import NewsletterBox from '../../components/NewsletterBox/NewsletterBox';
-import Partnership from '../../components/Partnership/Partnership';
 import FeaturedBox from '../../components/FeaturedBox/FeaturedBox';
 import FeaturedBox2 from '../../components/FeaturedBox2/FeaturedBox2';
 import FeaturedBox3 from '../../components/FeaturedBox3/FeaturedBox3';
 import FeaturedBox4 from '../../components/FeaturedBox4/FeaturedBox4';
-import FeaturedBox5 from '../../components/FeaturedBox5/FeaturedBox5';
 import PortfolioBox2 from '../../components/PortfolioBox2/PortfolioBox2';
 import PortfolioBox3 from '../../components/PortfolioBox3/PortfolioBox3';
 import ShopBox from '../../components/ShopBox/ShopBox';
-import CalendarBox from '../../components/CalendarBox/CalendarBox';
 
-interface HomeProps {
-  likeCount: number;
-  onLikeToggle: (isLiked: boolean) => void;
-}
-
-export default function Home({ onLikeToggle }: HomeProps) {
+export default function Home() {
   const navigate = useNavigate();
   const [currentSection, setCurrentSection] = useState('main');
 
@@ -196,12 +186,6 @@ export default function Home({ onLikeToggle }: HomeProps) {
         />
         </div>
         <div className="box-wrapper">
-        <HallOfFame 
-          item={{ id: 'hall-of-fame', title: 'My Personal Hall of Fame' }} 
-          onSectionChange={handleSectionChange} 
-        />
-        </div>
-        <div className="box-wrapper">
         <PortfolioBox3
           item={{ id: 'portfolio-box-3', title: 'Graphic Design' }}
           onPortfolioBox3Click={() => navigate('/portfolio?category=graphic-design')}
@@ -211,21 +195,14 @@ export default function Home({ onLikeToggle }: HomeProps) {
         />
         </div>
         <div className="box-wrapper">
-        <CalendarBox 
-          item={{ id: 'calendar', title: 'Calendar' }} 
+        <PortraitsBox 
+          item={{ id: 'portraits', title: 'Portraits' }} 
           onSectionChange={handleSectionChange} 
         />
         </div>
         <div className="box-wrapper">
-        <LikeButtonBox 
-          item={{ id: 'like', title: 'Like Button' }} 
-          onSectionChange={handleSectionChange}
-          onLikeToggle={onLikeToggle}
-        />
-        </div>
-        <div className="box-wrapper">
-        <PortraitsBox 
-          item={{ id: 'portraits', title: 'Portraits' }} 
+        <HallOfFame 
+          item={{ id: 'hall-of-fame', title: 'My Personal Hall of Fame' }} 
           onSectionChange={handleSectionChange} 
         />
         </div>

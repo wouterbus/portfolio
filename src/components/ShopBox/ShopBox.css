@@ -22,9 +22,3 @@
   object-fit: contain;
   border-radius: 8px;
 }
-
-/* Dark theme adjustments */
-[data-theme="dark"] .shop-box {
-  background: var(--box-bg-dark);
-  border-color: var(--border-color-dark);
-}

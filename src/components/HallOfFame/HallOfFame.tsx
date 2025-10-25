@@ -27,10 +27,10 @@ export default function HallOfFame({ item, onSectionChange }: HallOfFameProps) {
     },
     {
       id: 2,
-      name: 'KI/KI',
+      name: 'Atsuo The Pineapple Donkey',
       role: 'DJ & Producer',
-      image: '/profile-kiki.png',
-      profileUrl: 'https://www.instagram.com/ki.slash.ki/'
+      image: '/profilo-atsuo.jpg',
+      profileUrl: 'https://www.instagram.com/atsuo_pineappledonkey/'
     },
     {
       id: 3,
@@ -62,10 +62,10 @@ export default function HallOfFame({ item, onSectionChange }: HallOfFameProps) {
     },
     {
       id: 7,
-      name: 'The Secret Life of Walter Mitty',
-      role: 'Film',
-      image: '/profile-the-secret-life-of-walter-mitty.png',
-      profileUrl: 'https://www.imdb.com/pt/title/tt0359950/'
+      name: 'KI/KI',
+      role: 'DJ & Producer',
+      image: '/profile-kiki.png',
+      profileUrl: 'https://www.instagram.com/ki.slash.ki/'
     }
   ];
 

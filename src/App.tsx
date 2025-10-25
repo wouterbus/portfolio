@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+ 
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import './App.css';
@@ -13,30 +13,10 @@ import ProjectDetail from './pages/ProjectDetail/ProjectDetail';
 import Dribbbles from './pages/Dribbbles/Dribbbles';
 
 // Header component
-function Header({
-  likeCount
-}: {
-  likeCount: number;
-}) {
-  const [currentTime, setCurrentTime] = useState(new Date());
+function Header() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false
-    });
-  };
 
   return (
     <div className="header-container">
@@ -71,29 +51,14 @@ function Header({
             Dribbbles
           </button>
           <button
-            className={`header-tab ${location.pathname === '/ideas' ? 'active' : ''}`}
-            onClick={() => navigate('/ideas')}
+            className={`header-tab ${location.pathname === '#contact' ? 'active' : ''}`}
+            onClick={() => navigate('#contact')}
           >
-            Ideas
+            Contact
           </button>
         </div>
       </div>
       <div className="header-right">
-        <div className="likes-counter">
-          <svg
-            key={likeCount}
-            className="heart-icon"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-          </svg>
-          <span className="likes-count">{likeCount}</span>
-        </div>
-        <div className="location">São Paulo, SP, Brazil</div>
-        <div className="local-time">{formatTime(currentTime)}</div>
         <HeaderThemeSwitcher />
       </div>
     </div>
@@ -101,19 +66,11 @@ function Header({
 }
 
 function AppContent() {
-  const [likeCount, setLikeCount] = useState(0);
-
-  const handleLikeToggle = (isLiked: boolean) => {
-    setLikeCount(prev => isLiked ? prev + 1 : prev - 1);
-  };
-
   return (
     <div className="app">
-      <Header
-        likeCount={likeCount}
-      />
+      <Header />
       <Routes>
-        <Route path="/" element={<Home likeCount={likeCount} onLikeToggle={handleLikeToggle} />} />
+        <Route path="/" element={<Home />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/dribbbles" element={<Dribbbles />} />
         <Route path="/project/:projectId" element={<ProjectDetail />} />
