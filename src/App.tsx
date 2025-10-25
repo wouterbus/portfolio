@@ -22,11 +22,18 @@ function Header() {
     <div className="header-container">
       <div className="header-left">
         <div className="studio-tag">
-          <img
-            src="/logo_fav.svg"
-            alt="Studio W Logo"
-            className="studio-logo"
-          />
+          <button
+            aria-label="Go to Home"
+            className="studio-logo-button"
+            onClick={() => navigate('/')}
+            style={{ background: 'transparent', border: 'none', padding: 0, cursor: 'pointer' }}
+          >
+            <img
+              src="/logo_fav.svg"
+              alt="Studio W Logo"
+              className="studio-logo"
+            />
+          </button>
         </div>
       </div>
       <div className="header-center">

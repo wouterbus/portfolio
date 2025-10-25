@@ -56,6 +56,8 @@ interface SanityProject {
   categories?: string[]; // new multi categories
   tools: string[];
   shortDescription?: string;
+  shortDescriptionEn?: string;
+  shortDescriptionPt?: string;
   link?: {
     url: string;
     linkType: string;
@@ -84,6 +86,8 @@ export default function Portfolio() {
                 categories,
                 tools,
                 shortDescription,
+                shortDescriptionEn,
+                shortDescriptionPt,
                 link
               }`;
         const data = await client.fetch(query);
@@ -198,7 +202,7 @@ export default function Portfolio() {
                   />
                 <div className="portfolio-overlay">
                     <div className="portfolio-about">
-                      <p>{project.shortDescription || 'Discover more about this project by exploring the details below.'}</p>
+                      <p>{project.shortDescriptionEn || project.shortDescription || project.shortDescriptionPt}</p>
                       <div className="portfolio-tools-overlay">
                         {project.tools.map((tool, index) => {
                           const seed = project.slug?.current || project._id || '';

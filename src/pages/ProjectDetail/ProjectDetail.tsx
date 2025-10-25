@@ -62,8 +62,12 @@ interface SanityProject {
     current: string;
   };
   category: string;
-  shortDescription: string;
-  body: any[];
+  shortDescription?: string; // legacy
+  shortDescriptionEn?: string;
+  shortDescriptionPt?: string;
+  body?: any[]; // legacy
+  bodyEn?: any[];
+  bodyPt?: any[];
   tools: string[];
   desktopImages?: Array<{
     _key: string;
@@ -104,7 +108,11 @@ export default function ProjectDetail() {
           slug,
           category,
           shortDescription,
+          shortDescriptionEn,
+          shortDescriptionPt,
           body,
+          bodyEn,
+          bodyPt,
           tools,
           desktopImages,
           mobileImages,
@@ -236,9 +244,9 @@ export default function ProjectDetail() {
       
       <div className="project-content">
                 {/* Short description and tools (same visuals/classes as meta/tools) */}
-                {project!.shortDescription && (
+                {(project!.shortDescriptionEn || project!.shortDescription || project!.shortDescriptionPt) && (
           <div className="project-description">
-            <h1>{project!.shortDescription}</h1>
+            <h1>{project!.shortDescriptionEn || project!.shortDescription || project!.shortDescriptionPt}</h1>
           </div>
         )}
                 {project!.tools && project!.tools.length > 0 && (
@@ -303,9 +311,9 @@ export default function ProjectDetail() {
           <div className="project-description">
             <h1>About this project</h1>
             <div className="project-body-content">
-              {project!.body && (
+              {(project!.bodyEn || project!.body || project!.bodyPt) && (
                 <div className="project-body-rich">
-                  {renderPortableBody(project!.body)}
+                  {renderPortableBody(project!.bodyEn || project!.body || project!.bodyPt)}
                 </div>
               )}
             </div>

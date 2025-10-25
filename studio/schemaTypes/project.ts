@@ -29,9 +29,17 @@ export default defineType({
       type: 'string',
       validation: (Rule) => Rule.required().max(100),
     }),
+    // Short Description (multilingual)
     defineField({
-      name: 'shortDescription',
-      title: 'Short Description (Eye-catcher)',
+      name: 'shortDescriptionEn',
+      title: 'Short Description (Eye-catcher) - English',
+      type: 'text',
+      rows: 3,
+      validation: (Rule) => Rule.required().min(10).max(300),
+    }),
+    defineField({
+      name: 'shortDescriptionPt',
+      title: 'Short Description (Eye-catcher) - Portuguese',
       type: 'text',
       rows: 3,
     }),
@@ -109,9 +117,10 @@ export default defineType({
       type: 'image',
       options: { hotspot: true },
     }),
+    // Body Section (multilingual, optional)
     defineField({
-      name: 'body',
-      title: 'Body Section',
+      name: 'bodyEn',
+      title: 'Body Section (English)',
       type: 'array',
       of: [
         {
@@ -183,7 +192,16 @@ export default defineType({
           },
         },
       ],
-      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'bodyPt',
+      title: 'Body Section (Portuguese)',
+      type: 'array',
+      of: [
+        { type: 'block' },
+        { type: 'image', options: {hotspot: true} },
+        { type: 'code', title: 'Code Block' },
+      ],
     }),
     defineField({
       name: 'tools',

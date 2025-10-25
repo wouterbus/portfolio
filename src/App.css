@@ -26,7 +26,16 @@
   max-width: 1280px;
 }
 
-/* Theme-specific logo colors */
+.studio-logo {
+  width: 32px;
+  margin-left: 10px;
+}
+
+.studio-logo-button:focus-visible {
+  outline: 2px solid var(--accent);
+  border-radius: 6px;
+}
+
 [data-theme='light'] .studio-logo {
   filter: brightness(0);
 }
@@ -965,7 +974,7 @@
   border: none;
   border-radius: var(--border-radius-sm);
   background-color: transparent;
-  color: #000000;
+  color: var(--text-primary);
   font-size: 18px;
   font-weight: 600;
   font-family: 'Anek Latin', 'Founders Grotesk', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -982,7 +991,7 @@
 
 .header-tab.active {
   background-color: transparent;
-  color: #000000;
+  color: var(--text-primary);
   border: none;
   text-decoration: underline;
   text-underline-offset: 4px;
