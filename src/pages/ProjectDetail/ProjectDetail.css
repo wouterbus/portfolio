@@ -145,12 +145,12 @@
 
 
 .project-body-content {
-  color: var(--text-secondary);
   line-height: 1.6;
 }
 
 .project-body-content p {
   margin: 0 0 1rem 0;
+  color: var(--text-secondary);
 }
 
 .project-body-content h3:first-child {
@@ -248,7 +248,6 @@
   }
 }
 
-/* Very small mobile screens - maintain blocks layout */
 @media (max-width: 305px) {
   
   .project-header {
@@ -298,8 +297,8 @@
 }
 
 .project-showcase {
-  margin: calc(var(--spacing) * 3) 0;
   margin-bottom: 0;
+margin-top: var(--spacing);
 }
 
 .project-showcase h3 {
@@ -312,7 +311,7 @@
 .showcase-images {
   display: flex;
   flex-direction: column;
-  gap: calc(var(--spacing) * 1.5);
+  gap: var(--spacing);
 }
 
 .showcase-image {
@@ -325,7 +324,6 @@
 
 .showcase-image img {
   display: block;
-  border-radius: var(--border-radius);
 }
 
 .image-caption {

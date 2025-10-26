@@ -2,6 +2,8 @@
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { LanguageProvider } from './contexts/LanguageContext';
+import { useEffect, useState } from 'react';
+import { loadingTracker } from './lib/sanity';
 import './App.css';
 
 import HeaderThemeSwitcher from './components/HeaderThemeSwitcher/HeaderThemeSwitcher';
@@ -94,6 +96,14 @@ function Footer() {
 }
 
 function AppContent() {
+  const [inFlight, setInFlight] = useState(0);
+  useEffect(() => {
+    const unsub = loadingTracker.subscribe(setInFlight);
+    return () => {
+      unsub();
+    };
+  }, []);
+
   return (
     <div className="app">
       <Header />
@@ -171,7 +181,7 @@ function AppContent() {
           </div>
         } />
       </Routes>
-      <Footer />
+      {inFlight === 0 && <Footer />}
     </div>
   );
 }
