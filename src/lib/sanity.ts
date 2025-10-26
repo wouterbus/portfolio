@@ -27,10 +27,10 @@ const notify = () => {
 };
 
 const originalFetch = client.fetch.bind(client);
-(client as any).fetch = (...args: any[]) => {
+(client as any).fetch = (query: any, params?: any, options?: any) => {
   loadingTracker.inFlight += 1;
   notify();
-  const p = originalFetch(...args);
+  const p = (originalFetch as any)(query, params, options) as Promise<any>;
   return p.finally(() => {
     loadingTracker.inFlight = Math.max(0, loadingTracker.inFlight - 1);
     notify();
