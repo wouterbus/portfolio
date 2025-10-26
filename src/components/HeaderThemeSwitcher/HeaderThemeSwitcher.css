@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.9rem;
+  font-size: 18px;
   font-weight: 600;
   color: var(--text-primary);
   padding: 8px;
@@ -18,9 +18,8 @@
 }
 
 .header-theme-switcher:hover {
-  background-color: var(--bg-secondary);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .theme-icon-container {
@@ -101,9 +100,6 @@
 }
 
 /* Goofy theme icon styling */
-[data-theme='goofy'] .theme-icon {
-  filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
-}
 
 /* Mobile adjustments for Header Theme Switcher */
 @media (max-width: 640px) {

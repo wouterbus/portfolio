@@ -239,6 +239,32 @@ export default defineType({
           options: {
             hotspot: true,
           },
+          fields: [
+            {
+              name: 'title',
+              type: 'string',
+              title: 'Title',
+            },
+            {
+              name: 'description',
+              type: 'text',
+              title: 'Description',
+              rows: 3,
+            },
+            {
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative text',
+              description: 'Important for SEO and accessibility.',
+            },
+          ],
+          preview: {
+            select: {
+              title: 'title',
+              subtitle: 'description',
+              media: 'asset',
+            },
+          },
         }
       ],
       description: 'Bulk loader for desktop project showcase images',
@@ -255,6 +281,32 @@ export default defineType({
           type: 'image',
           options: {
             hotspot: true,
+          },
+          fields: [
+            {
+              name: 'title',
+              type: 'string',
+              title: 'Title',
+            },
+            {
+              name: 'description',
+              type: 'text',
+              title: 'Description',
+              rows: 3,
+            },
+            {
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative text',
+              description: 'Important for SEO and accessibility.',
+            },
+          ],
+          preview: {
+            select: {
+              title: 'title',
+              subtitle: 'description',
+              media: 'asset',
+            },
           },
         }
       ],

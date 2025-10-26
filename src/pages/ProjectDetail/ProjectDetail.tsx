@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Fragment } from 'react';
 import { client, urlFor } from '../../lib/sanity';
+import { useLanguage } from '../../contexts/LanguageContext';
 import './ProjectDetail.css';
 
 // Utility: cycle distinct, non-purple colors; shuffle order per project via seed
@@ -74,12 +75,18 @@ interface SanityProject {
     asset: {
       _ref: string;
     };
+    title?: string;
+    description?: string;
+    alt?: string;
   }>;
   mobileImages?: Array<{
     _key: string;
     asset: {
       _ref: string;
     };
+    title?: string;
+    description?: string;
+    alt?: string;
   }>;
   link: {
     url: string;
@@ -92,6 +99,7 @@ interface SanityProject {
 export default function ProjectDetail() {
   const { projectId } = useParams<{ projectId: string }>();
   const navigate = useNavigate();
+  const { language } = useLanguage();
   const [sanityProject, setSanityProject] = useState<SanityProject | null>(null);
   const [loading, setLoading] = useState(true);
   const [toolColors, setToolColors] = useState<Array<{light: string, dark: string}>>([]);
@@ -114,8 +122,8 @@ export default function ProjectDetail() {
           bodyEn,
           bodyPt,
           tools,
-          desktopImages,
-          mobileImages,
+          desktopImages[]{..., title, description, alt},
+          mobileImages[]{..., title, description, alt},
           link,
           downloadables[]{ _key, asset, label, "url": asset->url, "mimeType": asset->mimeType, "extension": asset->extension }
         }`;
@@ -244,9 +252,11 @@ export default function ProjectDetail() {
       
       <div className="project-content">
                 {/* Short description and tools (same visuals/classes as meta/tools) */}
-                {(project!.shortDescriptionEn || project!.shortDescription || project!.shortDescriptionPt) && (
+                {(
+          (language === 'en' ? (project!.shortDescriptionEn || project!.shortDescription) : (project!.shortDescriptionPt || project!.shortDescription))
+        ) && (
           <div className="project-description">
-            <h1>{project!.shortDescriptionEn || project!.shortDescription || project!.shortDescriptionPt}</h1>
+            <h1>{language === 'en' ? (project!.shortDescriptionEn || project!.shortDescription) : (project!.shortDescriptionPt || project!.shortDescription)}</h1>
           </div>
         )}
                 {project!.tools && project!.tools.length > 0 && (
@@ -256,12 +266,9 @@ export default function ProjectDetail() {
                 {project!.tools.map((tool, index) => {
                   const colors = toolColors[index];
                   const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
-                  const isGoofyTheme = document.documentElement.getAttribute('data-theme') === 'goofy';
                   let backgroundColor = colors?.light || '#3b82f6';
                   if (isDarkTheme && colors) {
                     backgroundColor = colors.dark;
-                  } else if (isGoofyTheme) {
-                    backgroundColor = index % 2 === 0 ? '#dc2626' : '#2563eb';
                   }
                   return (
                     <span
@@ -309,11 +316,11 @@ export default function ProjectDetail() {
         <div className="">
           
           <div className="project-description">
-            <h1>About this project</h1>
+            <h1>{language === 'en' ? 'About this project' : 'Sobre este projeto'}</h1>
             <div className="project-body-content">
-              {(project!.bodyEn || project!.body || project!.bodyPt) && (
+              {(language === 'en' ? (project!.bodyEn || project!.body) : (project!.bodyPt || project!.body)) && (
                 <div className="project-body-rich">
-                  {renderPortableBody(project!.bodyEn || project!.body || project!.bodyPt)}
+                  {renderPortableBody(language === 'en' ? (project!.bodyEn || project!.body) : (project!.bodyPt || project!.body))}
                 </div>
               )}
             </div>
@@ -324,18 +331,23 @@ export default function ProjectDetail() {
             <div className="project-showcase desktop-showcase">
               <div className="showcase-images">
                 {project!.desktopImages.map((image, index) => (
-                  <div key={image._key} className="showcase-image">
-                    <img 
-                      src={urlFor(image).width(1200).fit('max').url()}
-                      alt={`Desktop view ${index + 1}`}
-                      style={{
-                        width: '100%',
-                        height: 'auto',
-                        objectFit: 'contain',
-                        objectPosition: 'center'
-                      }}
-                    />
-                  </div>
+                  <Fragment key={image._key}>
+                    {image.description && (
+                      <p className="showcase-image-caption">{image.description}</p>
+                    )}
+                    <div className="showcase-image">
+                      <img 
+                        src={urlFor(image).width(1200).fit('max').url()}
+                        alt={`Desktop view ${index + 1}`}
+                        style={{
+                          width: '100%',
+                          height: 'auto',
+                          objectFit: 'contain',
+                          objectPosition: 'center'
+                        }}
+                      />
+                    </div>
+                  </Fragment>
                 ))}
               </div>
             </div>
@@ -346,18 +358,23 @@ export default function ProjectDetail() {
             <div className="project-showcase mobile-showcase-only">
               <div className="showcase-images mobile-showcase">
                 {project!.mobileImages.map((image, index) => (
-                  <div key={image._key} className="showcase-image">
-                    <img 
-                      src={urlFor(image).width(600).fit('max').url()}
-                      alt={`Mobile view ${index + 1}`}
-                      style={{
-                        width: '100%',
-                        height: 'auto',
-                        objectFit: 'contain',
-                        objectPosition: 'center'
-                      }}
-                    />
-                  </div>
+                  <Fragment key={image._key}>
+                    {image.description && (
+                      <p className="showcase-image-caption">{image.description}</p>
+                    )}
+                    <div className="showcase-image">
+                      <img 
+                        src={urlFor(image).width(600).fit('max').url()}
+                        alt={`Mobile view ${index + 1}`}
+                        style={{
+                          width: '100%',
+                          height: 'auto',
+                          objectFit: 'contain',
+                          objectPosition: 'center'
+                        }}
+                      />
+                    </div>
+                  </Fragment>
                 ))}
               </div>
             </div>

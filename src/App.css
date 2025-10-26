@@ -1,6 +1,5 @@
 .app {
   min-height: 100vh;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   max-width: 1280px;
@@ -10,7 +9,6 @@
 
 /* Header */
 .header-container {
-  top: var(--spacing);
   z-index: 1000;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -24,11 +22,63 @@
   backdrop-filter: blur(10px);
   width: 100%;
   max-width: 1280px;
+  margin-top: var(--spacing);
+}
+
+.footer-container {
+  margin-top: var(--spacing);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: var(--spacing);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius);
+  gap: var(--spacing);
+  background-color: var(--bg-primary);
+  backdrop-filter: blur(10px);
+  width: 100%;
+  max-width: 1280px;
+  min-height: 64px;
+  margin-bottom: var(--spacing);
+}
+
+.footer-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.footer-links {
+  display: flex;
+  gap: calc(var(--spacing) * 0.75);
+  align-items: center;
+}
+
+.footer-link {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.footer-separator {
+  color: var(--purple-accent);
 }
 
 .studio-logo {
   width: 32px;
   margin-left: 10px;
+  margin-top: 6px;
 }
 
 .studio-logo-button:focus-visible {
@@ -431,6 +481,10 @@
   .header-container {
     max-width: 980px;
   }
+
+  .footer-container {
+    max-width: 980px;
+  }
   
   .main-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -444,6 +498,10 @@
   }
   
   .header-container {
+    max-width: 640px;
+  }
+
+  .footer-container {
     max-width: 640px;
   }
   
@@ -475,6 +533,11 @@
     gap: 5px;
     padding: 5px;
   }
+
+  .footer-container {
+    gap: 5px;
+    padding: 5px;
+  }
   
   .header-left {
     flex-direction: column;
@@ -482,13 +545,8 @@
     gap: 5px;
   }
 
-  .header-center {
-    order: 2;
-  }
-
   .header-right {
-    order: 3;
-    justify-content: flex-start;
+    justify-content: flex-end;
   }
 
   .header-title {
@@ -996,3 +1054,8 @@
   text-decoration: underline;
   text-underline-offset: 4px;
 }
+
+  /* Hide header tabs on small screens; keep hamburger centered */
+  .header-tabs {
+    display: none;
+  }

@@ -458,33 +458,4 @@
   border-color: var(--accent-color);
 }
 
-[data-theme='goofy'] .dribbble-shot {
-  border: var(--border-width) solid var(--accent-color);
-}
-
-[data-theme='goofy'] .dribbble-shot:hover {
-  border-color: var(--text-color);
-  transform: translateY(-4px) rotate(1deg);
-}
-
-[data-theme='goofy'] .like-button {
-  background: var(--accent-color);
-  color: white;
-  border-color: var(--accent-color);
-  border-radius: calc(var(--border-radius) * 2);
-}
-
-[data-theme='goofy'] .like-button:hover {
-  background: var(--text-color);
-  border-color: var(--text-color);
-}
-
-[data-theme='goofy'] .like-button.liked {
-  background: #e11d48;
-  border-color: #e11d48;
-}
-
-[data-theme='goofy'] .like-button.liked:hover {
-  background: #be185d;
-  border-color: #be185d;
-}
+/* removed goofy theme overrides */

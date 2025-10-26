@@ -129,9 +129,6 @@
 
 /* Mobile adjustments */
 @media (max-width: 640px) {
-  .featured-box {
-    padding: calc(var(--spacing) * 0.8);
-  }
   
   .project-title {
     color: var(--text-primary);
@@ -148,15 +145,3 @@
 }
 
 /* Goofy theme specific styles */
-[data-theme='goofy'] .featured-box {
-  background-color: transparent !important;
-  border: none !important;
-}
-
-[data-theme='goofy'] .project-overlay {
-  opacity: 0 !important;
-}
-
-[data-theme='goofy'] .hero-banner img {
-  border-radius: var(--border-radius);
-}

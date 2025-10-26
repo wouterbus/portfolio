@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { useLanguage } from '../../contexts/LanguageContext';
 import emailjs from '@emailjs/browser';
 import './IntroBox.css';
 
-type Language = 'en' | 'pt' | 'nl';
-type Section = 'About' | 'Profile' | 'Skills';
+type Language = 'en' | 'pt';
+type Section = 'Contact' | 'Profile' | 'Skills';
 type FormStep = 'greeting' | 'intro' | 'purpose' | 'phone' | 'thankyou';
 
 interface Copy {
@@ -36,8 +37,8 @@ interface FormData {
 }
 
 export default function IntroBox({ item, onSectionChange }: IntroBoxProps) {
-  const [language, setLanguage] = useState<Language>('en');
-  const [currentSection] = useState<Section>('About');
+  const { language, toggleLanguage } = useLanguage();
+  const [currentSection] = useState<Section>('Contact');
   
   // Form states
   const [formStep, setFormStep] = useState<FormStep>('greeting');
@@ -85,24 +86,7 @@ const COPY: Record<Language, Copy> = {
       "→ Só queria dizer oi",
     ],
   },
-  nl: {
-    greetingQuestion: "Hoi! Mijn naam is Wouter. Hoe heet jij?",
-    introParagraph: "Ik ben een Creative Developer uit Nederland en breng ideeën tot leven met unieke en functionele interfaces.",
-    purposeQuestion: "Waarmee kan ik je helpen?",
-    phoneQuestion: "Mag ik je telefoonnummer?",
-    placeholderName: "Typ je naam...",
-    placeholderPhone: "+31 6 12345678",
-    continue: "Doorgaan →",
-    next: "Volgende →",
-    startOver: "Opnieuw beginnen",
-    thanks: (name: string) => `Bedankt, ${name}!`,
-    inTouch: "Ik neem snel contact met je op!",
-    purposes: [
-      "→ Ik zoek een website of designproject",
-      "→ Ik ben geïnteresseerd in een samenwerking",
-      "→ Ik wilde gewoon even hallo zeggen",
-    ],
-  },
+  
 };
 
   const handleNameSubmit = (e: React.FormEvent) => {
@@ -251,7 +235,7 @@ const COPY: Record<Language, Copy> = {
         </div>
         
         <div className="intro-text">
-          {currentSection === 'About' && (
+          {currentSection === 'Contact' && (
               <div className="form-container">
                 {renderFormContent()}
               </div>
@@ -263,7 +247,7 @@ const COPY: Record<Language, Copy> = {
             className={`lang-btn ${language === 'en' ? 'active' : ''}`}
             onClick={(e) => {
               e.stopPropagation();
-              setLanguage('en');
+              if (language !== 'en') toggleLanguage();
             }}
           >
             EN
@@ -272,19 +256,10 @@ const COPY: Record<Language, Copy> = {
             className={`lang-btn ${language === 'pt' ? 'active' : ''}`}
             onClick={(e) => {
               e.stopPropagation();
-              setLanguage('pt');
+              if (language !== 'pt') toggleLanguage();
             }}
           >
             PT
-          </button>
-          <button
-            className={`lang-btn ${language === 'nl' ? 'active' : ''}`}
-            onClick={(e) => {
-              e.stopPropagation();
-              setLanguage('nl');
-            }}
-          >
-            NL
           </button>
         </div>
       </div>

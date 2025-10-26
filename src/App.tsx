@@ -1,6 +1,7 @@
  
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { LanguageProvider } from './contexts/LanguageContext';
 import './App.css';
 
 import HeaderThemeSwitcher from './components/HeaderThemeSwitcher/HeaderThemeSwitcher';
@@ -58,14 +59,37 @@ function Header() {
             Dribbbles
           </button>
           <button
-            className={`header-tab ${location.pathname === '#contact' ? 'active' : ''}`}
-            onClick={() => navigate('#contact')}
+            className={`header-tab`}
+            onClick={() => {
+              const el = document.getElementById('contact');
+              if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'end' });
+              }
+            }}
           >
             Contact
           </button>
         </div>
       </div>
       <div className="header-right">
+        <HeaderThemeSwitcher />
+      </div>
+    </div>
+  );
+}
+
+function Footer() {
+  return (
+    <div className="footer-container" id="contact">
+      <div className="footer-left"></div>
+      <div className="footer-center">
+        <div className="footer-links">
+          <a href="mailto:info@wouterbus.com" className="footer-link">info@wouterbus.com</a>
+          <span className="footer-separator">•</span>
+          <a href="https://wa.me/5521991347181" target="_blank" rel="noopener noreferrer" className="footer-link">+5521991347181</a>
+        </div>
+      </div>
+      <div className="footer-right">
         <HeaderThemeSwitcher />
       </div>
     </div>
@@ -150,6 +174,7 @@ function AppContent() {
           </div>
         } />
       </Routes>
+      <Footer />
     </div>
   );
 }
@@ -157,9 +182,11 @@ function AppContent() {
 function App() {
   return (
     <ThemeProvider>
-      <Router>
-        <AppContent />
-      </Router>
+      <LanguageProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </LanguageProvider>
     </ThemeProvider>
   );
 }

@@ -1,6 +1,6 @@
 import './ToolsTags.css';
 
-type ThemeMode = 'auto' | 'light' | 'dark' | 'goofy';
+type ThemeMode = 'auto' | 'light' | 'dark';
 
 interface ToolsTagsProps {
   tools: string[];
@@ -59,9 +59,7 @@ export default function ToolsTags({ tools, className, theme = 'auto', max, seed 
   return (
     <div className={`tools-list ${className || ''}`.trim()}>
       {list.map((tool, index) => {
-        const bg = currentTheme === 'dark' ? colors[index].dark
-          : currentTheme === 'goofy' ? (index % 2 === 0 ? '#dc2626' : '#2563eb')
-          : colors[index].light;
+        const bg = currentTheme === 'dark' ? colors[index].dark : colors[index].light;
         return (
           <span
             key={`${tool}-${index}`}

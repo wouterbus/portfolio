@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 
-type Theme = 'light' | 'dark' | 'goofy' | 'summer' | 'winter' | 'pink' | 'blue' | 'angry' | 'calm' | 'blank' | 
+type Theme = 'light' | 'dark' | 'summer' | 'winter' | 'pink' | 'blue' | 'angry' | 'calm' | 'blank' | 
   'light-blue' | 'light-green' | 'light-purple' | 'light-orange' | 
   'dark-magenta' | 'dark-cyan' | 'dark-emerald' | 'dark-amber' | 'creative';
 

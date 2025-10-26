@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { client, urlFor } from '../../lib/sanity';
 import './Portfolio.css';
@@ -67,6 +68,7 @@ interface SanityProject {
 
 export default function Portfolio() {
   const navigate = useNavigate();
+  const { language } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [projects, setProjects] = useState<SanityProject[]>([]);
@@ -202,7 +204,7 @@ export default function Portfolio() {
                   />
                 <div className="portfolio-overlay">
                     <div className="portfolio-about">
-                      <p>{project.shortDescriptionEn || project.shortDescription || project.shortDescriptionPt}</p>
+                      <p>{language === 'en' ? (project.shortDescriptionEn || project.shortDescription) : (project.shortDescriptionPt || project.shortDescription)}</p>
                       <div className="portfolio-tools-overlay">
                         {project.tools.map((tool, index) => {
                           const seed = project.slug?.current || project._id || '';
@@ -210,15 +212,11 @@ export default function Portfolio() {
                           const colors = projectToolColors[index];
                           // Detect current theme
                           const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
-                          const isGoofyTheme = document.documentElement.getAttribute('data-theme') === 'goofy';
 
                           // Use different colors based on theme
                           let backgroundColor = colors?.light || '#3b82f6';
                           if (isDarkTheme && colors) {
                             backgroundColor = colors.dark;
-                          } else if (isGoofyTheme) {
-                            // Goofy theme uses alternating red/blue
-                            backgroundColor = index % 2 === 0 ? '#dc2626' : '#2563eb';
                           }
 
                           return (

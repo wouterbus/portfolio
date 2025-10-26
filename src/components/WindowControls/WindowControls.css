@@ -47,9 +47,6 @@
 }
 
 /* Goofy theme adjustments */
-[data-theme='goofy'] .control-icon {
-  text-shadow: 0 0 0 rgba(0, 0, 0, 0.8);
-}
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {

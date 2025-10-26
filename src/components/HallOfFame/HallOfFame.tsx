@@ -1,4 +1,5 @@
 import './HallOfFame.css';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 interface Person {
   id: number;
@@ -17,6 +18,7 @@ interface HallOfFameProps {
 }
 
 export default function HallOfFame({ item, onSectionChange }: HallOfFameProps) {
+  const { language } = useLanguage();
   const hallOfFame: Person[] = [
     {
       id: 1,
@@ -76,7 +78,7 @@ export default function HallOfFame({ item, onSectionChange }: HallOfFameProps) {
       onClick={() => onSectionChange('Hall of Fame')}
     >
       <div className="header center">
-        <h3>My Personal Hall of Fame</h3>
+        <h3>{language === 'en' ? 'My Personal Hall of Fame' : 'Minhas Influências'}</h3>
       </div>
       <div className="folks-list">
         {hallOfFame.map((person) => (

@@ -126,15 +126,3 @@
 }
 
 /* Goofy theme specific styles for Empty Box */
-[data-theme='goofy'] .empty-box {
-  background-color: transparent !important; /* Remove container background */
-}
-
-[data-theme='goofy'] .thumbnail-overlay {
-  opacity: 0 !important; /* Ensure overlay is hidden by default */
-  display: none !important; /* Completely hide overlay */
-}
-
-[data-theme='goofy'] .thumbnail-image {
-  opacity: 1 !important; /* Ensure image is fully visible */
-}

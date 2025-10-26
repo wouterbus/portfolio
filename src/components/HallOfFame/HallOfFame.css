@@ -40,6 +40,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   padding: 0;
+  width: 100%;
 }
 
 .folks-list::-webkit-scrollbar {
@@ -115,20 +116,4 @@
   opacity: 0.5;
   transform: translateX(-5px);
   transition: all 0.3s ease;
-}
-
-/* Mobile adjustments for Hall of Fame */
-@media (max-width: 640px) {
-  .person-image {
-    width: 40px;
-    height: 40px;
-  }
-
-  .person-name {
-    font-size: 16px;
-  }
-
-  .person-role {
-    font-size: 12px;
-  }
 }
