@@ -630,6 +630,10 @@
   .dot.active {
     width: 16px;
   }
+  .footer-links {
+    flex-direction: column;
+    gap: 0px;
+  }
 }
 
 .undo-btn {
@@ -1055,7 +1059,15 @@
   text-underline-offset: 4px;
 }
 
+@media (max-width: 640px) {
   /* Hide header tabs on small screens; keep hamburger centered */
   .header-tabs {
     display: none;
   }
+}
+
+@media (min-width: 641px) {
+  .hamburger-button {
+    display: none !important;
+  }
+}

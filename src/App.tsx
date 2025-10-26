@@ -89,9 +89,6 @@ function Footer() {
           <a href="https://wa.me/5521991347181" target="_blank" rel="noopener noreferrer" className="footer-link">+5521991347181</a>
         </div>
       </div>
-      <div className="footer-right">
-        <HeaderThemeSwitcher />
-      </div>
     </div>
   );
 }

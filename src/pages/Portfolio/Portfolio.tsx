@@ -157,6 +157,26 @@ export default function Portfolio() {
             </button>
           ))}
         </div>
+        <div className="category-select">
+          <select
+            id="categorySelect"
+            value={selectedCategory}
+            onChange={(e) => {
+              const value = e.target.value;
+              setSelectedCategory(value);
+              if (value === 'all') {
+                setSearchParams({});
+              } else {
+                setSearchParams({ category: value });
+              }
+            }}
+          >
+            <option value="all">All</option>
+            <option value="web-design">Web Design</option>
+            <option value="ui-ux-design">UI/UX Design</option>
+            <option value="graphic-design">Graphic Design</option>
+          </select>
+        </div>
       </div>
       
       {loading ? (

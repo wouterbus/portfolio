@@ -104,8 +104,8 @@
   }
 }
 
-/* Show hamburger menu on smaller screens */
-@media (max-width: 1080px) {
+/* Show hamburger menu on small screens */
+@media (max-width: 640px) {
   .hamburger-button {
     display: flex;
   }

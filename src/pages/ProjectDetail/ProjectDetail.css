@@ -294,10 +294,12 @@
 /* Project Showcase Styles */
 .project-mobile-image {
   margin: calc(var(--spacing) * 2) 0;
+  margin-bottom: 0;
 }
 
 .project-showcase {
   margin: calc(var(--spacing) * 3) 0;
+  margin-bottom: 0;
 }
 
 .project-showcase h3 {
@@ -384,7 +386,7 @@
 /* Responsive showcase */
 @media (max-width: 768px) {
   .project-showcase {
-    margin: calc(var(--spacing) * 2) 0;
+    margin-bottom: 0;
   }
   
   .showcase-images {
