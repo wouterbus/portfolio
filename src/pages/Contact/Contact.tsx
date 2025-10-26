@@ -1,14 +1,46 @@
 import './Contact.css';
 import { useState } from 'react';
 import emailjs from '@emailjs/browser';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export default function Contact() {
+  const { language } = useLanguage();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const T = language === 'pt' ? {
+    sendMessage: 'Enviar mensagem',
+    name: 'Nome',
+    email: 'E-mail',
+    message: 'Mensagem',
+    yourName: 'Seu nome',
+    yourEmail: 'voce@exemplo.com',
+    sayHello: 'Diga olá...',
+    send: 'Enviar',
+    sent: 'Mensagem enviada! ',
+    failed: 'Falha ao enviar. Tente novamente mais tarde.',
+    github: 'GitHub',
+    instagram: 'Instagram',
+    whatsapp: 'WhatsApp'
+  } : {
+    sendMessage: 'Send a message',
+    name: 'Name',
+    email: 'Email',
+    message: 'Message',
+    yourName: 'Your name',
+    yourEmail: 'you@example.com',
+    sayHello: 'Say hello...',
+    send: 'Send',
+    sent: 'Message sent!',
+    failed: 'Failed to send. Please try again later.',
+    github: 'Github',
+    instagram: 'Instagram',
+    whatsapp: 'WhatsApp'
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,11 +70,11 @@ export default function Contact() {
     <div className="contact-page">
       <div className="contact-grid">
         <div className="contact-card">
-          <p>Email</p>
+          <p>{T.email}</p>
           <a className="contact-link" href="mailto:info@wouterbus.com">info@wouterbus.com</a>
-          <p>WhatsApp</p>
+          <p>{T.whatsapp}</p>
           <a className="contact-link" href="https://wa.me/5521991347181" target="_blank" rel="noopener noreferrer">+55 21 99134-7181</a>
-          <p>Github</p>
+          <p>{T.github}</p>
           <a className="contact-link external-link-with-icon" href="https://github.com/wouterbus" target="_blank" rel="noopener noreferrer">
             /wouterbus
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -51,7 +83,7 @@ export default function Contact() {
               <line x1="10" y1="14" x2="21" y2="3"></line>
             </svg>
           </a>
-          <p>Instagram</p>
+          <p>{T.instagram}</p>
           <a className="contact-link external-link-with-icon" href="https://www.instagram.com/wouterbus/" target="_blank" rel="noopener noreferrer">
             /wouterbus
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -62,24 +94,24 @@ export default function Contact() {
           </a>
         </div>
         <div className="contact-form-box">
-          <h2>Send a message</h2>
+          <h2>{T.sendMessage}</h2>
           <form className="contact-form" onSubmit={handleSubmit}>
             <div className="form-row">
-              <label htmlFor="name">Name</label>
-              <input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" />
+              <label htmlFor="name">{T.name}</label>
+              <input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder={T.yourName} />
             </div>
             <div className="form-row">
-              <label htmlFor="email">Email</label>
-              <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required />
+              <label htmlFor="email">{T.email}</label>
+              <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={T.yourEmail} required />
             </div>
             <div className="form-row">
-              <label htmlFor="message">Message</label>
-              <textarea id="message" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Say hello..." rows={5}></textarea>
+              <label htmlFor="message">{T.message}</label>
+              <textarea id="message" value={message} onChange={(e) => setMessage(e.target.value)} placeholder={T.sayHello} rows={5}></textarea>
             </div>
             <div className="form-actions">
-              <button type="submit" className="button-link" disabled={sending}>{sending ? 'Sending…' : 'Send'}</button>
-              {sent && <span className="send-status">Message sent!</span>}
-              {error && <span className="send-error">{error}</span>}
+              <button type="submit" className="button-link" disabled={sending}>{sending ? (language === 'pt' ? 'Enviando…' : 'Sending…') : T.send}</button>
+              {sent && <span className="send-status">{T.sent}</span>}
+              {error && <span className="send-error">{T.failed}</span>}
             </div>
           </form>
         </div>

@@ -9,7 +9,7 @@
   grid-template-areas:
     'card form';
   gap: var(--spacing);
-  padding: var(--spacing);
+  padding: var(--spacing) 0;
   align-items: stretch;
 }
 
@@ -45,11 +45,15 @@
 }
 
 .button-link {
+    background-color: var(--purple-accent);
+    width: 100%;
+    height: 40px;
+    font-size: 18px;
   display: inline-block;
   padding: 8px 12px;
-  border: var(--border-width) solid var(--border-color);
+  border: var(--border-width) solid var(--purple-accent);
   border-radius: var(--border-radius-sm);
-  color: var(--text-primary);
+  color:white;
 }
 
 .contact-form-box {
@@ -81,6 +85,8 @@
 
 .form-row label {
   font-weight: 600;
+  font-family: var(--font-heading);
+  font-size: 18px;
   color: var(--text-primary);
 }
 
@@ -92,6 +98,19 @@
   color: var(--text-primary);
   padding: 10px 12px;
   font-size: 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-row input::placeholder,
+.form-row textarea::placeholder { color: var(--text-secondary); }
+
+.form-row input { height: 40px; }
+.form-row textarea { min-height: 120px; resize: vertical; }
+
+.form-row input:focus,
+.form-row textarea:focus {
+  outline: none;
+  border-color: var(--purple-accent);
 }
 
 .form-actions {
