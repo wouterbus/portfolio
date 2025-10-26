@@ -27,15 +27,14 @@ const notify = () => {
 };
 
 const originalFetch = client.fetch.bind(client);
-(client as any).fetch = async (...args: any[]) => {
+(client as any).fetch = (...args: any[]) => {
   loadingTracker.inFlight += 1;
   notify();
-  try {
-    return await originalFetch(...args);
-  } finally {
+  const p = originalFetch(...args);
+  return p.finally(() => {
     loadingTracker.inFlight = Math.max(0, loadingTracker.inFlight - 1);
     notify();
-  }
+  });
 };
 
 const builder = imageUrlBuilder(client);
