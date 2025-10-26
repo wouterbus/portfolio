@@ -13,7 +13,8 @@ import HamburgerMenu from './components/HamburgerMenu/HamburgerMenu';
 import Home from './pages/Home/Home';
 import Portfolio from './pages/Portfolio/Portfolio';
 import ProjectDetail from './pages/ProjectDetail/ProjectDetail';
-import Dribbbles from './pages/Dribbbles/Dribbbles';
+// import Dribbbles from './pages/Dribbbles/Dribbbles';
+import Contact from './pages/Contact/Contact';
 
 // Header component
 function Header() {
@@ -55,19 +56,8 @@ function Header() {
             Portfolio
           </button>
           <button
-            className={`header-tab ${location.pathname === '/dribbbles' ? 'active' : ''}`}
-            onClick={() => navigate('/dribbbles')}
-          >
-            Dribbbles
-          </button>
-          <button
-            className={`header-tab`}
-            onClick={() => {
-              const el = document.getElementById('contact');
-              if (el) {
-                el.scrollIntoView({ behavior: 'smooth', block: 'end' });
-              }
-            }}
+            className={`header-tab ${location.pathname === '/contact' ? 'active' : ''}`}
+            onClick={() => navigate('/contact')}
           >
             Contact
           </button>
@@ -81,15 +71,19 @@ function Header() {
 }
 
 function Footer() {
+  const location = useLocation();
   return (
     <div className="footer-container" id="contact">
-      <div className="footer-left"></div>
-      <div className="footer-center">
+      <div className="footer-left">
         <div className="footer-links">
           <a href="mailto:info@wouterbus.com" className="footer-link">info@wouterbus.com</a>
           <span className="footer-separator">•</span>
           <a href="https://wa.me/5521991347181" target="_blank" rel="noopener noreferrer" className="footer-link">+5521991347181</a>
         </div>
+      </div>
+      <div className="footer-center"></div>
+      <div className="footer-right">
+        <p className="footer-copy">© Studio W. All rights reserved.</p>
       </div>
     </div>
   );
@@ -110,7 +104,8 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/portfolio" element={<Portfolio />} />
-        <Route path="/dribbbles" element={<Dribbbles />} />
+        {/* <Route path="/dribbbles" element={<Dribbbles />} /> */}
+        <Route path="/contact" element={<Contact />} />
         <Route path="/project/:projectId" element={<ProjectDetail />} />
         <Route path="/ideas" element={
           <div className="main-grid">
@@ -181,6 +176,7 @@ function AppContent() {
           </div>
         } />
       </Routes>
+      <div style={{ marginTop: 'auto' }} />
       {inFlight === 0 && <Footer />}
     </div>
   );
