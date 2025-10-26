@@ -51,16 +51,10 @@ export default function HamburgerMenu({}: HamburgerMenuProps) {
                 Portfolio
               </button>
               <button
-                className={`mobile-menu-item ${location.pathname === '/dribbbles' ? 'active' : ''}`}
-                onClick={() => handleNavigate('/dribbbles')}
+                className={`mobile-menu-item ${location.pathname === '/contact' ? 'active' : ''}`}
+                onClick={() => handleNavigate('/contact')}
               >
-                Dribbbles
-              </button>
-              <button
-                className={`mobile-menu-item ${location.pathname === '/ideas' ? 'active' : ''}`}
-                onClick={() => handleNavigate('/ideas')}
-              >
-                Ideas
+                Contact
               </button>
             </div>
           </div>

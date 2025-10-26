@@ -71,7 +71,6 @@ function Header() {
 }
 
 function Footer() {
-  const location = useLocation();
   return (
     <div className="footer-container" id="contact">
       <div className="footer-left">
