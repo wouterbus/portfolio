@@ -5,8 +5,8 @@ export const client = createClient({
   projectId: 'zo87kq7g',
   dataset: 'projects',
   apiVersion: '2024-01-01',
-  // Avoid apicdn to prevent occasional CORS issues during local dev
-  useCdn: false,
+  // Use CDN in production for speed and reliability; disable in dev for freshness
+  useCdn: typeof window !== 'undefined' && (import.meta as any).env?.MODE === 'production',
   token: undefined, // We don't need a token for public read access
 });
 

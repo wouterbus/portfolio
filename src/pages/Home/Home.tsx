@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 // Import all the box components
 import IntroBox from '../../components/IntroBox/IntroBox';
 import CVDownloadBox from '../../components/CVDownloadBox/CVDownloadBox';
-import PortraitsBox from '../../components/PortraitsBox/PortraitsBox';
 import PortfolioBox from '../../components/PortfolioBox/PortfolioBox';
 import HallOfFame from '../../components/HallOfFame/HallOfFame';
 import FeaturedBox from '../../components/FeaturedBox/FeaturedBox';
