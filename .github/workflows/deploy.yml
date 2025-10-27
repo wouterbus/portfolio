@@ -1,25 +1,36 @@
-name: Deploy to Hostinger
+name: Deploy React App via FTP
 
 on:
   push:
     branches:
-      - main
+      - main # Change to your main branch name
 
 jobs:
-  deploy:
+  web-deploy:
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - run: npm ci
-      - run: npm run build
-      - name: Deploy to FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.0
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist
-          server-dir: /public_html/
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v3
+
+    - name: ⚙️ Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18' # Use a stable Node.js version
+
+    - name: 🔨 Build Project
+      run: |
+        npm install
+        npm run build
+        # Note: Vite's default build output is 'dist'
+
+    - name: 📂 Deploy via FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.3
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        # The local directory to upload is 'dist'
+        local-dir: ./dist/ 
+        # The remote server path, typically the root of the website
+        server-dir: /public_html/ 
