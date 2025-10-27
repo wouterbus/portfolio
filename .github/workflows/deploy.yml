@@ -1,4 +1,4 @@
-name: 🚀 Auto Deploy React/Vite App to Hostinger
+name: Deploy to Hostinger
 
 on:
   push:
@@ -6,29 +6,20 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: 📦 Checkout repo
-        uses: actions/checkout@v4
-
-      - name: 🧰 Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: '18'
-
-      - name: 📦 Install dependencies
-        run: npm install
-
-      - name: 🏗️ Build project
-        run: npm run build
-
-      - name: 🚀 Deploy via FTP to Hostinger
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+          node-version: 18
+      - run: npm ci
+      - run: npm run build
+      - name: Deploy to FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: dist
-          server-dir: public_html/
+          server: ${{ secrets.185.173.111.62 }}
+          username: ${{ secrets.u282172871 }}
+          password: ${{ secrets.@0gKX5Qq@9m=4wdA }}
+          local-dir: ./dist
+          server-dir: /public_html/
