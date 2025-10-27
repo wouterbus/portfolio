@@ -27,9 +27,9 @@ jobs:
       - name: 📤 Upload via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ ftp://185.173.111.62 }}
-          username: ${{ secrets.u282172871 }}
-          password: ${{ secrets.@0gKX5Qq@9m=4wdA }}
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           port: 21
           local-dir: ./   # change this if your files are inside a folder (e.g. ./dist)
