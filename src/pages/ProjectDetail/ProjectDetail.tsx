@@ -113,7 +113,7 @@ export default function ProjectDetail() {
   useEffect(() => {
     const fetchSanityProject = async () => {
       try {
-        console.log('Fetching project with slug:', projectId);
+        // debug removed
         const query = `*[_type == "project" && slug.current == $slug][0] {
           _id,
           title,
@@ -134,7 +134,7 @@ export default function ProjectDetail() {
           downloadables[]{ _key, asset, label, "url": asset->url, "mimeType": asset->mimeType, "extension": asset->extension }
         }`;
         const data = await client.fetch(query, { slug: projectId });
-        console.log('Fetched project data:', data);
+        // debug removed
         setSanityProject(data);
         
         // Generate stable colors for tools

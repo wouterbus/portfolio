@@ -14,6 +14,7 @@ import FeaturedBox4 from '../../components/FeaturedBox4/FeaturedBox4';
 import PortfolioBox2 from '../../components/PortfolioBox2/PortfolioBox2';
 import PortfolioBox3 from '../../components/PortfolioBox3/PortfolioBox3';
 import ShopBox from '../../components/ShopBox/ShopBox';
+import SocialBox from '../../components/SocialBox/SocialBox';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -195,15 +196,14 @@ export default function Home() {
         />
         </div>
         <div className="box-wrapper">
-        <PortraitsBox 
-          item={{ id: 'portraits', title: 'Portraits' }} 
+        <HallOfFame 
+          item={{ id: 'hall-of-fame', title: 'My Personal Hall of Fame' }} 
           onSectionChange={handleSectionChange} 
         />
         </div>
         <div className="box-wrapper">
-        <HallOfFame 
-          item={{ id: 'hall-of-fame', title: 'My Personal Hall of Fame' }} 
-          onSectionChange={handleSectionChange} 
+        <SocialBox 
+          item={{ id: 'social', title: 'Social' }}
         />
         </div>
         <div className="box-wrapper"><ShopBox /></div>

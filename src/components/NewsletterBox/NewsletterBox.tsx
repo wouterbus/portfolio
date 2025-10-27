@@ -38,7 +38,7 @@ export default function NewsletterBox({ item, onSectionChange }: NewsletterBoxPr
     if (email && name) {
       setIsSubscribed(true);
       // Here you would typically send the data to your backend
-      console.log('Newsletter subscription:', { email, name });
+      // debug removed
     }
   };
 

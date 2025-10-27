@@ -12,7 +12,7 @@ interface DeveloperBoxProps {
 export default function DeveloperBox({ item, onSectionChange }: DeveloperBoxProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   
-  console.log('DeveloperBox rendered with item:', item);
+  // debug removed
 
   const projectImages = [
     'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=600&h=600&fit=crop',

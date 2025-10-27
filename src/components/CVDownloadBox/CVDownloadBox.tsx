@@ -44,12 +44,12 @@ export default function CVDownloadBox({ item, onSectionChange }: CVDownloadBoxPr
   };
 
   const handleCloseModal = () => {
-    console.log('Closing modal...');
+    // debug removed
     setIsModalOpen(false);
     setIsHoverEnabled(true);
     // Force a small delay to ensure DOM is updated
     setTimeout(() => {
-      console.log('Modal should be closed now');
+      // debug removed
     }, 100);
   };
 

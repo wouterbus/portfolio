@@ -12,7 +12,7 @@ interface PortraitsBoxProps {
 export default function PortraitsBox({ item, onSectionChange }: PortraitsBoxProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   
-  console.log('PortraitsBox rendered with item:', item);
+  // debug removed
 
   const portraitImages = [
     '/PortraitsImages/portrait-alice.png',
