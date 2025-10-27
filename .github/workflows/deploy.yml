@@ -18,8 +18,8 @@ jobs:
       - name: Deploy to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4
         with:
-          server: ${{ secrets.185.173.111.62 }}
-          username: ${{ secrets.u282172871 }}
-          password: ${{ secrets.@0gKX5Qq@9m=4wdA }}
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist
           server-dir: /public_html/
