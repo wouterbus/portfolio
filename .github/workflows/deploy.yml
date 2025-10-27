@@ -1,0 +1,26 @@
+name: 🚀 Auto Deploy to Hostinger
+
+on:
+  push:
+    branches:
+      - main   # or "master", depending on your branch name
+
+jobs:
+  ftp-deploy:
+    name: 🎯 Deploy to Hostinger via FTP
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📂 Get latest code
+        uses: actions/checkout@v4
+
+      - name: 📤 Upload via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ ftp://185.173.111.62 }}
+          username: ${{ secrets.u282172871 }}
+          password: ${{ secrets.@0gKX5Qq@9m=4wdA }}
+          protocol: ftp
+          port: 21
+          local-dir: ./   # change this if your files are inside a folder (e.g. ./dist)
+          server-dir: /public_html/   # adjust to your website’s root folder

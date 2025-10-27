@@ -9,10 +9,10 @@ interface SocialBoxProps {
 
 export default function SocialBox({ item }: SocialBoxProps) {
   const socials = [
-    { id: 'insta', label: 'Instagram', href: 'https://instagram.com/', icon: '/insta.svg' },
-    { id: 'github', label: 'GitHub', href: 'https://github.com/', icon: '/github.svg' },
-    { id: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/', icon: '/linkedin.svg' },
-    { id: 'whatsapp', label: 'WhatsApp', href: 'https://wa.me/', icon: '/whatsapp.svg' },
+    { id: 'insta', label: 'Instagram', href: 'https://www.instagram.com/stud.w', icon: '/insta.svg' },
+    { id: 'github', label: 'GitHub', href: 'https://github.com/wouterbus', icon: '/github.svg' },
+    { id: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/in/wouter-bus-2249947b/', icon: '/linkedin.svg' },
+    { id: 'whatsapp', label: 'WhatsApp', href: 'https://wa.me/5521991347181', icon: '/whatsapp.svg' },
   ];
 
   return (
