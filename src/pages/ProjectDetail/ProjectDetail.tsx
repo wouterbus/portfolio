@@ -103,6 +103,12 @@ export default function ProjectDetail() {
   const [sanityProject, setSanityProject] = useState<SanityProject | null>(null);
   const [loading, setLoading] = useState(true);
   const [toolColors, setToolColors] = useState<Array<{light: string, dark: string}>>([]);
+  const [allProjects, setAllProjects] = useState<Array<{
+    title: string;
+    slug: { current: string };
+    link?: { url: string; linkType: string; openInNewTab: boolean };
+  }>>([]);
+  const [prevNext, setPrevNext] = useState<{ prev?: { title: string; slug: string; link?: { url: string; openInNewTab: boolean } }, next?: { title: string; slug: string; link?: { url: string; openInNewTab: boolean } } }>({});
   
   useEffect(() => {
     const fetchSanityProject = async () => {
@@ -151,6 +157,47 @@ export default function ProjectDetail() {
   }, [projectId]);
 
   const project = sanityProject;
+
+  // Ensure navigation between projects starts at the top of the page
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      try {
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+        const container = document.querySelector('.project-detail-page') as HTMLElement | null;
+        if (container) {
+          container.scrollTop = 0;
+        }
+      } catch {}
+    });
+  }, [projectId]);
+
+  // Fetch the ordered list of projects to compute previous/next
+  useEffect(() => {
+    const fetchAll = async () => {
+      try {
+        const listQuery = `*[_type == "project"] | order(order asc, _createdAt desc) { title, slug, link }`;
+        const list = await client.fetch(listQuery);
+        setAllProjects(list || []);
+      } catch (err) {
+        console.error('Error fetching project list for navigation:', err);
+        setAllProjects([]);
+      }
+    };
+    fetchAll();
+  }, []);
+
+  // Compute neighbors when project and list are ready
+  useEffect(() => {
+    if (!project || !project.slug?.current || allProjects.length === 0) return;
+    const index = allProjects.findIndex(p => p.slug?.current === project.slug.current);
+    if (index === -1) return;
+    const prev = index > 0 ? allProjects[index - 1] : undefined;
+    const next = index < allProjects.length - 1 ? allProjects[index + 1] : undefined;
+    setPrevNext({
+      prev: prev ? { title: prev.title, slug: prev.slug.current, link: prev.link ? { url: prev.link.url, openInNewTab: !!prev.link.openInNewTab } : undefined } : undefined,
+      next: next ? { title: next.title, slug: next.slug.current, link: next.link ? { url: next.link.url, openInNewTab: !!next.link.openInNewTab } : undefined } : undefined,
+    });
+  }, [project, allProjects]);
 
   const renderPortableBody = (body: any[] | undefined) => {
     if (!Array.isArray(body)) return null;
@@ -256,7 +303,24 @@ export default function ProjectDetail() {
           (language === 'en' ? (project!.shortDescriptionEn || project!.shortDescription) : (project!.shortDescriptionPt || project!.shortDescription))
         ) && (
           <div className="project-description">
-            <h1>{language === 'en' ? (project!.shortDescriptionEn || project!.shortDescription) : (project!.shortDescriptionPt || project!.shortDescription)}</h1>
+            <h1>
+              {language === 'en' ? (project!.shortDescriptionEn || project!.shortDescription) : (project!.shortDescriptionPt || project!.shortDescription)}
+              {project!.link?.url && (
+                <a 
+                  href={project!.link.url}
+                  target={project!.link.openInNewTab ? '_blank' : '_self'} 
+                  rel="noopener noreferrer"
+                  className="external-link"
+                  title="Visit website"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15,3 21,3 21,9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
+              )}
+            </h1>
           </div>
         )}
                 {project!.tools && project!.tools.length > 0 && (
@@ -325,6 +389,31 @@ export default function ProjectDetail() {
               )}
             </div>
           </div>
+
+          {/* Downloadables directly under About section */}
+          {project!.downloadables && project!.downloadables.length > 0 && (
+            <div className="project-links">
+              <div className="project-downloads">
+                <h2>Downloadables</h2>
+                {project!.downloadables.map((file) => {
+                  if (!file.url) return null;
+                  const isPdf = (file.mimeType?.toLowerCase() === 'application/pdf') || (file.extension?.toLowerCase() === 'pdf') || /\.pdf(\?|$)/i.test(file.url);
+                  return (
+                    <a
+                      key={file._key}
+                      href={file.url}
+                      className="project-link"
+                      target={isPdf ? '_blank' : undefined}
+                      rel={isPdf ? 'noopener noreferrer' : undefined}
+                      download={isPdf ? undefined : ''}
+                    >
+                      {file.label || (isPdf ? 'Open PDF' : 'Download')}
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          )}
           
           {/* Desktop Project Images - Hidden on Mobile */}
           {project!.desktopImages && project!.desktopImages.length > 0 && (
@@ -380,29 +469,35 @@ export default function ProjectDetail() {
             </div>
           )}
           
-          <div className="project-links">
-            {project!.downloadables && project!.downloadables.length > 0 && (
-              <div className="project-downloads">
-                <h1>Downloadables</h1>
-                {project!.downloadables.map((file) => {
-                  if (!file.url) return null;
-                  const isPdf = (file.mimeType?.toLowerCase() === 'application/pdf') || (file.extension?.toLowerCase() === 'pdf') || /\.pdf(\?|$)/i.test(file.url);
-                  return (
-                    <a
-                      key={file._key}
-                      href={file.url}
-                      className="project-link"
-                      target={isPdf ? '_blank' : undefined}
-                      rel={isPdf ? 'noopener noreferrer' : undefined}
-                      download={isPdf ? undefined : ''}
-                    >
-                      {file.label || (isPdf ? 'Open PDF' : 'Download')}
-                    </a>
-                  );
-                })}
+          {/* Project navigation - below images */}
+          {(prevNext.prev || prevNext.next) && (
+            <div className="project-nav">
+              <div className="project-nav-left">
+                {prevNext.prev && (
+                  <button
+                    className="back-button project-nav-button prev"
+                    onClick={() => navigate(`/project/${prevNext.prev!.slug}`)}
+                  >
+                    <span className="desktop-label">← {prevNext.prev.title}</span>
+                    <span className="mobile-label">← Previous</span>
+                  </button>
+                )}
               </div>
-            )}
-          </div>
+              <div className="project-nav-right">
+                {prevNext.next && (
+                  <button
+                    className="back-button project-nav-button next"
+                    onClick={() => navigate(`/project/${prevNext.next!.slug}`)}
+                  >
+                    <span className="desktop-label">{prevNext.next.title} →</span>
+                    <span className="mobile-label">Next →</span>
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* project-links moved above under About */}
         </div>
       </div>
     </div>

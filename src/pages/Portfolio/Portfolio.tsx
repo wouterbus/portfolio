@@ -198,7 +198,7 @@ export default function Portfolio() {
                       {project.title}
                     </h3>
                   </div>
-                  {project.link && (
+                  {project.link?.url && (
                     <div className="portfolio-link-section">
                       <a
                         href={project.link.url}

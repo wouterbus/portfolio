@@ -186,12 +186,6 @@
   color: var(--text-primary);
 }
 
-.project-links {
-  display: flex;
-  gap: var(--spacing);
-  flex-wrap: wrap;
-}
-
 .project-link {
   display: inline-flex;
   align-items: center;
@@ -202,6 +196,61 @@
   border-radius: var(--border-radius-sm);
   font-weight: 600;
   transition: all 0.3s ease;
+  margin: var(--spacing);
+  margin-left: 0;
+}
+
+/* Project prev/next navigation */
+.project-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: calc(var(--spacing) * 2) 0;
+  gap: var(--spacing);
+}
+
+.project-nav-left,
+.project-nav-right {
+  flex: 1;
+  display: flex;
+}
+
+.project-nav-left {
+  justify-content: flex-start;
+}
+
+.project-nav-right {
+  justify-content: flex-end;
+}
+
+.project-nav-button {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 0.5);
+  color: var(--text-primary);
+  padding: 0 calc(var(--spacing) * 0.5);
+}
+
+.project-nav-button .nav-external-link {
+  padding-left: calc(var(--spacing) * 0.2);
+}
+
+.project-nav-button .desktop-label {
+  display: inline;
+  font-family: var(--font-heading);
+}
+
+.project-nav-button .mobile-label {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .project-nav-button .desktop-label {
+    display: none;
+  }
+  .project-nav-button .mobile-label {
+    display: inline;
+  }
 }
 
 .project-link:hover {
@@ -401,10 +450,5 @@ margin-top: var(--spacing);
 /* Random tool tags - override nth-child styles */
 .tool-tag-random {
   color: white !important;
-}
-
-/* Dark theme support for random tool tags */
-[data-theme='dark'] .tool-tag-random {
-  /* Colors will be set via inline styles in the component */
 }
 
