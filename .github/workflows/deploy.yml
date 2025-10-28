@@ -31,6 +31,6 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         # The local directory to upload is 'dist'
-        local-dir: ./dist/ 
+        local-dir: ./dist/  
         # The remote server path, typically the root of the website
         server-dir: /public_html/ 
