@@ -10,6 +10,8 @@ import FeaturedBox from '../../components/FeaturedBox/FeaturedBox';
 import FeaturedBox2 from '../../components/FeaturedBox2/FeaturedBox2';
 import FeaturedBox3 from '../../components/FeaturedBox3/FeaturedBox3';
 import FeaturedBox4 from '../../components/FeaturedBox4/FeaturedBox4';
+import { useEffect } from 'react';
+import { updateSeo } from '../../lib/seo';
 import PortfolioBox2 from '../../components/PortfolioBox2/PortfolioBox2';
 import PortfolioBox3 from '../../components/PortfolioBox3/PortfolioBox3';
 import ShopBox from '../../components/ShopBox/ShopBox';
@@ -22,6 +24,16 @@ export default function Home() {
   const handleSectionChange = (section: string) => {
     setCurrentSection(section);
   };
+
+  useEffect(() => {
+    updateSeo({
+      title: 'Studio W - Web Development & Design',
+      description: 'Portfolio of Wouter Bus – Creative developer and designer crafting modern web experiences.',
+      url: `${window.location.origin}/`,
+      canonical: `${window.location.origin}/`,
+      image: `${window.location.origin}/cover-meta-data.png`,
+    });
+  }, []);
 
   if (currentSection === 'Portfolio') {
     navigate('/portfolio');

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { client, urlFor } from '../../lib/sanity';
+import { updateSeo } from '../../lib/seo';
 import './Portfolio.css';
 
 // Utility: cycle distinct colors; shuffle per project via slug/id seed
@@ -104,6 +105,16 @@ export default function Portfolio() {
 
     fetchProjects();
   }, []);
+
+  useEffect(() => {
+    updateSeo({
+      title: 'Portfolio – Studio W',
+      description: 'Explore selected works across Web Design, UI/UX, and Graphic Design.',
+      url: `${window.location.origin}/portfolio${window.location.search}`,
+      canonical: `${window.location.origin}/portfolio${window.location.search}`,
+      image: `${window.location.origin}/cover-meta-data.png`,
+    });
+  }, [searchParams]);
 
   // Sync selected category with URL query parameter
   useEffect(() => {

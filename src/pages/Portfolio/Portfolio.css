@@ -52,7 +52,7 @@
 
 .category-select select {
   border: var(--border-width) solid var(--border-color);
-  border-radius: var(--border-radius-sm);
+  border-radius: var(--border-radius);
   background: var(--bg-primary);
   color: var(--text-primary);
   padding: 6px 36px 6px 10px; /* space for chevron */

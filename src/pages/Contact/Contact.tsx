@@ -1,5 +1,5 @@
 import './Contact.css';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import { useLanguage } from '../../contexts/LanguageContext';
 
@@ -11,6 +11,7 @@ export default function Contact() {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const mapRef = useRef<HTMLDivElement>(null);
 
   const T = language === 'pt' ? {
     sendMessage: 'Enviar mensagem',
@@ -41,6 +42,56 @@ export default function Contact() {
     instagram: 'Instagram',
     whatsapp: 'WhatsApp'
   };
+
+  // ---- JSON Map Style ----
+  const mapStyle = [
+    { "elementType": "geometry", "stylers": [{ "color": "#ebe3cd" }] },
+    { "elementType": "labels.text.fill", "stylers": [{ "color": "#523735" }] },
+    { "elementType": "labels.text.stroke", "stylers": [{ "color": "#f5f1e6" }] },
+    { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#c9b2a6" }] },
+    { "featureType": "administrative.land_parcel", "stylers": [{ "visibility": "off" }] },
+    { "featureType": "landscape.natural", "elementType": "geometry", "stylers": [{ "color": "#dfd2ae" }] },
+    { "featureType": "poi.park", "elementType": "geometry.fill", "stylers": [{ "color": "#a5b076" }] },
+    { "featureType": "road", "elementType": "geometry", "stylers": [{ "color": "#f5f1e6" }] },
+    { "featureType": "water", "elementType": "geometry.fill", "stylers": [{ "color": "#b9d3c2" }] },
+    { "featureType": "road", "elementType": "labels", "stylers": [{ "visibility": "off" }] },
+    { "featureType": "road.local", "stylers": [{ "visibility": "off" }] },
+    { "featureType": "transit", "stylers": [{ "visibility": "off" }] },
+  ];
+
+  // ---- Initialize Map ----
+  useEffect(() => {
+    const existingScript = document.getElementById('google-maps-script');
+
+    const initializeMap = () => {
+      console.log('Initializing map...', (window as any).google);
+      if (mapRef.current && (window as any).google) {
+        const map = new (window as any).google.maps.Map(mapRef.current, {
+          center: { lat: -23.5414548, lng: -46.6557771 },
+          zoom: 12,
+          styles: mapStyle,
+          disableDefaultUI: true,
+        });
+        new (window as any).google.maps.Marker({
+          position: { lat: -23.5414548, lng: -46.6557771 },
+          map,
+          title: 'Wouter Bus',
+        });
+      }
+    };
+    
+
+    if (!existingScript) {
+      const script = document.createElement('script');
+      script.id = 'google-maps-script';
+      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDSL9Wu_828EsF876m8COrN177Zqdo3LAo`;
+      script.async = true;
+      script.onload = initializeMap; // safer than callback param
+      document.body.appendChild(script);
+    } else {
+      initializeMap();
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -93,6 +144,7 @@ export default function Contact() {
             </svg>
           </a>
         </div>
+
         <div className="contact-form-box">
           <h2>{T.sendMessage}</h2>
           <form className="contact-form" onSubmit={handleSubmit}>
@@ -115,6 +167,11 @@ export default function Contact() {
             </div>
           </form>
         </div>
+      </div>
+
+      {/* Map Section */}
+      <div className="contact-map-box">
+        <div className="map-container" ref={mapRef}></div>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState, Fragment } from 'react';
 import { client, urlFor } from '../../lib/sanity';
+import { updateSeo } from '../../lib/seo';
 import { useLanguage } from '../../contexts/LanguageContext';
 import './ProjectDetail.css';
 
@@ -157,6 +158,28 @@ export default function ProjectDetail() {
   }, [projectId]);
 
   const project = sanityProject;
+
+  // Update SEO tags when project loads
+  useEffect(() => {
+    if (!project) return;
+    const desc = (language === 'en'
+      ? (project.shortDescriptionEn || project.shortDescription)
+      : (project.shortDescriptionPt || project.shortDescription)) || '';
+    const image = (() => {
+      try {
+        const src = (project as any).thumbnail || project.heroBanner;
+        return urlFor(src).width(1200).height(630).fit('crop').url();
+      } catch { return ''; }
+    })();
+    const canonical = `${window.location.origin}/project/${project.slug.current}`;
+    updateSeo({
+      title: `${project.title} – Studio W`,
+      description: desc,
+      url: canonical,
+      image,
+      canonical,
+    });
+  }, [project, language]);
 
   // Ensure navigation between projects starts at the top of the page
   useEffect(() => {

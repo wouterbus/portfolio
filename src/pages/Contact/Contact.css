@@ -9,7 +9,7 @@
   grid-template-areas:
     'card form';
   gap: var(--spacing);
-  padding: var(--spacing) 0;
+  padding: var(--spacing) 0 0 0;
   align-items: stretch;
 }
 
@@ -61,7 +61,7 @@
   border: var(--border-width) solid var(--border-color);
   border-radius: var(--border-radius);
   background: var(--bg-secondary);
-  padding: calc(var(--spacing) * 2);
+  padding: var(--spacing);
   display: flex;
   flex-direction: column;
   gap: var(--spacing);
@@ -141,6 +141,25 @@
 .contact-copyright {
   color: var(--text-secondary);
   font-size: 14px;
+}
+
+/* Map box */
+.contact-map-box {
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--bg-secondary);
+  overflow: hidden;
+}
+
+.map-container {
+  width: 100%;
+  height: 420px;
+}
+
+@media (max-width: 768px) {
+  .map-container {
+    height: 320px;
+  }
 }
 
 
