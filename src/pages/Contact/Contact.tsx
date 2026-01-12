@@ -2,6 +2,7 @@ import './Contact.css';
 import { useState, useEffect, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import { useLanguage } from '../../contexts/LanguageContext';
+import SEO from '../../components/SEO/SEO';
 
 export default function Contact() {
   const { language } = useLanguage();
@@ -118,8 +119,14 @@ export default function Contact() {
   };
 
   return (
-    <div className="contact-page">
-      <div className="contact-grid">
+    <>
+      <SEO
+        title="Contact – Studio W"
+        description="Get in touch with Studio W. Let's create something amazing together."
+        url="/contact"
+      />
+      <div className="contact-page">
+        <div className="contact-grid">
         <div className="contact-card">
           <p>{T.email}</p>
           <a className="contact-link" href="mailto:info@wouterbus.com">info@wouterbus.com</a>
@@ -174,5 +181,6 @@ export default function Contact() {
         <div className="map-container" ref={mapRef}></div>
       </div>
     </div>
+    </>
   );
 }

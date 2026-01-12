@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { client, urlFor } from '../../lib/sanity';
-import { updateSeo } from '../../lib/seo';
+import SEO from '../../components/SEO/SEO';
 import './Portfolio.css';
 
 // Utility: cycle distinct colors; shuffle per project via slug/id seed
@@ -106,16 +106,6 @@ export default function Portfolio() {
     fetchProjects();
   }, []);
 
-  useEffect(() => {
-    updateSeo({
-      title: 'Portfolio – Studio W',
-      description: 'Explore selected works across Web Design, UI/UX, and Graphic Design.',
-      url: `${window.location.origin}/portfolio${window.location.search}`,
-      canonical: `${window.location.origin}/portfolio${window.location.search}`,
-      image: `${window.location.origin}/cover-meta-data.png`,
-    });
-  }, [searchParams]);
-
   // Sync selected category with URL query parameter
   useEffect(() => {
     const categoryParam = searchParams.get('category');
@@ -138,8 +128,15 @@ export default function Portfolio() {
   };
 
   return (
-    <div className="portfolio-page">
-      <div className="portfolio-header">
+    <>
+      <SEO
+        title="Portfolio – Studio W"
+        description="Explore selected works across Web Design, UI/UX, and Graphic Design."
+        url={`/portfolio${window.location.search}`}
+        image="/cover-meta-data.png"
+      />
+      <div className="portfolio-page">
+        <div className="portfolio-header">
         <button 
           className="back-button" 
           onClick={() => navigate('/')}
@@ -282,5 +279,6 @@ export default function Portfolio() {
         </div>
       )}
     </div>
+    </>
   );
 }

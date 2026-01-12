@@ -1,8 +1,8 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState, Fragment } from 'react';
 import { client, urlFor } from '../../lib/sanity';
-import { updateSeo } from '../../lib/seo';
 import { useLanguage } from '../../contexts/LanguageContext';
+import SEO from '../../components/SEO/SEO';
 import './ProjectDetail.css';
 
 // Utility: cycle distinct, non-purple colors; shuffle order per project via seed
@@ -159,27 +159,21 @@ export default function ProjectDetail() {
 
   const project = sanityProject;
 
-  // Update SEO tags when project loads
-  useEffect(() => {
-    if (!project) return;
-    const desc = (language === 'en'
-      ? (project.shortDescriptionEn || project.shortDescription)
-      : (project.shortDescriptionPt || project.shortDescription)) || '';
-    const image = (() => {
-      try {
-        const src = (project as any).thumbnail || project.heroBanner;
-        return urlFor(src).width(1200).height(630).fit('crop').url();
-      } catch { return ''; }
-    })();
-    const canonical = `${window.location.origin}/project/${project.slug.current}`;
-    updateSeo({
-      title: `${project.title} – Studio W`,
-      description: desc,
-      url: canonical,
-      image,
-      canonical,
-    });
-  }, [project, language]);
+  // Prepare SEO data
+  const seoDescription = project
+    ? (language === 'en'
+        ? (project.shortDescriptionEn || project.shortDescription)
+        : (project.shortDescriptionPt || project.shortDescription)) || ''
+    : '';
+  
+  const seoImage = project
+    ? (() => {
+        try {
+          const src = (project as any).thumbnail || project.heroBanner;
+          return urlFor(src).width(1200).height(630).fit('crop').url();
+        } catch { return ''; }
+      })()
+    : '';
 
   // Ensure navigation between projects starts at the top of the page
   useEffect(() => {
@@ -293,8 +287,21 @@ export default function ProjectDetail() {
 
 
   return (
-    <div className="project-detail-page">
-      <div className="project-header">
+    <>
+      {project && (
+        <SEO
+          title={`${project.title} – Studio W`}
+          description={seoDescription}
+          url={`/project/${project.slug.current}`}
+          canonical={`/project/${project.slug.current}`}
+          image={seoImage}
+          type="article"
+          articleAuthor="Wouter Bus"
+          keywords={project.tools}
+        />
+      )}
+      <div className="project-detail-page">
+        <div className="project-header">
         <button 
           className="back-button" 
           onClick={() => navigate('/portfolio')}
@@ -524,5 +531,6 @@ export default function ProjectDetail() {
         </div>
       </div>
     </div>
+    </>
   );
 }
