@@ -35,10 +35,6 @@
   filter: var(--icon-filter, none);
 }
 
-[data-theme='dark'] .social-icon {
-  filter: invert(1) hue-rotate(180deg) saturate(0.6);
-}
-
 .social-badge {
   position: absolute;
   top: 50%;
@@ -46,6 +42,10 @@
   transform: translate(-50%, -50%);
   color: white;
   font-weight: 600;
+}
+
+.social-item.whatsapp .social-badge {
+  color: black;
 }
 
 .social-badge-text {

@@ -19,7 +19,7 @@ export default function SocialBox({ item }: SocialBoxProps) {
     <div key={item.id} className="grid-box social-box">
       <div className="social-grid">
         {socials.map((s) => (
-          <a key={s.id} className="social-item" href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}>
+          <a key={s.id} className={`social-item ${s.id}`} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}>
             <div className="social-icon-wrap">
               <img className="social-icon" src={s.icon} alt={s.label} />
               <div className="social-badge">
