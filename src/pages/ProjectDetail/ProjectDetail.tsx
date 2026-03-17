@@ -224,8 +224,8 @@ export default function ProjectDetail() {
         const raw = block.children.map((child: any) => child?.text || '').join('');
         const text = stripHtml(raw);
         const style = block.style || 'normal';
-        if (style === 'h1') return <h1 key={index}>{text}</h1>;
-        if (style === 'h2') return <h2 key={index}>{text}</h2>;
+        if (style === 'h1') return <h2 key={index}>{text}</h2>;
+        if (style === 'h2') return <h3 key={index}>{text}</h3>;
         if (style === 'h3') return <h3 key={index}>{text}</h3>;
         if (style === 'blockquote') return <blockquote key={index}>{text}</blockquote>;
         return <p key={index}>{text}</p>;
@@ -306,9 +306,10 @@ export default function ProjectDetail() {
           className="back-button" 
           onClick={() => navigate('/portfolio')}
         >
-          ← {project!.title}
+          ← {language === 'en' ? 'Back to portfolio' : 'Voltar ao portfolio'}
         </button>
-        <h2>
+        <h1>{project!.title}</h1>
+        <div>
           {project!.link?.url && (
             <a 
               href={project!.link.url}
@@ -324,7 +325,7 @@ export default function ProjectDetail() {
               </svg>
             </a>
           )}
-        </h2>
+        </div>
       </div>
       
       <div className="project-content">
@@ -333,7 +334,7 @@ export default function ProjectDetail() {
           (language === 'en' ? (project!.shortDescriptionEn || project!.shortDescription) : (project!.shortDescriptionPt || project!.shortDescription))
         ) && (
           <div className="project-description">
-            <h1>
+            <h2>
               {language === 'en' ? (project!.shortDescriptionEn || project!.shortDescription) : (project!.shortDescriptionPt || project!.shortDescription)}
               {project!.link?.url && (
                 <a 
@@ -350,7 +351,7 @@ export default function ProjectDetail() {
                   </svg>
                 </a>
               )}
-            </h1>
+            </h2>
           </div>
         )}
                 {project!.tools && project!.tools.length > 0 && (
@@ -410,7 +411,7 @@ export default function ProjectDetail() {
         <div className="">
           
           <div className="project-description">
-            <h1>{language === 'en' ? 'About this project' : 'Sobre este projeto'}</h1>
+            <h3>{language === 'en' ? 'About this project' : 'Sobre este projeto'}</h3>
             <div className="project-body-content">
               {(language === 'en' ? (project!.bodyEn || project!.body) : (project!.bodyPt || project!.body)) && (
                 <div className="project-body-rich">
@@ -424,7 +425,7 @@ export default function ProjectDetail() {
           {project!.downloadables && project!.downloadables.length > 0 && (
             <div className="project-links">
               <div className="project-downloads">
-                <h2>Downloadables</h2>
+                <h3>Downloadables</h3>
                 {project!.downloadables.map((file) => {
                   if (!file.url) return null;
                   const isPdf = (file.mimeType?.toLowerCase() === 'application/pdf') || (file.extension?.toLowerCase() === 'pdf') || /\.pdf(\?|$)/i.test(file.url);

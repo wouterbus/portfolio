@@ -131,7 +131,7 @@ export default function Contact() {
           <p>{T.email}</p>
           <a className="contact-link" href="mailto:info@wouterbus.com">info@wouterbus.com</a>
           <p>{T.whatsapp}</p>
-          <a className="contact-link" href="https://wa.me/5521991347181" target="_blank" rel="noopener noreferrer">+55 21 99134-7181</a>
+          <a className="contact-link" href="https://wa.me/message/VKLXCTKG6XQCE1" target="_blank" rel="noopener noreferrer">+55 21 99134-7181</a>
           <p>{T.github}</p>
           <a className="contact-link external-link-with-icon" href="https://github.com/wouterbus" target="_blank" rel="noopener noreferrer">
             /wouterbus

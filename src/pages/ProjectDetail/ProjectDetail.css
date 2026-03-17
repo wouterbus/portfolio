@@ -47,6 +47,11 @@
   gap: var(--spacing);
 }
 
+.project-description > h2 {
+  font-size: 32px;
+  margin: 0;
+}
+
 .project-image {
   border-radius: 20px;
   border: var(--border-width) solid var(--border-color);
