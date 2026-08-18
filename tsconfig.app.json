@@ -24,6 +24,14 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
+<<<<<<< HEAD
   "include": ["src"],
   "exclude": ["src/lib/metadata.examples.ts"]
+=======
+  "include": ["src"]
+  ,
+  "exclude": [
+    "src/lib/metadata.examples.ts"
+  ]
+>>>>>>> 86cb4d7 (Json Metadata file)
 }
